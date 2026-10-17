@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.github.com https://formsubmit.co https://ntfy.sh https://generativelanguage.googleapis.com; frame-ancestors 'none'; base-uri 'self';">
   <title>Suman Bhandari | Data Analytics Student & Associate Data Engineer</title>
   <meta name="description" content="Portfolio of Suman Bhandari — Master's Student in Computing (Data Analytics) at Unitec Institute of Technology. Open to student roles, internships, and data analytics opportunities. Experienced in SQL, Python, Power BI, Databricks, and Snowflake.">
   <meta name="keywords" content="Suman Bhandari, Data Analyst, Data Engineer, Student, Unitec, Python, SQL, Power BI, Snowflake, Databricks">
@@ -34,13 +35,13 @@
 </head>
 <body class="bg-white text-slate-900 min-h-screen selection:bg-blue-600 selection:text-white">
 
-  <!-- Top Utility Bar -->
+  <!-- Top Utility Bar (Clean Public View — No Admin/Log Buttons Exposed to Visitors) -->
   <aside aria-label="Status Bar" class="bg-blue-900 text-white text-xs py-2 px-4">
     <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
       <div class="flex items-center space-x-3">
         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-blue-800 border border-blue-600 text-blue-100 font-medium">
           <span class="w-1.5 h-1.5 rounded-full bg-white mr-1.5"></span>
-          Student • Open to Work
+          <span id="top-status-badge">Student • Open to Work</span>
         </span>
         <span id="auckland-clock" class="text-blue-200 font-mono text-[11px] hidden md:inline">
           Henderson, Auckland
@@ -48,18 +49,13 @@
       </div>
 
       <div class="flex items-center gap-4 text-[11px] sm:text-xs text-blue-100">
-        <a href="mailto:bhsuman11@gmail.com" class="hover:text-white transition-colors">
+        <a id="top-email-link" href="mailto:bhsuman11@gmail.com" class="hover:text-white transition-colors">
           bhsuman11@gmail.com
         </a>
         <span class="text-blue-700">|</span>
-        <a href="sms:+64220512513" class="hover:text-white font-mono transition-colors">
+        <a id="top-phone-link" href="sms:+64220512513" class="hover:text-white font-mono transition-colors">
           +64 22 051 2513
         </a>
-        <span class="text-blue-700">|</span>
-        <button id="open-alerts-btn" class="inline-flex items-center text-white font-medium hover:underline">
-          <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
-          Alert Setup &amp; Logs (<span id="alert-count-badge">0</span>)
-        </button>
       </div>
     </div>
   </aside>
@@ -71,12 +67,12 @@
         
         <!-- Brand -->
         <a href="#hero" class="flex items-center space-x-3">
-          <div class="w-9 h-9 rounded-lg bg-blue-700 text-white flex items-center justify-center font-bold text-sm tracking-tight">
+          <div id="brand-initials" class="w-9 h-9 rounded-lg bg-blue-700 text-white flex items-center justify-center font-bold text-sm tracking-tight">
             SB
           </div>
           <div>
-            <span class="font-bold text-slate-900 text-base block leading-none">Suman Bhandari</span>
-            <span class="text-[11px] text-slate-500 font-mono">Data Analytics &amp; Engineering</span>
+            <span id="brand-name" class="font-bold text-slate-900 text-base block leading-none">Suman Bhandari</span>
+            <span id="brand-subheadline" class="text-[11px] text-slate-500 font-mono">Data Analytics &amp; Engineering</span>
           </div>
         </a>
 
@@ -84,7 +80,7 @@
         <nav class="hidden md:flex items-center space-x-7 text-sm font-medium text-slate-600">
           <a href="#about" class="hover:text-blue-700 transition-colors">About</a>
           <a href="#skills" class="hover:text-blue-700 transition-colors">Skills</a>
-          <a href="#projects" class="hover:text-blue-700 transition-colors">GitHub Projects</a>
+          <a href="#projects" class="hover:text-blue-700 transition-colors">Projects</a>
           <a href="#experience" class="hover:text-blue-700 transition-colors">Experience</a>
           <a href="#education" class="hover:text-blue-700 transition-colors">Education</a>
           <a href="#ai-agent-section" class="text-blue-700 font-semibold hover:text-blue-800 transition-colors">Ask Assistant</a>
@@ -93,7 +89,7 @@
 
         <!-- Actions -->
         <div class="hidden sm:flex items-center space-x-2.5">
-          <a href="https://github.com/bhsuman" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-medium flex items-center transition-colors">
+          <a id="header-github-link" href="https://github.com/bhsuman" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-medium flex items-center transition-colors">
             <svg class="w-4 h-4 mr-1.5 text-slate-700" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path></svg>
             GitHub
           </a>
@@ -116,7 +112,7 @@
     <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white px-4 pt-2 pb-4 space-y-1 text-sm">
       <a href="#about" class="block px-3 py-2 rounded-md text-slate-700 hover:bg-blue-50 hover:text-blue-700">About</a>
       <a href="#skills" class="block px-3 py-2 rounded-md text-slate-700 hover:bg-blue-50 hover:text-blue-700">Skills</a>
-      <a href="#projects" class="block px-3 py-2 rounded-md text-slate-700 hover:bg-blue-50 hover:text-blue-700">GitHub Projects</a>
+      <a href="#projects" class="block px-3 py-2 rounded-md text-slate-700 hover:bg-blue-50 hover:text-blue-700">Projects</a>
       <a href="#experience" class="block px-3 py-2 rounded-md text-slate-700 hover:bg-blue-50 hover:text-blue-700">Experience</a>
       <a href="#education" class="block px-3 py-2 rounded-md text-slate-700 hover:bg-blue-50 hover:text-blue-700">Education</a>
       <a href="#ai-agent-section" class="block px-3 py-2 rounded-md font-semibold text-blue-700 bg-blue-50">Portfolio Q&amp;A Assistant</a>
@@ -134,26 +130,26 @@
           <div class="lg:col-span-7 space-y-5">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-xs font-medium">
               <span class="w-2 h-2 rounded-full bg-blue-600"></span>
-              <span>Master's Student at Unitec • Open to Work (Student)</span>
+              <span id="hero-status-pill">Master's Student at Unitec • Open to Work (Student)</span>
             </div>
 
             <div class="space-y-2">
-              <h1 class="text-3xl sm:text-5xl font-bold tracking-tight text-slate-900">
+              <h1 id="hero-name" class="text-3xl sm:text-5xl font-bold tracking-tight text-slate-900">
                 Suman Bhandari
               </h1>
-              <p class="text-lg sm:text-xl font-medium text-blue-700">
+              <p id="hero-headline" class="text-lg sm:text-xl font-medium text-blue-700">
                 Data Analytics Student &amp; Associate Data Engineer
               </p>
             </div>
 
-            <p class="text-slate-600 text-base leading-relaxed max-w-2xl">
-              Master of Applied Technologies (Computing – Data Analytics) student at <strong>Unitec Institute of Technology</strong> with two years of industry experience in SQL, Python, Snowflake warehousing, Databricks ETL pipelines, and Power BI reporting. Currently seeking student, internship, part-time, and graduate data roles.
+            <p id="hero-bio" class="text-slate-600 text-base leading-relaxed max-w-2xl">
+              Master of Applied Technologies (Computing – Data Analytics) student at Unitec Institute of Technology with two years of industry experience in SQL, Python, Snowflake warehousing, Databricks ETL pipelines, and Power BI reporting. Currently seeking student, internship, part-time, and graduate data roles.
             </p>
 
             <!-- Primary Buttons -->
             <div class="flex flex-wrap items-center gap-3 pt-1">
               <a href="#projects" class="px-5 py-2.5 rounded-lg bg-blue-700 hover:bg-blue-800 text-white font-semibold text-sm transition-colors">
-                View Live GitHub Projects
+                View Featured Projects
               </a>
               <a href="#ai-agent-section" class="px-5 py-2.5 rounded-lg bg-white hover:bg-blue-50 text-blue-700 border border-blue-300 font-semibold text-sm transition-colors">
                 Ask Portfolio Assistant
@@ -165,21 +161,21 @@
 
             <!-- Direct Links Row -->
             <div class="flex flex-wrap items-center gap-4 pt-3 text-xs sm:text-sm text-slate-600 border-t border-slate-200">
-              <a href="https://github.com/bhsuman" target="_blank" rel="noopener noreferrer" class="flex items-center hover:text-blue-700 font-medium">
+              <a id="hero-github-link" href="https://github.com/bhsuman" target="_blank" rel="noopener noreferrer" class="flex items-center hover:text-blue-700 font-medium">
                 <svg class="w-4 h-4 mr-1.5 text-slate-700" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path></svg>
-                github.com/bhsuman
+                <span id="hero-github-text">github.com/bhsuman</span>
               </a>
               <span class="text-slate-300">•</span>
-              <a href="https://www.linkedin.com/in/suman-bhandari-ab4394279/" target="_blank" rel="noopener noreferrer" class="flex items-center hover:text-blue-700 font-medium">
+              <a id="hero-linkedin-link" href="https://www.linkedin.com/in/suman-bhandari-ab4394279/" target="_blank" rel="noopener noreferrer" class="flex items-center hover:text-blue-700 font-medium">
                 <svg class="w-4 h-4 mr-1.5 text-blue-700" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
                 LinkedIn
               </a>
               <span class="text-slate-300">•</span>
-              <button onclick="copyToClipboard('bhsuman11@gmail.com', 'Email')" class="flex items-center hover:text-blue-700 font-medium">
+              <button id="hero-email-btn" onclick="copyToClipboard('bhsuman11@gmail.com', 'Email')" class="flex items-center hover:text-blue-700 font-medium">
                 bhsuman11@gmail.com
               </button>
               <span class="text-slate-300">•</span>
-              <a href="tel:+64220512513" class="font-mono hover:text-blue-700 font-medium">
+              <a id="hero-phone-link" href="tel:+64220512513" class="font-mono hover:text-blue-700 font-medium">
                 022 051 2513
               </a>
             </div>
@@ -190,6 +186,7 @@
             <div class="w-72 sm:w-80 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
               <div class="aspect-[4/4.3] overflow-hidden bg-slate-100">
                 <img 
+                  id="hero-photo"
                   src="assets/suman-bhandari.jpg" 
                   alt="Suman Bhandari" 
                   class="w-full h-full object-cover object-top"
@@ -198,11 +195,11 @@
               </div>
               <div class="p-4 border-t border-slate-100 bg-white flex items-center justify-between">
                 <div>
-                  <p class="font-bold text-slate-900 text-sm">Suman Bhandari</p>
-                  <p class="text-xs text-slate-500">Henderson, Auckland</p>
+                  <p id="card-name" class="font-bold text-slate-900 text-sm">Suman Bhandari</p>
+                  <p id="card-location" class="text-xs text-slate-500">Henderson, Auckland</p>
                 </div>
-                <span class="px-2.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-[11px] font-medium">
-                  Open to Work (Student)
+                <span id="card-status-badge" class="px-2.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-[11px] font-medium">
+                  Student • Open to Work
                 </span>
               </div>
             </div>
@@ -211,27 +208,8 @@
         </div>
 
         <!-- Summary Strip -->
-        <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div class="p-4 rounded-xl bg-white border border-slate-200">
-            <p class="text-2xl font-bold text-blue-700 font-mono">2+ Years</p>
-            <p class="text-xs sm:text-sm text-slate-700 font-medium mt-0.5">Industry Experience</p>
-            <p class="text-xs text-slate-500">Data Engineering &amp; ICT</p>
-          </div>
-          <div class="p-4 rounded-xl bg-white border border-slate-200">
-            <p id="github-repo-count" class="text-2xl font-bold text-blue-700 font-mono">Live Sync</p>
-            <p class="text-xs sm:text-sm text-slate-700 font-medium mt-0.5">GitHub Repositories</p>
-            <p id="github-sync-subtext" class="text-xs text-slate-500">Auto-synced with @bhsuman</p>
-          </div>
-          <div class="p-4 rounded-xl bg-white border border-slate-200">
-            <p class="text-2xl font-bold text-blue-700 font-mono">Master's</p>
-            <p class="text-xs sm:text-sm text-slate-700 font-medium mt-0.5">Computing (Data Analytics)</p>
-            <p class="text-xs text-slate-500">Unitec Institute of Technology</p>
-          </div>
-          <div class="p-4 rounded-xl bg-white border border-slate-200">
-            <p class="text-2xl font-bold text-blue-700 font-mono">Student</p>
-            <p class="text-xs sm:text-sm text-slate-700 font-medium mt-0.5">Open to Work</p>
-            <p class="text-xs text-slate-500">Internships &amp; Part-Time Roles</p>
-          </div>
+        <div id="hero-highlights-grid" class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+          <!-- Populated from portfolio-data.js -->
         </div>
       </div>
     </section>
@@ -243,19 +221,16 @@
           
           <div class="lg:col-span-7 space-y-4">
             <p class="text-xs font-mono uppercase tracking-wider text-blue-700 font-semibold">About</p>
-            <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">
+            <h2 id="about-heading" class="text-2xl sm:text-3xl font-bold text-slate-900">
               Background in Data Warehousing, SQL &amp; Analytics
             </h2>
-            <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
-              I am currently studying my Master of Applied Technologies (Computing – Data Analytics) at <strong>Unitec Institute of Technology</strong> in Auckland. Before starting my postgraduate studies, I worked across commercial banking IT operations at <strong>Laxmi Sunrise Bank</strong>, data engineering consultancy at <strong>Development Catalyst Consultancy</strong>, and cloud data warehousing at <strong>LIS Nepal</strong>.
-            </p>
-            <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
-              My day-to-day technical work focuses on writing clean SQL, building reliable Python &amp; PySpark ETL pipelines, structuring data warehouses in Snowflake and Databricks (Medallion &amp; Star Schema), and building clear Power BI reports.
-            </p>
+            <div id="about-paragraphs" class="space-y-4 text-slate-600 text-sm sm:text-base leading-relaxed">
+              <!-- Populated from portfolio-data.js -->
+            </div>
 
             <div class="p-4 rounded-xl bg-blue-50/70 border border-blue-200 mt-4">
-              <p class="font-semibold text-blue-950 text-sm">Current Status: Master's Student • Open to Work</p>
-              <p class="text-xs sm:text-sm text-slate-700 mt-1">
+              <p id="about-callout-title" class="font-semibold text-blue-950 text-sm">Current Status: Master's Student • Open to Work</p>
+              <p id="about-callout-text" class="text-xs sm:text-sm text-slate-700 mt-1">
                 Available for student positions, internships, part-time data analyst/engineering work, and academic or industry data projects.
               </p>
             </div>
@@ -267,35 +242,8 @@
               <h3 class="text-base font-bold text-slate-900 border-b border-slate-200 pb-3">
                 Quick Details
               </h3>
-              <dl class="space-y-2.5 text-xs sm:text-sm divide-y divide-slate-200">
-                <div class="flex justify-between pt-2">
-                  <dt class="text-slate-500">Name</dt>
-                  <dd class="text-slate-900 font-medium">Suman Bhandari</dd>
-                </div>
-                <div class="flex justify-between pt-2">
-                  <dt class="text-slate-500">Location</dt>
-                  <dd class="text-slate-900 font-medium">Henderson, Auckland</dd>
-                </div>
-                <div class="flex justify-between pt-2">
-                  <dt class="text-slate-500">Current Study</dt>
-                  <dd class="text-slate-900 font-medium">Master's at Unitec</dd>
-                </div>
-                <div class="flex justify-between pt-2">
-                  <dt class="text-slate-500">Availability</dt>
-                  <dd class="text-blue-700 font-semibold">Student • Open to Work</dd>
-                </div>
-                <div class="flex justify-between pt-2">
-                  <dt class="text-slate-500">Phone / SMS</dt>
-                  <dd><a href="sms:+64220512513" class="text-blue-700 hover:underline font-mono">+64 22 051 2513</a></dd>
-                </div>
-                <div class="flex justify-between pt-2">
-                  <dt class="text-slate-500">Email</dt>
-                  <dd><a href="mailto:bhsuman11@gmail.com" class="text-blue-700 hover:underline">bhsuman11@gmail.com</a></dd>
-                </div>
-                <div class="flex justify-between pt-2">
-                  <dt class="text-slate-500">GitHub</dt>
-                  <dd><a href="https://github.com/bhsuman" target="_blank" rel="noopener noreferrer" class="text-blue-700 hover:underline">github.com/bhsuman</a></dd>
-                </div>
+              <dl id="about-details-list" class="space-y-2.5 text-xs sm:text-sm divide-y divide-slate-200">
+                <!-- Populated from portfolio-data.js -->
               </dl>
             </div>
           </div>
@@ -336,130 +284,36 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div data-category="languages" class="skill-card flex p-5 rounded-xl card-clean">
-            <div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center text-sm font-bold font-mono mr-3.5 flex-shrink-0">
-              Py
-            </div>
-            <div>
-              <h3 class="text-sm font-bold text-slate-900">Python</h3>
-              <p class="text-xs text-slate-600 mt-1">Pandas, NumPy, Matplotlib, Seaborn, Scikit-Learn, PySpark scripts</p>
-            </div>
-          </div>
-
-          <div data-category="languages" class="skill-card flex p-5 rounded-xl card-clean">
-            <div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center text-sm font-bold font-mono mr-3.5 flex-shrink-0">
-              SQL
-            </div>
-            <div>
-              <h3 class="text-sm font-bold text-slate-900">SQL</h3>
-              <p class="text-xs text-slate-600 mt-1">Complex Joins, CTEs, Window Functions, Stored Procedures, Query Tuning</p>
-            </div>
-          </div>
-
-          <div data-category="analytics" class="skill-card flex p-5 rounded-xl card-clean">
-            <div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center text-sm font-bold font-mono mr-3.5 flex-shrink-0">
-              BI
-            </div>
-            <div>
-              <h3 class="text-sm font-bold text-slate-900">Microsoft Power BI</h3>
-              <p class="text-xs text-slate-600 mt-1">Interactive Dashboards, DAX Measures, Star Schema Data Modeling</p>
-            </div>
-          </div>
-
-          <div data-category="databases" class="skill-card flex p-5 rounded-xl card-clean">
-            <div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center text-sm font-bold font-mono mr-3.5 flex-shrink-0">
-              SF
-            </div>
-            <div>
-              <h3 class="text-sm font-bold text-slate-900">Snowflake</h3>
-              <p class="text-xs text-slate-600 mt-1">Cloud Data Warehousing, Stage Loading, ETL Pipelines, SnowSQL</p>
-            </div>
-          </div>
-
-          <div data-category="engineering" class="skill-card flex p-5 rounded-xl card-clean">
-            <div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center text-sm font-bold font-mono mr-3.5 flex-shrink-0">
-              DB
-            </div>
-            <div>
-              <h3 class="text-sm font-bold text-slate-900">Databricks &amp; Delta Lake</h3>
-              <p class="text-xs text-slate-600 mt-1">Medallion Architecture (Bronze / Silver / Gold), PySpark Transformations</p>
-            </div>
-          </div>
-
-          <div data-category="databases" class="skill-card flex p-5 rounded-xl card-clean">
-            <div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center text-sm font-bold font-mono mr-3.5 flex-shrink-0">
-              DB
-            </div>
-            <div>
-              <h3 class="text-sm font-bold text-slate-900">SQL Server &amp; MySQL</h3>
-              <p class="text-xs text-slate-600 mt-1">Relational Schema Design, Indexing, Data Integrity &amp; Administration</p>
-            </div>
-          </div>
-
-          <div data-category="engineering" class="skill-card flex p-5 rounded-xl card-clean">
-            <div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center text-sm font-bold font-mono mr-3.5 flex-shrink-0">
-              ETL
-            </div>
-            <div>
-              <h3 class="text-sm font-bold text-slate-900">ETL &amp; Data Quality</h3>
-              <p class="text-xs text-slate-600 mt-1">Data Cleansing, Validation Rules, Schema Mapping, Deduplication</p>
-            </div>
-          </div>
-
-          <div data-category="languages" class="skill-card flex p-5 rounded-xl card-clean">
-            <div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center text-sm font-bold font-mono mr-3.5 flex-shrink-0">
-              R
-            </div>
-            <div>
-              <h3 class="text-sm font-bold text-slate-900">R Programming</h3>
-              <p class="text-xs text-slate-600 mt-1">Statistical Analysis, Exploratory Data Analysis, Data Visualization</p>
-            </div>
-          </div>
-
-          <div data-category="engineering" class="skill-card flex p-5 rounded-xl card-clean">
-            <div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center text-sm font-bold font-mono mr-3.5 flex-shrink-0">
-              Git
-            </div>
-            <div>
-              <h3 class="text-sm font-bold text-slate-900">AWS, Git &amp; Agile Tools</h3>
-              <p class="text-xs text-slate-600 mt-1">Git, GitHub, Bitbucket, AWS Basics, Jira, ClickUp, Scrum Workflows</p>
-            </div>
-          </div>
+        <div id="skills-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Populated from portfolio-data.js -->
         </div>
 
       </div>
     </section>
 
-    <!-- LIVE GITHUB PROJECTS SECTION -->
+    <!-- WHITELISTED GITHUB PROJECTS SECTION -->
     <section id="projects" class="py-14 md:py-20 bg-white border-b border-slate-200">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
           <div>
             <div class="flex items-center gap-2">
-              <p class="text-xs font-mono uppercase tracking-wider text-blue-700 font-semibold">Live GitHub Integration</p>
+              <p class="text-xs font-mono uppercase tracking-wider text-blue-700 font-semibold">Selected Portfolio Work</p>
               <span id="github-live-pill" class="inline-flex items-center px-2 py-0.5 rounded bg-blue-50 border border-blue-200 text-[11px] font-mono text-blue-700">
-                Syncing @bhsuman...
+                Verified Repositories
               </span>
             </div>
             <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-1">
-              Projects &amp; Repositories
+              Featured Projects
             </h2>
             <p class="text-sm text-slate-600 mt-1">
-              Automatically fetched from <a href="https://github.com/bhsuman" target="_blank" rel="noopener noreferrer" class="text-blue-700 underline font-medium">github.com/bhsuman</a> — any new repository or commit update on GitHub appears here live.
+              Curated data engineering, analytics, and software repositories selected by Suman.
             </p>
           </div>
-
-          <button id="refresh-github-btn" onclick="syncGitHubData(true)" class="px-3.5 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold flex items-center self-start sm:self-auto transition-colors">
-            <svg id="github-refresh-icon" class="w-3.5 h-3.5 mr-1.5 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-            Refresh from GitHub
-          </button>
         </div>
 
-        <!-- Dynamic Projects Grid (Populated live from GitHub API with instant fallback) -->
         <div id="github-projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <!-- Initialized by app.js -->
+          <!-- Populated by app.js (Strictly restricted to whitelisted repos in portfolio-data.js) -->
         </div>
 
       </div>
@@ -470,122 +324,19 @@
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
           
-          <!-- Experience -->
           <div>
             <p class="text-xs font-mono uppercase tracking-wider text-blue-700 font-semibold">Career History</p>
             <h2 class="text-2xl font-bold text-slate-900 mt-1 mb-6">Work Experience</h2>
-
-            <div class="relative border-l-2 border-blue-200 ml-3 pl-6 space-y-6">
-              
-              <div class="relative">
-                <div class="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-blue-700 border-2 border-white"></div>
-                <div class="p-5 rounded-xl bg-white border border-slate-200">
-                  <div class="flex flex-wrap items-center justify-between gap-1 mb-1">
-                    <h3 class="text-base font-bold text-slate-900">Trainee Assistant - ICT</h3>
-                    <span class="text-xs font-mono text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
-                      Feb 2026 – Jun 2026
-                    </span>
-                  </div>
-                  <p class="text-xs sm:text-sm font-medium text-slate-700">Laxmi Sunrise Bank Limited • Kathmandu, Nepal</p>
-                  <ul class="mt-2.5 space-y-1 text-xs text-slate-600 list-disc list-inside">
-                    <li>Supported daily core IT banking operations and technical stability across branches.</li>
-                    <li>Resolved user technical queries and provided frontline troubleshooting.</li>
-                    <li>Worked with enterprise banking systems, data security policies, and operational workflows.</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="relative">
-                <div class="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-blue-600 border-2 border-white"></div>
-                <div class="p-5 rounded-xl bg-white border border-slate-200">
-                  <div class="flex flex-wrap items-center justify-between gap-1 mb-1">
-                    <h3 class="text-base font-bold text-slate-900">Associate Data Engineer</h3>
-                    <span class="text-xs font-mono text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
-                      Jan 2024 – Jan 2026
-                    </span>
-                  </div>
-                  <p class="text-xs sm:text-sm font-medium text-slate-700">Development Catalyst Consultancy Pvt. Ltd • Kathmandu, Nepal</p>
-                  <ul class="mt-2.5 space-y-1 text-xs text-slate-600 list-disc list-inside">
-                    <li>Analyzed and processed datasets using Python and SQL for client business reporting.</li>
-                    <li>Built automated data cleaning, transformation, and validation pipelines.</li>
-                    <li>Wrote relational SQL queries to extract and model multi-table datasets.</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="relative">
-                <div class="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-slate-400 border-2 border-white"></div>
-                <div class="p-5 rounded-xl bg-white border border-slate-200">
-                  <div class="flex flex-wrap items-center justify-between gap-1 mb-1">
-                    <h3 class="text-base font-bold text-slate-900">Data Engineer Trainee</h3>
-                    <span class="text-xs font-mono text-slate-600 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
-                      Jul 2023 – Oct 2023
-                    </span>
-                  </div>
-                  <p class="text-xs sm:text-sm font-medium text-slate-700">LIS Nepal Pvt. Ltd • Lalitpur, Nepal</p>
-                  <ul class="mt-2.5 space-y-1 text-xs text-slate-600 list-disc list-inside">
-                    <li>Trained in SQL, Snowflake cloud warehousing, and dimensional modeling concepts.</li>
-                    <li>Implemented Snowflake ETL workflows and automated CSV-to-Python ingestion scripts.</li>
-                    <li>Assisted senior engineers with query tuning and pipeline testing.</li>
-                  </ul>
-                </div>
-              </div>
-
+            <div id="experience-timeline" class="relative border-l-2 border-blue-200 ml-3 pl-6 space-y-6">
+              <!-- Populated from portfolio-data.js -->
             </div>
           </div>
 
-          <!-- Education -->
           <div id="education">
             <p class="text-xs font-mono uppercase tracking-wider text-blue-700 font-semibold">Academic Background</p>
             <h2 class="text-2xl font-bold text-slate-900 mt-1 mb-6">Education</h2>
-
-            <div class="relative border-l-2 border-blue-200 ml-3 pl-6 space-y-6">
-              
-              <div class="relative">
-                <div class="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-blue-700 border-2 border-white"></div>
-                <div class="p-5 rounded-xl bg-white border-2 border-blue-600 shadow-sm">
-                  <div class="flex items-center justify-between gap-1 mb-1">
-                    <span class="px-2 py-0.5 rounded text-[11px] font-mono font-semibold bg-blue-50 text-blue-700 border border-blue-200">
-                      Current Student
-                    </span>
-                    <span class="text-xs font-mono text-blue-700 font-medium">Jul 2026 – Present</span>
-                  </div>
-                  <h3 class="text-base font-bold text-slate-900 mt-1">Master of Applied Technologies</h3>
-                  <p class="text-xs sm:text-sm font-semibold text-blue-700">Computing – Data Analytics</p>
-                  <p class="text-xs text-slate-700 mt-1">Unitec Institute of Technology • Auckland, New Zealand</p>
-                  <p class="text-xs text-slate-600 mt-2 leading-relaxed">
-                    Postgraduate focus on data analytics, machine learning workflows, big data processing, and business intelligence.
-                  </p>
-                </div>
-              </div>
-
-              <div class="relative">
-                <div class="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-blue-600 border-2 border-white"></div>
-                <div class="p-5 rounded-xl bg-white border border-slate-200">
-                  <div class="flex items-center justify-between gap-1 mb-1">
-                    <span class="text-xs font-mono text-slate-500">Bachelor's Degree</span>
-                    <span class="text-xs font-mono text-slate-600">Oct 2018 – Dec 2023</span>
-                  </div>
-                  <h3 class="text-base font-bold text-slate-900 mt-1">B.Sc. in Computer Science and Information Technology (CSIT)</h3>
-                  <p class="text-xs sm:text-sm text-slate-700">Samriddhi College • Bhaktapur, Nepal</p>
-                  <p class="text-xs text-slate-600 mt-2 leading-relaxed">
-                    Database Management Systems, Data Structures &amp; Algorithms, Software Engineering, and Statistical Computing.
-                  </p>
-                </div>
-              </div>
-
-              <div class="relative">
-                <div class="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-slate-400 border-2 border-white"></div>
-                <div class="p-5 rounded-xl bg-white border border-slate-200">
-                  <div class="flex items-center justify-between gap-1 mb-1">
-                    <span class="text-xs font-mono text-slate-500">High School</span>
-                    <span class="text-xs font-mono text-slate-600">Jun 2016 – Jul 2018</span>
-                  </div>
-                  <h3 class="text-base font-bold text-slate-900 mt-1">High School (Science &amp; Computing)</h3>
-                  <p class="text-xs sm:text-sm text-slate-700">Siddhartha College • Banepa, Nepal</p>
-                </div>
-              </div>
-
+            <div id="education-timeline" class="relative border-l-2 border-blue-200 ml-3 pl-6 space-y-6">
+              <!-- Populated from portfolio-data.js -->
             </div>
           </div>
 
@@ -593,7 +344,7 @@
       </div>
     </section>
 
-    <!-- PORTFOLIO Q&A ASSISTANT (STRICTLY TOKEN-BOUNDED & GUARDRAILED) -->
+    <!-- PORTFOLIO Q&A ASSISTANT -->
     <section id="ai-agent-section" class="py-14 md:py-20 bg-white border-b border-slate-200">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -603,38 +354,35 @@
             Ask About Suman's Background
           </h2>
           <p class="text-sm text-slate-600 mt-1">
-            Strictly scoped to Suman's resume, education, and GitHub projects with hard token limits. Every question automatically notifies Suman via Email &amp; mobile push.
+            Ask questions about Suman's skills, Unitec Master's study, work experience, or featured projects.
           </p>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           <!-- Chat Box (8 cols) -->
-          <div class="lg:col-span-8 bg-white border border-slate-300 rounded-xl shadow-sm overflow-hidden flex flex-col h-[540px]">
+          <div class="lg:col-span-8 bg-white border border-slate-300 rounded-xl shadow-sm overflow-hidden flex flex-col h-[520px]">
             
-            <!-- Header -->
+            <!-- Header (No admin/config buttons exposed to public visitors) -->
             <div class="px-4 py-3 bg-blue-700 text-white flex items-center justify-between">
               <div class="flex items-center space-x-3">
                 <img src="assets/suman-bhandari.jpg" alt="Suman" class="w-8 h-8 rounded-full object-cover border border-blue-300">
                 <div>
                   <h3 class="font-semibold text-sm leading-tight">Suman's Portfolio Assistant</h3>
-                  <p id="sms-notify-status" class="text-[11px] text-blue-100">
-                    Strict Resume Scope • Auto-notifies Suman on chat
+                  <p class="text-[11px] text-blue-100">
+                    Strict Resume Scope • Token-Bounded
                   </p>
                 </div>
               </div>
-
-              <div class="flex items-center space-x-2">
-                <button id="open-settings-btn" title="Owner Settings" class="px-2.5 py-1 rounded bg-blue-800 hover:bg-blue-900 text-blue-100 text-xs border border-blue-600 transition-colors">
-                  Config
-                </button>
-              </div>
+              <span class="px-2 py-0.5 rounded bg-blue-800 text-blue-100 text-[11px] font-mono border border-blue-600">
+                Online
+              </span>
             </div>
 
             <!-- Strict Token Quota Bar -->
             <div class="px-4 py-2 bg-slate-50 border-b border-slate-200 flex items-center justify-between text-[11px] font-mono text-slate-600">
               <span>
-                Visitor Quota: <strong id="agent-token-meter" class="text-blue-700">400 / 400 tokens</strong> (Max 80/reply)
+                Session Allowance: <strong id="agent-token-meter" class="text-blue-700">400 / 400 tokens</strong> (Max 80/reply)
               </span>
               <div class="w-28 h-1.5 rounded-full bg-slate-200 overflow-hidden">
                 <div id="agent-token-bar" class="token-bar-fill h-full bg-blue-600 rounded-full w-full"></div>
@@ -645,31 +393,19 @@
             <div id="agent-messages" class="flex-1 p-4 overflow-y-auto space-y-3 bg-white">
               <div class="flex justify-start">
                 <div class="chat-bubble-agent max-w-[90%] px-4 py-3 text-sm">
-                  <p class="leading-relaxed text-slate-800">
-                    Hi! I can answer questions specifically about <strong>Suman Bhandari's</strong> technical skills, Unitec Master's studies, work experience, and live GitHub repositories.
+                  <p id="agent-welcome-msg" class="leading-relaxed text-slate-800">
+                    Hi! I can answer questions specifically about <strong>Suman Bhandari's</strong> technical skills, Unitec Master's studies, work experience, and selected portfolio projects.
                   </p>
                   <p class="mt-1.5 text-xs text-slate-500">
-                    Note: Responses are strictly limited to portfolio topics and capped at 80 tokens. Asking a question sends an instant notification to Suman.
+                    Responses are strictly limited to portfolio topics and capped at 80 tokens.
                   </p>
                 </div>
               </div>
             </div>
 
             <!-- Preset Question Pills -->
-            <div class="px-4 py-2 bg-slate-50 border-t border-slate-200 flex items-center space-x-2 overflow-x-auto no-scrollbar">
-              <span class="text-[11px] font-mono text-slate-500 flex-shrink-0">Ask:</span>
-              <button onclick="askQuickQuestion('What are Suman\'s core SQL and Python skills?')" class="px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 text-xs text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors">
-                SQL &amp; Python Skills
-              </button>
-              <button onclick="askQuickQuestion('Tell me about his latest GitHub projects')" class="px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 text-xs text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors">
-                GitHub Projects
-              </button>
-              <button onclick="askQuickQuestion('What is his current student & work status?')" class="px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 text-xs text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors">
-                Student Work Status
-              </button>
-              <button onclick="askQuickQuestion('How can I contact Suman?')" class="px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 text-xs text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors">
-                Contact Info
-              </button>
+            <div id="agent-quick-prompts" class="px-4 py-2 bg-slate-50 border-t border-slate-200 flex items-center space-x-2 overflow-x-auto no-scrollbar">
+              <!-- Populated from portfolio-data.js -->
             </div>
 
             <!-- Input Form -->
@@ -691,53 +427,35 @@
             </form>
           </div>
 
-          <!-- Right Column: Guardrails & Instant Notification Details (4 cols) -->
+          <!-- Right Column: Clean Visitor Info (No private channels or logs exposed!) -->
           <div class="lg:col-span-4 space-y-4">
-            
             <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
-              <h3 class="text-sm font-bold text-slate-900 flex items-center justify-between">
-                <span>Instant Owner Alerts</span>
-                <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-mono text-[10px]">Active</span>
+              <h3 class="text-sm font-bold text-slate-900">
+                Direct Contact
               </h3>
               <p class="text-xs text-slate-600 leading-relaxed">
-                Whenever someone chats with the assistant or submits the contact form, an alert is dispatched via:
+                Questions asked here automatically notify Suman. For direct conversations regarding student roles, internships, or analytics projects:
               </p>
-              <ul class="text-xs text-slate-700 space-y-1.5">
-                <li class="flex items-center">
-                  <span class="w-1.5 h-1.5 rounded-full bg-blue-600 mr-2"></span>
-                  <span><strong>Email:</strong> bhsuman11@gmail.com</span>
-                </li>
-                <li class="flex items-center">
-                  <span class="w-1.5 h-1.5 rounded-full bg-blue-600 mr-2"></span>
-                  <span><strong>Mobile Push:</strong> ntfy.sh/suman-portfolio-nz-220512513</span>
-                </li>
-                <li class="flex items-center">
-                  <span class="w-1.5 h-1.5 rounded-full bg-blue-600 mr-2"></span>
-                  <span><strong>Direct SMS / WhatsApp:</strong> +64 22 051 2513</span>
-                </li>
-              </ul>
-
-              <div class="pt-2 flex flex-col gap-2">
-                <button onclick="openAlertsModal()" class="w-full py-2 px-3 rounded-lg bg-white hover:bg-blue-50 text-blue-700 border border-blue-300 font-semibold text-xs transition-colors">
-                  Configure / Test Notifications &amp; View Logs
-                </button>
+              <div class="pt-1 flex flex-col gap-2">
                 <a href="sms:+64220512513?body=Hi%20Suman,%20I%20viewed%20your%20portfolio%20and%20would%20like%20to%20connect." class="w-full py-2 px-3 rounded-lg bg-blue-700 hover:bg-blue-800 text-white font-semibold text-xs text-center transition-colors">
-                  Send Direct SMS (022 051 2513)
+                  Send SMS (022 051 2513)
+                </a>
+                <a href="mailto:bhsuman11@gmail.com" class="w-full py-2 px-3 rounded-lg bg-white hover:bg-blue-50 text-blue-700 border border-blue-300 font-semibold text-xs text-center transition-colors">
+                  Email bhsuman11@gmail.com
                 </a>
               </div>
             </div>
 
-            <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-2.5">
+            <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
               <h4 class="font-bold text-slate-900 text-sm">
-                Strict Token &amp; Content Guardrails
+                Assistant Scope &amp; Limits
               </h4>
               <ul class="space-y-1.5 text-xs text-slate-600">
-                <li>• <strong>Portfolio-Only Filter:</strong> Blocks unrelated prompts, coding tasks, jokes, essays, or prompt injection before using tokens.</li>
-                <li>• <strong>Hard Output Cap:</strong> Locked to 80 tokens max per answer (2–3 concise sentences).</li>
-                <li>• <strong>Daily Visitor Cap:</strong> 400 tokens / 6 messages max per visitor per day with 5s cooldown.</li>
+                <li>• Answers only verified questions about Suman's resume, study, and listed projects.</li>
+                <li>• Capped at 80 tokens per reply and 6 questions per session.</li>
+                <li>• Off-topic or unrelated prompts are automatically declined.</li>
               </ul>
             </div>
-
           </div>
 
         </div>
@@ -760,12 +478,11 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          <!-- Contact Info (5 cols) -->
           <div class="lg:col-span-5 space-y-3">
             <div class="p-4 rounded-xl bg-white border border-slate-200 flex items-center justify-between">
               <div>
                 <p class="text-xs text-slate-500">Phone / SMS</p>
-                <p class="text-sm font-bold text-slate-900 font-mono mt-0.5">+64 22 051 2513</p>
+                <p id="contact-phone-display" class="text-sm font-bold text-slate-900 font-mono mt-0.5">+64 22 051 2513</p>
               </div>
               <div class="flex gap-2">
                 <a href="sms:+64220512513" class="px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 text-xs font-semibold">SMS</a>
@@ -776,7 +493,7 @@
             <div class="p-4 rounded-xl bg-white border border-slate-200 flex items-center justify-between">
               <div>
                 <p class="text-xs text-slate-500">Email</p>
-                <p class="text-sm font-bold text-slate-900 mt-0.5">bhsuman11@gmail.com</p>
+                <p id="contact-email-display" class="text-sm font-bold text-slate-900 mt-0.5">bhsuman11@gmail.com</p>
               </div>
               <button onclick="copyToClipboard('bhsuman11@gmail.com', 'Email')" class="px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 text-xs font-semibold">
                 Copy
@@ -785,25 +502,24 @@
 
             <div class="p-4 rounded-xl bg-white border border-slate-200">
               <p class="text-xs text-slate-500">Location &amp; Status</p>
-              <p class="text-sm font-bold text-slate-900 mt-0.5">Henderson, Auckland</p>
-              <p class="text-xs text-blue-700 font-medium mt-0.5">Master's Student at Unitec • Open to Work</p>
+              <p id="contact-location-display" class="text-sm font-bold text-slate-900 mt-0.5">Henderson, Auckland</p>
+              <p id="contact-status-display" class="text-xs text-blue-700 font-medium mt-0.5">Student • Open to Work</p>
             </div>
 
             <div class="p-4 rounded-xl bg-white border border-slate-200 flex items-center justify-between">
-              <a href="https://www.linkedin.com/in/suman-bhandari-ab4394279/" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-sm font-semibold text-blue-700 hover:underline">
+              <a id="contact-linkedin-link" href="https://www.linkedin.com/in/suman-bhandari-ab4394279/" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-sm font-semibold text-blue-700 hover:underline">
                 LinkedIn Profile →
               </a>
-              <a href="https://github.com/bhsuman" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-sm font-semibold text-slate-700 hover:text-blue-700">
+              <a id="contact-github-link" href="https://github.com/bhsuman" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-sm font-semibold text-slate-700 hover:text-blue-700">
                 GitHub (@bhsuman) →
               </a>
             </div>
           </div>
 
-          <!-- Contact Form (7 cols) -->
           <div class="lg:col-span-7 bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
             <h3 class="text-base font-bold text-slate-900 mb-1">Send a Direct Message</h3>
             <p class="text-xs text-slate-500 mb-5">
-              Sends an email notification to bhsuman11@gmail.com and a push alert to Suman's phone.
+              Fill out the form below to send a direct inquiry to Suman.
             </p>
 
             <form id="contact-form" onsubmit="event.preventDefault(); handleContactSubmit();" class="space-y-4">
@@ -832,9 +548,6 @@
                 <button type="submit" class="w-full sm:w-auto px-5 py-2.5 rounded-lg bg-blue-700 hover:bg-blue-800 text-white font-semibold text-sm transition-colors">
                   Send Message
                 </button>
-                <span class="text-xs text-slate-500">
-                  Notifies bhsuman11@gmail.com &amp; +64 22 051 2513
-                </span>
               </div>
             </form>
           </div>
@@ -848,49 +561,67 @@
   <footer class="border-t border-slate-200 bg-white text-slate-600 py-8 text-xs">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div class="flex items-center space-x-2.5">
-        <span class="w-6 h-6 rounded bg-blue-700 text-white flex items-center justify-center font-bold text-[11px]">SB</span>
+        <!-- Secret Owner Trigger: Triple-click this SB badge or press Ctrl+Shift+L -->
+        <span id="owner-secret-trigger" title="Suman Bhandari" class="w-6 h-6 rounded bg-blue-700 text-white flex items-center justify-center font-bold text-[11px] select-none cursor-default">SB</span>
         <span class="font-semibold text-slate-900">Suman Bhandari</span>
         <span class="text-slate-400">•</span>
-        <span>Master's Student (Data Analytics)</span>
+        <span>Student • Open to Work</span>
       </div>
 
       <div class="flex flex-wrap items-center gap-5">
         <a href="#about" class="hover:text-blue-700">About</a>
         <a href="#skills" class="hover:text-blue-700">Skills</a>
-        <a href="#projects" class="hover:text-blue-700">GitHub Projects</a>
+        <a href="#projects" class="hover:text-blue-700">Projects</a>
         <a href="#experience" class="hover:text-blue-700">Experience</a>
         <a href="https://github.com/bhsuman" target="_blank" rel="noopener noreferrer" class="hover:text-blue-700">GitHub</a>
       </div>
     </div>
   </footer>
 
-  <!-- NOTIFICATION & INBOX MODAL (SO SUMAN NEVER MISSES AN AI CHAT ALERT) -->
-  <div id="alerts-modal" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs hidden items-center justify-center p-4">
+  <!-- PRIVATE OWNER PASSCODE GATE MODAL (Hidden from visitors; triggered ONLY via Ctrl+Shift+L or #owner) -->
+  <div id="owner-auth-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 rounded-2xl max-w-sm w-full p-6 shadow-xl space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+        <h3 class="font-bold text-slate-900 text-sm">Owner Access Only</h3>
+        <button onclick="closeOwnerAuthModal()" class="text-slate-400 hover:text-slate-700">✕</button>
+      </div>
+      <form onsubmit="event.preventDefault(); verifyOwnerPin();" class="space-y-3 text-xs">
+        <p class="text-slate-600">Enter your private Owner PIN to view Alert Setup &amp; Visitor Logs.</p>
+        <input id="owner-pin-input" type="password" placeholder="Enter Owner PIN" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-slate-900 font-mono text-sm focus:outline-none focus:border-blue-600" required>
+        <p id="owner-pin-error" class="text-red-600 text-[11px] hidden">Incorrect PIN. Access denied.</p>
+        <div class="flex justify-end gap-2 pt-1">
+          <button type="button" onclick="closeOwnerAuthModal()" class="px-3 py-2 rounded-lg border border-slate-300 text-slate-600">Cancel</button>
+          <button type="submit" class="px-4 py-2 rounded-lg bg-blue-700 hover:bg-blue-800 text-white font-semibold">Unlock</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- PRIVATE OWNER DASHBOARD: ALERT SETUP, VISITOR LOGS & API CONFIG (Unlocked ONLY after PIN verification) -->
+  <div id="alerts-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center p-4">
     <div class="bg-white border border-slate-200 rounded-2xl max-w-lg w-full p-6 shadow-xl space-y-4 max-h-[90vh] overflow-y-auto">
       <div class="flex items-center justify-between pb-3 border-b border-slate-200">
         <div>
-          <h3 class="font-bold text-slate-900 text-base">Visitor Chat Notifications &amp; Log</h3>
-          <p class="text-xs text-slate-500">Receive real-time alerts on your phone &amp; email whenever someone chats with your AI agent</p>
+          <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-mono text-[10px] font-semibold">OWNER ONLY • PRIVATE</span>
+          <h3 class="font-bold text-slate-900 text-base mt-1">Owner Alert Setup, Visitor Logs &amp; Config</h3>
         </div>
         <button onclick="closeAlertsModal()" class="text-slate-400 hover:text-slate-700 p-1 rounded-lg">✕</button>
       </div>
 
-      <!-- How to Receive Phone & Email Alerts -->
+      <!-- Notification Setup (Visible ONLY to Suman) -->
       <div class="p-4 rounded-xl bg-blue-50 border border-blue-200 space-y-2.5 text-xs">
-        <p class="font-bold text-blue-950">How to get instant notifications on your phone:</p>
+        <p class="font-bold text-blue-950">1. Instant Phone &amp; Email Notification Channels</p>
         <ol class="list-decimal list-inside space-y-1.5 text-slate-700">
           <li>
-            <strong>Phone Push (Instant, Free):</strong> Install the free <strong>ntfy</strong> app on iOS/Android (or open in browser) and subscribe to topic:
-            <a href="https://ntfy.sh/suman-portfolio-nz-220512513" target="_blank" rel="noopener noreferrer" class="font-mono font-semibold text-blue-700 underline block mt-0.5">
-              ntfy.sh/suman-portfolio-nz-220512513
-            </a>
+            <strong>Email Alerts (bhsuman11@gmail.com):</strong> Click <em>"Send Test Notification"</em> below, then check your <strong>bhsuman11@gmail.com</strong> inbox (and Spam folder once) to click FormSubmit's one-time "Activate" button.
           </li>
           <li>
-            <strong>Email Alerts (bhsuman11@gmail.com):</strong> Click <em>"Send Test Notification"</em> below, then check your <strong>bhsuman11@gmail.com</strong> inbox (and spam folder once) to click FormSubmit's one-time "Activate" button.
+            <strong>Private Mobile Push (ntfy app):</strong> Subscribe on your phone to your private topic:
+            <input id="owner-ntfy-topic-input" type="text" class="mt-1 w-full bg-white border border-blue-300 rounded px-2.5 py-1.5 font-mono text-xs text-slate-900" placeholder="Enter private ntfy topic">
           </li>
           <li>
-            <strong>Browser Notification:</strong>
-            <button onclick="enableBrowserNotifications()" class="text-blue-700 font-semibold underline ml-1">Enable Desktop/Mobile Browser Alerts</button>
+            <strong>Browser Desktop/Mobile Alert:</strong>
+            <button onclick="enableBrowserNotifications()" class="text-blue-700 font-semibold underline ml-1">Enable Browser Push</button>
           </li>
         </ol>
 
@@ -898,75 +629,42 @@
           <button id="test-alert-btn" onclick="sendTestAlertNow()" class="px-3.5 py-2 rounded-lg bg-blue-700 hover:bg-blue-800 text-white font-semibold text-xs transition-colors">
             Send Test Notification Now
           </button>
-          <a href="https://ntfy.sh/suman-portfolio-nz-220512513" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-lg bg-white border border-blue-300 text-blue-700 hover:bg-blue-100 font-semibold text-xs transition-colors">
-            Open Live ntfy Channel ↗
-          </a>
+          <button onclick="openOwnerNtfyTopic()" class="px-3.5 py-2 rounded-lg bg-white border border-blue-300 text-blue-700 hover:bg-blue-100 font-semibold text-xs transition-colors">
+            Open Push Channel ↗
+          </button>
         </div>
         <p id="test-alert-status" class="text-[11px] font-mono text-blue-800 hidden"></p>
       </div>
 
-      <!-- Optional Custom Webhook (Discord / Slack / Telegram) -->
-      <div class="space-y-1.5 text-xs">
-        <label for="custom-webhook-input" class="block font-medium text-slate-700">Optional Discord / Slack / Custom Webhook URL</label>
-        <div class="flex gap-2">
-          <input id="custom-webhook-input" type="url" placeholder="https://discord.com/api/webhooks/..." class="flex-1 bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-900">
-          <button onclick="saveCustomWebhook()" class="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-900 text-white font-semibold text-xs">Save</button>
+      <!-- Optional Custom Webhook & Gemini API Key (Owner Only) -->
+      <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3 text-xs">
+        <p class="font-bold text-slate-900">2. Owner API &amp; Webhook Settings (Stored locally in your browser only)</p>
+        <div>
+          <label for="custom-webhook-input" class="block font-medium text-slate-700 mb-1">Optional Discord / Slack / Telegram Webhook URL</label>
+          <input id="custom-webhook-input" type="url" placeholder="https://discord.com/api/webhooks/..." class="w-full bg-white border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-900">
         </div>
+        <div>
+          <label for="gemini-api-key-input" class="block font-medium text-slate-700 mb-1">Optional Gemini API Key (Leave blank to use built-in portfolio engine)</label>
+          <input id="gemini-api-key-input" type="password" placeholder="AIzaSy..." class="w-full bg-white border border-slate-300 rounded-lg px-3 py-1.5 text-xs font-mono text-slate-900">
+        </div>
+        <div>
+          <label for="owner-new-pin-input" class="block font-medium text-slate-700 mb-1">Change Owner PIN (Optional)</label>
+          <input id="owner-new-pin-input" type="password" placeholder="New PIN (leave blank to keep current)" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-1.5 text-xs font-mono text-slate-900">
+        </div>
+        <button id="save-settings-btn" onclick="saveOwnerSettings()" class="px-4 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs">
+          Save Owner Settings
+        </button>
       </div>
 
-      <!-- Recent Visitor Questions Log -->
+      <!-- Recent Visitor Questions Log (Owner Only) -->
       <div class="space-y-2 pt-2 border-t border-slate-200">
         <div class="flex items-center justify-between">
-          <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider font-mono">Recent Visitor Inquiries</h4>
+          <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider font-mono">3. Private Visitor Inquiry Log</h4>
           <button onclick="clearNotificationHistory()" class="text-[11px] text-slate-500 hover:text-red-600">Clear Log</button>
         </div>
         <div id="notification-log-list" class="space-y-2 max-h-52 overflow-y-auto text-xs">
-          <p class="text-slate-400 italic">No inquiries recorded in this browser yet.</p>
+          <p class="text-slate-400 italic">No inquiries recorded yet.</p>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- OWNER API CONFIG MODAL (TOKEN LIMIT IS LOCKED FOR VISITORS) -->
-  <div id="settings-modal" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs hidden items-center justify-center p-4">
-    <div class="bg-white border border-slate-200 rounded-2xl max-w-md w-full p-6 shadow-xl space-y-4">
-      <div class="flex items-center justify-between pb-3 border-b border-slate-200">
-        <h3 class="font-bold text-slate-900 text-base">Assistant API Configuration</h3>
-        <button id="close-settings-btn" class="text-slate-400 hover:text-slate-700 p-1 rounded-lg">✕</button>
-      </div>
-
-      <div class="space-y-3 text-xs">
-        <div>
-          <label for="gemini-api-key-input" class="block font-medium text-slate-700 mb-1">Google Gemini API Key (Optional)</label>
-          <input 
-            id="gemini-api-key-input" 
-            type="password" 
-            placeholder="AIzaSy..." 
-            class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-slate-900 font-mono text-xs focus:outline-none focus:border-blue-600"
-          >
-          <p class="text-[11px] text-slate-500 mt-1">If left empty, the assistant uses the built-in verified portfolio knowledge base.</p>
-        </div>
-
-        <div>
-          <label for="gemini-model-select" class="block font-medium text-slate-700 mb-1">Model</label>
-          <select id="gemini-model-select" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-slate-900 text-xs focus:outline-none focus:border-blue-600">
-            <option value="gemini-2.5-flash">gemini-2.5-flash (Recommended)</option>
-            <option value="gemini-2.0-flash">gemini-2.0-flash</option>
-          </select>
-        </div>
-
-        <div class="p-3 rounded-lg bg-slate-50 border border-slate-200 text-[11px] text-slate-600 space-y-1">
-          <p class="font-semibold text-slate-900">Locked Safety &amp; Token Limits:</p>
-          <p>• Max Output: <strong>80 tokens</strong> per response (hard-locked)</p>
-          <p>• Max Input: <strong>140 characters</strong> per prompt</p>
-          <p>• Guardrails: Off-topic, code-generation, and jailbreak prompts are rejected automatically.</p>
-        </div>
-      </div>
-
-      <div class="flex justify-end space-x-2 pt-2 border-t border-slate-200">
-        <button id="save-settings-btn" class="px-4 py-2 rounded-lg bg-blue-700 hover:bg-blue-800 text-white font-semibold text-xs transition-colors">
-          Save Configuration
-        </button>
       </div>
     </div>
   </div>
@@ -993,14 +691,17 @@
 
       const summary = `Contact Form from ${name} (${contact}) - ${subject}: ${msg}`;
       if (window.triggerSmsAlert) {
-        window.triggerSmsAlert(summary, "Contact FormSubmitted", "Contact Form");
+        window.triggerSmsAlert(summary, "Contact Form Submitted", "Contact Form");
       }
 
-      alert(`Thank you, ${name}! Your message has been sent to Suman (bhsuman11@gmail.com / +64 22 051 2513).`);
+      alert(`Thank you, ${name}! Your message has been sent to Suman.`);
       document.getElementById('contact-form').reset();
     }
   </script>
 
+  <!-- 1) Master Content File (Edit portfolio-data.js to update any portfolio content!) -->
+  <script src="portfolio-data.js"></script>
+  <!-- 2) Live Rendering, Whitelisted GitHub Sync & Guardrailed Assistant Engine -->
   <script src="app.js"></script>
 </body>
 </html>

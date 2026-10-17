@@ -25,13 +25,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Prepare Whitelisted Static Build Directory (_site)
+        run: |
+          mkdir -p _site/assets
+          cp index.html styles.css app.js portfolio-data.js _site/
+          cp assets/suman-bhandari.jpg _site/assets/
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: '_site'
 
       - name: Deploy to GitHub Pages
         id: deployment

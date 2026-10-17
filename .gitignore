@@ -1,5 +1,20 @@
+# Python & Runtime Cache
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+
+# Private Logs, Secrets & Environment Variables (NEVER commit to GitHub)
 chat_notifications.json
+*.log
+.env
+.env.*
+*.key
+*.pem
+*secret*
+*credentials*
+
+# Build & OS Artifacts
+_site/
 .DS_Store
+Thumbs.db
 
