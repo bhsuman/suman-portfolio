@@ -267,23 +267,29 @@ function setText(id, value) {
 }
 
 // ============================================================================
-// 2. STRICT WHITELISTED-ONLY GITHUB REPOSITORY SYNC
-// Never queries or exposes unlisted repositories from Suman's GitHub account!
+// 2. AUTHENTIC PUBLIC GITHUB REPOSITORY SYNC
+// - Fetches ONLY live, authentic public repositories from github.com/bhsuman
+// - Never displays private or deleted repositories
+// - Strictly excludes the portfolio website repo itself ("suman-portfolio")
 // ============================================================================
 function getWhitelistedReposList() {
   const data = getData();
   const username = (data.profile && data.profile.githubUsername) || "bhsuman";
   const overrides = data.githubRepoOverrides || {};
-  return Object.entries(overrides).map(([repoName, meta]) => ({
-    name: repoName,
-    displayName: meta.displayName,
-    category: meta.category,
-    description: meta.description,
-    tags: meta.tags || [],
-    html_url: `https://github.com/${encodeURIComponent(username)}/${encodeURIComponent(repoName)}`,
-    pushed_at: null,
-    featured: meta.featured
-  }));
+  const excluded = ((data.excludedRepos) || ["suman-portfolio", "bhsuman"]).map(r => r.toLowerCase());
+
+  return Object.entries(overrides)
+    .filter(([repoName]) => !excluded.includes(repoName.toLowerCase()))
+    .map(([repoName, meta]) => ({
+      name: repoName,
+      displayName: meta.displayName,
+      category: meta.category,
+      description: meta.description,
+      tags: meta.tags || [],
+      html_url: `https://github.com/${encodeURIComponent(username)}/${encodeURIComponent(repoName)}`,
+      pushed_at: null,
+      featured: meta.featured
+    }));
 }
 
 async function syncWhitelistedGitHubRepos() {
@@ -291,41 +297,58 @@ async function syncWhitelistedGitHubRepos() {
   const data = getData();
   const username = (data.profile && data.profile.githubUsername) || "bhsuman";
   const overrides = data.githubRepoOverrides || {};
-  const whitelistedNames = Object.keys(overrides);
-
-  if (whitelistedNames.length === 0) return;
+  const excluded = ((data.excludedRepos) || ["suman-portfolio", "bhsuman"]).map(r => r.toLowerCase());
 
   try {
-    // Strictly fetch ONLY the whitelisted repository endpoints — never list personal/other repos
-    const repoPromises = whitelistedNames.map(repoName =>
-      fetch(`https://api.github.com/repos/${encodeURIComponent(username)}/${encodeURIComponent(repoName)}`, {
-        headers: { "Accept": "application/vnd.github.v3+json" }
-      })
-        .then(r => (r.ok ? r.json() : null))
-        .catch(() => null)
+    // Query GitHub's public repos endpoint — returns ONLY authentic, currently public repositories
+    const res = await fetch(`https://api.github.com/users/${encodeURIComponent(username)}/repos?per_page=100&sort=updated`, {
+      headers: { "Accept": "application/vnd.github.v3+json" }
+    });
+    if (!res.ok) return;
+
+    const allPublicRepos = await res.json();
+    if (!Array.isArray(allPublicRepos)) return;
+
+    // Filter to authentic public project repos ONLY (no private repos, no forks, and never "suman-portfolio")
+    const authenticPublicRepos = allPublicRepos.filter(repo =>
+      repo &&
+      repo.name &&
+      !repo.private &&
+      !repo.fork &&
+      !excluded.includes(repo.name.toLowerCase())
     );
 
-    const results = await Promise.all(repoPromises);
-
-    const updatedList = whitelistedNames.map((repoName, idx) => {
-      const curated = overrides[repoName];
-      const liveRepo = results[idx];
+    const updatedList = authenticPublicRepos.map(liveRepo => {
+      const curated = overrides[liveRepo.name] || {};
       const tags = [...(curated.tags || [])];
 
-      if (liveRepo && liveRepo.language && !tags.some(t => t.toLowerCase() === liveRepo.language.toLowerCase())) {
+      if (liveRepo.language && !tags.some(t => t.toLowerCase() === liveRepo.language.toLowerCase())) {
         tags.unshift(liveRepo.language);
       }
+      if (tags.length === 0) {
+        tags.push("Python", "Data Analytics");
+      }
+
+      const readableName = curated.displayName || liveRepo.name.replace(/[-_]+/g, " ");
 
       return {
-        name: repoName,
-        displayName: curated.displayName,
-        category: curated.category,
-        description: (liveRepo && liveRepo.description && liveRepo.description.trim()) || curated.description,
+        name: liveRepo.name,
+        displayName: readableName,
+        category: curated.category || (liveRepo.language || "Data & Analytics"),
+        description: (liveRepo.description && liveRepo.description.trim()) || curated.description || `Public GitHub repository (${liveRepo.name}) by Suman Bhandari.`,
         tags: tags.slice(0, 5),
-        html_url: `https://github.com/${encodeURIComponent(username)}/${encodeURIComponent(repoName)}`,
-        pushed_at: liveRepo ? (liveRepo.pushed_at || liveRepo.updated_at) : null,
-        featured: curated.featured
+        html_url: liveRepo.html_url || `https://github.com/${encodeURIComponent(username)}/${encodeURIComponent(liveRepo.name)}`,
+        pushed_at: liveRepo.pushed_at || liveRepo.updated_at || null,
+        featured: curated.featured !== undefined ? curated.featured : true
       };
+    });
+
+    // Sort featured curated projects first, then by most recently updated
+    updatedList.sort((a, b) => {
+      const aHasOverride = Boolean(overrides[a.name]);
+      const bHasOverride = Boolean(overrides[b.name]);
+      if (aHasOverride !== bHasOverride) return aHasOverride ? -1 : 1;
+      return new Date(b.pushed_at || 0) - new Date(a.pushed_at || 0);
     });
 
     liveProjectsList = updatedList;
@@ -333,9 +356,9 @@ async function syncWhitelistedGitHubRepos() {
 
     const countEl = document.getElementById("github-repo-count");
     if (countEl) countEl.textContent = `${updatedList.length} Projects`;
-    if (pill) pill.textContent = `${updatedList.length} Verified Repositories`;
+    if (pill) pill.textContent = `${updatedList.length} Verified Public Repositories`;
   } catch (e) {
-    // Fallback cleanly to curated list
+    // Fallback cleanly to getWhitelistedReposList()
   }
 }
 
@@ -495,7 +518,7 @@ function validatePortfolioQuery(rawQuery) {
     "machine learning", "ml", "data science", "scientist", "scikit", "xgboost", "regression", "classification", "clustering",
     "r ", "tidyverse", "ggplot", "statistics", "statistical", "forecasting", "time-series", "time series", "pandas", "numpy",
     "git", "github", "docker", "ci/cd", "agile", "scrum", "jira", "clickup", "confluence",
-    "project", "repo", "repository", "pipeline", "music", "diwali", "dewali", "weather", "quiz", "featured",
+    "project", "repo", "repository", "pipeline", "music", "diwali", "dewali", "featured",
     "work", "experience", "career", "job", "role", "intern", "internship", "student", "study", "studying", "available", "availability", "open", "status", "hire", "hiring", "part-time", "part time", "graduate",
     "education", "degree", "master", "bachelor", "unitec", "college", "samriddhi", "siddhartha", "qualification", "university",
     "bank", "laxmi", "sunrise", "catalyst", "consultancy", "lis", "nepal", "auckland", "henderson", "new zealand", "nz", "australia",
@@ -519,7 +542,7 @@ function validatePortfolioQuery(rawQuery) {
 function getVisitorQuota() {
   const now = Date.now();
   try {
-    const raw = localStorage.getItem("suman_hourly_token_quota_v3");
+    const raw = localStorage.getItem("suman_hourly_token_quota_v4");
     if (raw) {
       const parsed = JSON.parse(raw);
       if (parsed && parsed.expiresAt && now < parsed.expiresAt) {
@@ -539,7 +562,7 @@ function getVisitorQuota() {
 
 function saveVisitorQuota(quota) {
   try {
-    localStorage.setItem("suman_hourly_token_quota_v3", JSON.stringify(quota));
+    localStorage.setItem("suman_hourly_token_quota_v4", JSON.stringify(quota));
   } catch (e) {}
 }
 
@@ -780,7 +803,7 @@ function generateLocalResponse(query, inputTokens) {
     responseText = (data.assistant && data.assistant.extraNotesForAI) || `Current status: **${p.statusBadge}** — ${data.about?.calloutText || ""}`;
   } else if (q.includes("skill") || q.includes("python") || q.includes("sql") || q.includes("power bi") || q.includes("tableau") || q.includes("snowflake") || q.includes("dbt") || q.includes("airflow") || q.includes("fabric") || q.includes("azure") || q.includes("machine learning") || q.includes("scientist") || q.includes("tech") || q.includes("stack") || q.includes("tool")) {
     responseText = `Suman's technical stack across key roles:\n• **Data Engineering**: Snowflake, Databricks, PySpark, Delta Lake, dbt, Airflow, Azure Data Factory, MS Fabric, SQL Server, PostgreSQL\n• **Data Analytics & BI**: Advanced SQL, Power BI (DAX, Power Query), Tableau, Looker Studio, Excel\n• **Data Science & ML**: Python (Pandas, Scikit-Learn, XGBoost), R (tidyverse), Statistical Modeling, AWS & BigQuery`;
-  } else if (q.includes("project") || q.includes("github") || q.includes("repo") || q.includes("dewali") || q.includes("diwali") || q.includes("music") || q.includes("weather") || q.includes("featured") || q.includes("pipeline")) {
+  } else if (q.includes("project") || q.includes("github") || q.includes("repo") || q.includes("dewali") || q.includes("diwali") || q.includes("music") || q.includes("featured") || q.includes("pipeline")) {
     const topList = liveProjectsList.map(pr => `• **${pr.displayName}** (${(pr.tags || []).join(", ")})`).join("\n");
     responseText = `Suman's featured portfolio projects include:\n${topList}`;
   } else if (q.includes("experience") || q.includes("bank") || q.includes("laxmi") || q.includes("history") || q.includes("catalyst") || q.includes("lis") || (q.includes("work") && q.includes("unitec"))) {

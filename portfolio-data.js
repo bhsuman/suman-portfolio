@@ -274,10 +274,12 @@ window.PORTFOLIO_DATA = {
   ],
 
   // --------------------------------------------------------------------------
-  // 7. WHITELISTED GITHUB PROJECTS
-  // Only the repositories listed below are shown on your portfolio.
+  // 7. AUTHENTIC PUBLIC GITHUB PROJECTS (LIVE SYNCED FROM GITHUB)
+  // - Automatically fetches ONLY public repositories from github.com/bhsuman
+  // - Never shows private or deleted repositories
+  // - Excludes the portfolio website repository itself ("suman-portfolio")
   // --------------------------------------------------------------------------
-  onlyShowWhitelistedRepos: true,
+  excludedRepos: ["suman-portfolio", "bhsuman"],
 
   githubRepoOverrides: {
     "big-data-warehousing-pipeline": {
@@ -303,22 +305,6 @@ window.PORTFOLIO_DATA = {
         "In-depth exploratory data analysis inspecting customer demographics, regional segments, product categories, and order values to identify high-revenue retail purchasing patterns.",
       tags: ["Python", "Pandas", "Seaborn", "EDA", "Jupyter"],
       featured: true
-    },
-    "Data-Analysis-Weather": {
-      displayName: "Time-Series Atmospheric Weather Analytics",
-      category: "Statistical Data Analysis",
-      description:
-        "Cleaned and analyzed multi-variable meteorological time-series readings using Python (Pandas, Matplotlib) to evaluate humidity shifts, precipitation spikes, and temperature anomalies.",
-      tags: ["Python", "Pandas", "Matplotlib", "Time-Series", "Jupyter"],
-      featured: true
-    },
-    "QuizGame": {
-      displayName: "Modular Python Assessment Engine",
-      category: "Python Engineering",
-      description:
-        "Object-oriented Python application implementing modular data structures, automated scoring logic, state management, and input validation workflows.",
-      tags: ["Python 3", "OOP", "Data Structures"],
-      featured: false
     }
   },
 
