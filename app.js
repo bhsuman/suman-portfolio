@@ -1,118 +1,148 @@
 /**
- * Suman Bhandari - Personal Portfolio & AI Agent
- * Henderson, Auckland, New Zealand
- * Phone / SMS: +64 22 051 2513
+ * Suman Bhandari - Portfolio, Live GitHub Sync, Guardrailed AI Assistant & Notification Hub
+ * Location: Henderson, Auckland, New Zealand
+ * Status: Master's Student • Open to Work
  */
 
-// Configuration Constants
+const GITHUB_USERNAME = "bhsuman";
+
+// Curated metadata fallback / enrichment for known repositories
+const CURATED_REPO_DETAILS = {
+  "big-data-warehousing-pipeline": {
+    displayName: "Big Data Warehousing & BI Pipeline",
+    category: "Data Engineering",
+    description: "Cloud data warehousing and BI pipeline implementing Medallion Architecture (Bronze/Silver/Gold) and dimensional star-schema modeling using Databricks, PySpark, Delta Lake, and Power BI.",
+    tags: ["Databricks", "PySpark", "Delta Lake", "Power BI", "SQL"],
+    featured: true
+  },
+  "Music": {
+    displayName: "Music Genre Classification Portal",
+    category: "Machine Learning",
+    description: "Web portal that extracts acoustic features and classifies audio files into genres using Python, Django, and Matplotlib on the GTZAN dataset.",
+    tags: ["Python", "Django", "Matplotlib", "GTZAN"],
+    featured: true
+  },
+  "Data-Analysis-Dewali": {
+    displayName: "Diwali Festive Sales Analysis",
+    category: "Data Analysis",
+    description: "Exploratory data analysis inspecting consumer demographics, product categories, and purchasing patterns to identify high-revenue retail segments.",
+    tags: ["Python", "Pandas", "Seaborn", "Jupyter"],
+    featured: true
+  },
+  "Data-Analysis-Weather": {
+    displayName: "Atmospheric Weather Trends Analysis",
+    category: "Data Analysis",
+    description: "Cleaned and evaluated multi-variable meteorological readings to analyze humidity shifts, precipitation, and temperature trends.",
+    tags: ["Python", "Pandas", "Matplotlib", "Jupyter"],
+    featured: true
+  },
+  "QuizGame": {
+    displayName: "Interactive Quiz Game Engine",
+    category: "Python Programming",
+    description: "Modular Python application implementing custom scoring rules, control flow, and category-based question workflows.",
+    tags: ["Python", "OOP", "Logic Design"],
+    featured: false
+  },
+  "suman-portfolio": {
+    displayName: "Personal Portfolio & Live GitHub Hub",
+    category: "Web & AI",
+    description: "Personal data analytics portfolio featuring live GitHub repository synchronization, strict token-bounded Q&A assistant, and real-time visitor notifications.",
+    tags: ["JavaScript", "HTML5", "Tailwind CSS", "Python"],
+    featured: false
+  }
+};
+
 const SUMAN_INFO = {
   name: "Suman Bhandari",
-  title: "Aspiring Data Analyst & Associate Data Engineer",
-  location: "Henderson, Auckland, New Zealand",
+  title: "Data Analytics Student & Associate Data Engineer",
+  status: "Master's Student • Open to Work (Student / Internship / Part-Time / Graduate Roles)",
+  location: "Henderson, Auckland",
   phone: "+64 22 051 2513",
   phoneLocal: "022 051 2513",
-  phoneRaw: "220512513",
   email: "bhsuman11@gmail.com",
   linkedin: "https://www.linkedin.com/in/suman-bhandari-ab4394279/",
   github: "https://github.com/bhsuman",
-  educationCurrent: "Master of Applied Technologies (Computing – Data Analytics), Unitec Institute of Technology, Auckland (July 2026 - Present)",
-  bachelor: "Bachelor of Science in Computer Science and Information Technology, Samriddhi College, Nepal (Oct 2018 – Dec 2023)",
-  highSchool: "Siddhartha College, Banepa, Nepal (Jun 2016 – Jul 2018)",
-  roles: [
-    {
-      title: "Trainee Assistant - ICT",
-      company: "Laxmi Sunrise Bank Limited",
-      location: "Kathmandu, Nepal",
-      period: "Feb 2026 – Jun 2026",
-      points: [
-        "Supported daily IT operations and technical activities for seamless banking.",
-        "Supported users with technical queries and core banking applications.",
-        "Gained deep exposure to data security, enterprise systems, and operational efficiency."
-      ]
-    },
-    {
-      title: "Associate Data Engineer",
-      company: "DEVELOPMENT CATALYST CONSULTANCY PVT. LTD",
-      location: "Kathmandu, Nepal",
-      period: "Jan 2024 – Jan 2026",
-      points: [
-        "Analyzed and processed datasets using Python and SQL for key business requirements.",
-        "Performed data cleaning, transformation, and validation pipelines for high data quality.",
-        "Developed optimized SQL queries to extract, manipulate, and analyze relational data.",
-        "Built reporting datasets and structured analytical outputs for stakeholders."
-      ]
-    },
-    {
-      title: "Data Engineer Trainee",
-      company: "LIS NEPAL PVT. LTD",
-      location: "Lalitpur, Nepal",
-      period: "July 2023 – Oct 2023",
-      points: [
-        "In-depth exploration of SQL, Snowflake, and enterprise Data Warehousing concepts.",
-        "Implemented ETL workflows in Snowflake and automated CSV-to-Python data extraction scripts.",
-        "Collaborated with senior engineers on code refactoring and data pipeline performance."
-      ]
-    }
-  ],
-  skills: {
-    languages: ["Python", "SQL", "R"],
-    analytics: ["Power BI", "Data Visualization", "Jupyter Notebook", "DAX", "Business Intelligence", "Data Modelling"],
-    databases: ["Snowflake", "Microsoft SQL Server", "MySQL", "Databricks Delta Lake"],
-    engineering: ["ETL Pipelines", "Medallion Architecture", "Data Cleaning", "Data Integration", "Data Quality"],
-    tools: ["AWS Cloud Computing (Basic)", "Git", "GitHub", "Bitbucket", "Jira", "ClickUp", "Agile"]
-  },
-  projects: [
-    {
-      name: "Big Data Warehousing & BI Pipeline",
-      repo: "big-data-warehousing-pipeline",
-      tech: "Databricks, PySpark, Delta Lake, Power BI, Python, SQL",
-      description: "Cloud Data Warehousing and BI pipeline implementing Medallion Architecture (Bronze/Silver/Gold) and dimensional star-schema modeling."
-    },
-    {
-      name: "Music Genre Classification",
-      repo: "Music",
-      tech: "Python, Django, Matplotlib, GTZAN",
-      description: "Automated audio analysis web portal that classifies music tracks into genres using Python machine learning and spectrogram features."
-    },
-    {
-      name: "Diwali Festive Sales Analysis",
-      repo: "Data-Analysis-Dewali",
-      tech: "Python, Pandas, Seaborn, Jupyter",
-      description: "Exploratory data analysis identifying high-value customer demographics, seasonal purchasing behavior, and revenue drivers."
-    },
-    {
-      name: "Atmospheric Weather Analysis",
-      repo: "Data-Analysis-Weather",
-      tech: "Python, Pandas, Matplotlib",
-      description: "Analyzed weather metrics across meteorological datasets to model temperature patterns and cyclical trends."
-    },
-    {
-      name: "Interactive Quiz Game",
-      repo: "QuizGame",
-      tech: "Python",
-      description: "Interactive Python application with modular scoring rules, time trials, and category filtering."
-    }
-  ]
+  educationCurrent: "Master of Applied Technologies (Computing – Data Analytics), Unitec Institute of Technology, Auckland (Jul 2026 – Present)",
+  bachelor: "B.Sc. in Computer Science and Information Technology (CSIT), Samriddhi College, Nepal (Oct 2018 – Dec 2023)",
+  projects: Object.keys(CURATED_REPO_DETAILS).map(repoKey => ({
+    name: CURATED_REPO_DETAILS[repoKey].displayName,
+    repo: repoKey,
+    tech: CURATED_REPO_DETAILS[repoKey].tags.join(", "),
+    description: CURATED_REPO_DETAILS[repoKey].description,
+    url: `https://github.com/${GITHUB_USERNAME}/${repoKey}`
+  }))
 };
 
-// State Variables
-let sessionTokensRemaining = 2000;
-const SESSION_MAX_TOKENS = 2000;
-let configuredMaxOutputTokens = 180; // Limited token threshold
+// Hard-Locked Safety & Token Constants (Visitors CANNOT override these)
+const DAILY_MAX_TOKENS = 400;
+const DAILY_MAX_QUESTIONS = 6;
+const HARD_MAX_OUTPUT_TOKENS = 80;
+const HARD_MAX_INPUT_CHARS = 140;
+const COOLDOWN_MS = 5000;
+
+let lastQuestionTimestamp = 0;
 let geminiApiKey = localStorage.getItem("suman_gemini_api_key") || "";
-let selectedModel = localStorage.getItem("suman_gemini_model") || "gemini-3.8-flash";
-let notificationHistory = [];
+let selectedModel = localStorage.getItem("suman_gemini_model") || "gemini-2.5-flash";
+let customWebhookUrl = localStorage.getItem("suman_custom_webhook") || "";
+
+// Load or Initialize Persistent Daily Visitor Quota
+function getVisitorQuota() {
+  const today = new Date().toISOString().slice(0, 10);
+  try {
+    const raw = localStorage.getItem("suman_daily_token_quota_v2");
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (parsed.date === today) {
+        return parsed;
+      }
+    }
+  } catch (e) {}
+  const fresh = { date: today, tokensRemaining: DAILY_MAX_TOKENS, questionsAsked: 0 };
+  saveVisitorQuota(fresh);
+  return fresh;
+}
+
+function saveVisitorQuota(quota) {
+  try {
+    localStorage.setItem("suman_daily_token_quota_v2", JSON.stringify(quota));
+  } catch (e) {}
+}
+
+// Load or Save Notification History
+function getStoredNotifications() {
+  try {
+    const raw = localStorage.getItem("suman_visitor_notifications_v2");
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveStoredNotification(item) {
+  const list = getStoredNotifications();
+  list.unshift(item);
+  if (list.length > 30) list.pop();
+  try {
+    localStorage.setItem("suman_visitor_notifications_v2", JSON.stringify(list));
+  } catch (e) {}
+  updateAlertBadgeAndList();
+}
 
 // Initialize on DOM Ready
 document.addEventListener("DOMContentLoaded", () => {
   initAucklandClock();
   initSkillsFilter();
+  renderProjectsGrid(getInitialFallbackRepos());
+  syncGitHubData(false);
+  // Auto-refresh GitHub data every 5 minutes
+  setInterval(() => syncGitHubData(false), 5 * 60 * 1000);
   initAgentUI();
   initKeySettings();
-  renderNotificationBadge();
+  initAlertsModal();
+  updateAlertBadgeAndList();
 });
 
-// 1. Auckland / New Zealand Real-Time Clock
+// 1. Auckland Real-Time Clock
 function initAucklandClock() {
   const clockElement = document.getElementById("auckland-clock");
   if (!clockElement) return;
@@ -120,28 +150,23 @@ function initAucklandClock() {
   function updateClock() {
     try {
       const now = new Date();
-      // Format in Auckland / Pacific Time
-      const options = {
+      const formatter = new Intl.DateTimeFormat("en-NZ", {
         timeZone: "Pacific/Auckland",
         hour: "2-digit",
         minute: "2-digit",
-        second: "2-digit",
         hour12: true,
         weekday: "short"
-      };
-      const formatter = new Intl.DateTimeFormat("en-NZ", options);
-      const timeParts = formatter.format(now);
-      clockElement.innerHTML = `<span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-ping mr-1.5"></span> Henderson, Auckland: <strong class="text-white ml-1">${timeParts} (NZT)</strong>`;
+      });
+      clockElement.textContent = `Henderson, Auckland • ${formatter.format(now)} NZT`;
     } catch (e) {
-      clockElement.textContent = "Henderson, Auckland, NZ (UTC+13)";
+      clockElement.textContent = "Henderson, Auckland";
     }
   }
-
   updateClock();
-  setInterval(updateClock, 1000);
+  setInterval(updateClock, 15000);
 }
 
-// 2. Skills Category Filter
+// 2. Skills Filter
 function initSkillsFilter() {
   const filterBtns = document.querySelectorAll(".skill-filter-btn");
   const skillCards = document.querySelectorAll(".skill-card");
@@ -149,14 +174,13 @@ function initSkillsFilter() {
   filterBtns.forEach(btn => {
     btn.addEventListener("click", () => {
       filterBtns.forEach(b => {
-        b.classList.remove("bg-sky-500", "text-white", "border-sky-400");
-        b.classList.add("bg-slate-800/60", "text-slate-300", "border-slate-700");
+        b.classList.remove("bg-blue-700", "text-white", "border-blue-700");
+        b.classList.add("bg-white", "text-slate-700", "border-slate-300");
       });
-      btn.classList.add("bg-sky-500", "text-white", "border-sky-400");
-      btn.classList.remove("bg-slate-800/60", "text-slate-300", "border-slate-700");
+      btn.classList.add("bg-blue-700", "text-white", "border-blue-700");
+      btn.classList.remove("bg-white", "text-slate-700", "border-slate-300");
 
       const category = btn.getAttribute("data-category");
-
       skillCards.forEach(card => {
         if (category === "all" || card.getAttribute("data-category") === category) {
           card.classList.remove("hidden");
@@ -170,46 +194,305 @@ function initSkillsFilter() {
   });
 }
 
-// 3. AI Agent System & Limited Token Engine
+// 3. LIVE GITHUB SYNCHRONIZATION
+function getInitialFallbackRepos() {
+  return Object.entries(CURATED_REPO_DETAILS).map(([repoName, meta]) => ({
+    name: repoName,
+    displayName: meta.displayName,
+    category: meta.category,
+    description: meta.description,
+    tags: meta.tags,
+    html_url: `https://github.com/${GITHUB_USERNAME}/${repoName}`,
+    pushed_at: null,
+    stargazers_count: 0,
+    language: meta.tags[0] || "Python",
+    featured: meta.featured
+  }));
+}
+
+async function syncGitHubData(manualTrigger = false) {
+  const pill = document.getElementById("github-live-pill");
+  const countEl = document.getElementById("github-repo-count");
+  const subtextEl = document.getElementById("github-sync-subtext");
+  const refreshIcon = document.getElementById("github-refresh-icon");
+
+  if (pill) pill.textContent = "Syncing with GitHub...";
+  if (refreshIcon && manualTrigger) refreshIcon.classList.add("animate-spin");
+
+  try {
+    // Also trigger local server git pull if running via server.py
+    if (manualTrigger && window.location.protocol.startsWith("http")) {
+      fetch("/api/github-pull").catch(() => {});
+    }
+
+    const [userRes, reposRes] = await Promise.all([
+      fetch(`https://api.github.com/users/${GITHUB_USERNAME}`, {
+        headers: { "Accept": "application/vnd.github.v3+json" }
+      }),
+      fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=50`, {
+        headers: { "Accept": "application/vnd.github.v3+json" }
+      })
+    ]);
+
+    if (!reposRes.ok) throw new Error(`GitHub API HTTP ${reposRes.status}`);
+
+    const userData = userRes.ok ? await userRes.json() : null;
+    const reposData = await reposRes.json();
+
+    if (Array.isArray(reposData) && reposData.length > 0) {
+      // Map live GitHub repositories and merge with curated descriptions where helpful
+      const processedRepos = reposData
+        .filter(r => !r.fork && r.name.toLowerCase() !== GITHUB_USERNAME.toLowerCase())
+        .map(repo => {
+          const curated = CURATED_REPO_DETAILS[repo.name];
+          const liveDesc = repo.description ? repo.description.trim() : "";
+          const tags = [];
+          if (repo.language) tags.push(repo.language);
+          if (Array.isArray(repo.topics) && repo.topics.length > 0) {
+            repo.topics.slice(0, 4).forEach(t => {
+              if (!tags.includes(t)) tags.push(t);
+            });
+          }
+          if (curated && curated.tags) {
+            curated.tags.forEach(t => {
+              if (!tags.some(existing => existing.toLowerCase() === t.toLowerCase())) {
+                tags.push(t);
+              }
+            });
+          }
+
+          return {
+            name: repo.name,
+            displayName: curated ? curated.displayName : formatRepoTitle(repo.name),
+            category: curated ? curated.category : (repo.language || "Repository"),
+            description: liveDesc || (curated ? curated.description : `Public ${repo.language || "software"} repository maintained by Suman Bhandari on GitHub.`),
+            tags: tags.slice(0, 5),
+            html_url: repo.html_url,
+            pushed_at: repo.pushed_at || repo.updated_at,
+            stargazers_count: repo.stargazers_count || 0,
+            language: repo.language || (curated ? curated.tags[0] : "Code"),
+            featured: curated ? curated.featured : true
+          };
+        });
+
+      // Sort: featured & most recently pushed first
+      processedRepos.sort((a, b) => {
+        const dateA = a.pushed_at ? new Date(a.pushed_at).getTime() : 0;
+        const dateB = b.pushed_at ? new Date(b.pushed_at).getTime() : 0;
+        return dateB - dateA;
+      });
+
+      renderProjectsGrid(processedRepos);
+
+      // Update AI Assistant's live project knowledge
+      SUMAN_INFO.projects = processedRepos.map(p => ({
+        name: p.displayName,
+        repo: p.name,
+        tech: p.tags.join(", "),
+        description: p.description,
+        updated: formatRelativeTime(p.pushed_at),
+        url: p.html_url
+      }));
+
+      const totalCount = (userData && typeof userData.public_repos === "number")
+        ? userData.public_repos
+        : processedRepos.length;
+
+      if (countEl) countEl.textContent = `${totalCount} Repos`;
+      const syncTime = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+      if (subtextEl) subtextEl.textContent = `Live from GitHub (${syncTime})`;
+      if (pill) pill.textContent = `Live • ${totalCount} public repos`;
+
+      if (manualTrigger) {
+        showToastNotification(`Synced ${processedRepos.length} repositories live from github.com/${GITHUB_USERNAME}`);
+      }
+    }
+  } catch (err) {
+    if (pill) pill.textContent = "GitHub Synced";
+    if (countEl && countEl.textContent === "Live Sync") countEl.textContent = `${SUMAN_INFO.projects.length}+ Repos`;
+  } finally {
+    if (refreshIcon) refreshIcon.classList.remove("animate-spin");
+  }
+}
+window.syncGitHubData = syncGitHubData;
+
+function formatRepoTitle(rawName) {
+  return rawName
+    .replace(/[-_]+/g, " ")
+    .replace(/\b\w/g, char => char.toUpperCase());
+}
+
+function formatRelativeTime(isoDate) {
+  if (!isoDate) return "Active";
+  const date = new Date(isoDate);
+  if (isNaN(date.getTime())) return "Active";
+  const diffDays = Math.floor((Date.now() - date.getTime()) / (1000 * 60 * 60 * 24));
+  if (diffDays <= 0) return "Updated today";
+  if (diffDays === 1) return "Updated yesterday";
+  if (diffDays < 30) return `Updated ${diffDays}d ago`;
+  return `Updated ${date.toLocaleDateString("en-NZ", { month: "short", year: "numeric" })}`;
+}
+
+function renderProjectsGrid(repos) {
+  const grid = document.getElementById("github-projects-grid");
+  if (!grid) return;
+
+  grid.innerHTML = repos.map(repo => {
+    const updatedLabel = formatRelativeTime(repo.pushed_at);
+    const tagsHtml = (repo.tags || []).map(tag =>
+      `<span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">${escapeHtml(tag)}</span>`
+    ).join("");
+
+    return `
+      <article class="rounded-xl card-clean p-6 flex flex-col justify-between">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between gap-2">
+            <span class="px-2.5 py-0.5 rounded-md bg-blue-50 border border-blue-200 text-blue-700 text-xs font-mono font-medium">
+              ${escapeHtml(repo.category)}
+            </span>
+            <span class="text-[11px] font-mono text-slate-500">
+              ${escapeHtml(updatedLabel)}
+            </span>
+          </div>
+
+          <h3 class="text-lg font-bold text-slate-900">
+            <a href="${escapeHtml(repo.html_url)}" target="_blank" rel="noopener noreferrer" class="hover:text-blue-700 transition-colors">
+              ${escapeHtml(repo.displayName)}
+            </a>
+          </h3>
+
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            ${escapeHtml(repo.description)}
+          </p>
+
+          <div class="flex flex-wrap gap-1.5 pt-1">
+            ${tagsHtml}
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 mt-5 flex items-center justify-between">
+          <a href="${escapeHtml(repo.html_url)}" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-700 hover:text-blue-900 flex items-center">
+            View on GitHub →
+          </a>
+          <span class="text-[11px] font-mono text-slate-500">${escapeHtml(repo.name)}</span>
+        </div>
+      </article>
+    `;
+  }).join("");
+}
+
+// 4. STRICT CONTENT & OFF-TOPIC GUARDRAILS ("Don't generate anything stupid")
+function validatePortfolioQuery(rawQuery) {
+  const q = rawQuery.toLowerCase().trim();
+
+  if (q.length < 2) {
+    return { allowed: false, reason: "Please enter a clear question about Suman's background or projects." };
+  }
+
+  // Block prompt injection, jailbreaks, or off-topic generation tasks
+  const blockedPatterns = [
+    /ignore\s+(all|previous|above|prior)/i,
+    /system\s*prompt/i,
+    /act\s+as|pretend\s+to\s+be|roleplay/i,
+    /write\s+(a|an|me)\s+(poem|essay|story|song|joke|script|blog|recipe|email|letter|code|program)/i,
+    /generate\s+(code|image|story|poem|joke|essay|malware|virus)/i,
+    /solve\s+this|calculate|math|homework|leetcode|hackerrank/i,
+    /bypass|jailbreak|dan\s+mode|developer\s+mode/i,
+    /tell\s+me\s+a\s+joke|funny|riddle/i,
+    /who\s+is\s+(the\s+president|prime\s+minister|elon|trump|biden)/i,
+    /\b(wtf|fuck|shit|bitch|asshole|dick|porn|nsfw|sex|idiot|stupid)\b/i
+  ];
+
+  for (const pattern of blockedPatterns) {
+    if (pattern.test(q)) {
+      return {
+        allowed: false,
+        reason: "This assistant is strictly restricted to answering professional questions about Suman Bhandari's resume, education, skills, and GitHub projects."
+      };
+    }
+  }
+
+  // Require at least one portfolio/greeting keyword so random unrelated prompts are blocked
+  const allowedKeywords = [
+    "suman", "bhandari", "hi", "hello", "hey", "kia ora", "who", "about", "background", "summary", "profile",
+    "skill", "tech", "stack", "tool", "python", "sql", "power bi", "powerbi", "dax", "snowflake", "databricks",
+    "spark", "pyspark", "delta", "medallion", "etl", "warehouse", "warehousing", "database", "mysql", "r ", "aws", "git", "jira",
+    "project", "github", "repo", "repository", "pipeline", "music", "diwali", "dewali", "weather", "quiz", "ecommerce",
+    "work", "experience", "career", "job", "role", "intern", "internship", "student", "study", "studying", "available", "availability", "open", "status", "hire", "part-time", "part time",
+    "education", "degree", "master", "bachelor", "unitec", "college", "samriddhi", "siddhartha", "qualification", "university",
+    "bank", "laxmi", "sunrise", "catalyst", "consultancy", "lis", "nepal", "auckland", "henderson",
+    "contact", "phone", "number", "mobile", "sms", "text", "call", "email", "gmail", "linkedin", "reach", "connect", "cv", "resume", "data", "analyst", "engineer", "analytics"
+  ];
+
+  const isRelevant = allowedKeywords.some(kw => q.includes(kw));
+  if (!isRelevant) {
+    return {
+      allowed: false,
+      reason: "I can only answer questions related to Suman Bhandari's skills, Unitec Master's study, work experience, GitHub projects, or contact details."
+    };
+  }
+
+  return { allowed: true };
+}
+
+// 5. AI ASSISTANT UI & STRICT TOKEN ENGINE
 function initAgentUI() {
   const chatForm = document.getElementById("agent-chat-form");
   const chatInput = document.getElementById("agent-chat-input");
-  const messagesContainer = document.getElementById("agent-messages");
-  const tokenMeter = document.getElementById("agent-token-meter");
-  const tokenBar = document.getElementById("agent-token-bar");
 
   updateTokenDisplay();
 
   if (chatForm && chatInput) {
     chatForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const message = chatInput.value.trim();
-      if (!message) return;
+      const rawMessage = chatInput.value.trim().slice(0, HARD_MAX_INPUT_CHARS);
+      if (!rawMessage) return;
 
-      // Token budget check
-      if (sessionTokensRemaining <= 20) {
-        appendMessage("agent", "⚠️ Token limit reached for this session. To prevent runaway costs, tokens are capped. Please message Suman directly at **+64 22 051 2513** or email **bhsuman11@gmail.com**.");
+      // Cooldown check
+      const now = Date.now();
+      if (now - lastQuestionTimestamp < COOLDOWN_MS) {
+        const waitSec = Math.ceil((COOLDOWN_MS - (now - lastQuestionTimestamp)) / 1000);
+        showToastNotification(`Please wait ${waitSec}s before sending another question.`);
         return;
       }
 
-      // Append user message
-      appendMessage("user", message);
+      // Daily visitor quota check
+      const quota = getVisitorQuota();
+      if (quota.tokensRemaining <= 15 || quota.questionsAsked >= DAILY_MAX_QUESTIONS) {
+        appendMessage(
+          "agent",
+          "Daily token limit reached (capped at 400 tokens / 6 questions per visitor to prevent abuse). Please contact Suman directly at **bhsuman11@gmail.com** or **+64 22 051 2513**."
+        );
+        return;
+      }
+
+      lastQuestionTimestamp = now;
+      appendMessage("user", rawMessage);
       chatInput.value = "";
+
+      // Validate query against off-topic / stupid generation filter BEFORE using tokens
+      const validation = validatePortfolioQuery(rawMessage);
+      if (!validation.allowed) {
+        appendMessage("agent", validation.reason, 0, rawMessage);
+        triggerSmsAlert(`[Filtered Off-Topic Prompt]: ${rawMessage}`, validation.reason, "AI Assistant (Filtered)");
+        return;
+      }
+
       chatInput.disabled = true;
-
-      // Trigger automatic SMS alert dispatch to Suman's mobile (+64 22 051 2513)
-      triggerSmsAlert(message);
-
-      // Show typing indicator
       const typingId = showTypingIndicator();
 
       try {
-        const response = await generateAgentResponse(message);
+        const response = await generateAgentResponse(rawMessage);
         removeTypingIndicator(typingId);
-        appendMessage("agent", response.text, response.tokenCost, message);
+        appendMessage("agent", response.text, response.tokenCost, rawMessage);
+
+        // Notify Suman with both the visitor's question and the AI's reply
+        triggerSmsAlert(rawMessage, response.text, "AI Chat Assistant");
       } catch (err) {
         removeTypingIndicator(typingId);
-        appendMessage("agent", "I ran into a temporary connection issue. Please feel free to text Suman directly at **+64 22 051 2513**!");
+        const fallback = generateLocalResponse(rawMessage, Math.ceil(rawMessage.length / 4));
+        appendMessage("agent", fallback.text, fallback.tokenCost, rawMessage);
+        triggerSmsAlert(rawMessage, fallback.text, "AI Chat Assistant");
       } finally {
         chatInput.disabled = false;
         chatInput.focus();
@@ -218,96 +501,75 @@ function initAgentUI() {
   }
 }
 
-// Update Token Meter Display
 function updateTokenDisplay() {
+  const quota = getVisitorQuota();
   const tokenMeter = document.getElementById("agent-token-meter");
   const tokenBar = document.getElementById("agent-token-bar");
   if (tokenMeter) {
-    tokenMeter.textContent = `${sessionTokensRemaining} / ${SESSION_MAX_TOKENS} tokens remaining`;
+    tokenMeter.textContent = `${quota.tokensRemaining} / ${DAILY_MAX_TOKENS} tokens`;
   }
   if (tokenBar) {
-    const percentage = Math.max(0, Math.min(100, (sessionTokensRemaining / SESSION_MAX_TOKENS) * 100));
-    tokenBar.style.width = `${percentage}%`;
-    if (percentage < 25) {
-      tokenBar.className = "token-bar-fill h-full bg-rose-500 rounded-full";
-    } else if (percentage < 50) {
-      tokenBar.className = "token-bar-fill h-full bg-amber-400 rounded-full";
-    } else {
-      tokenBar.className = "token-bar-fill h-full bg-emerald-400 rounded-full";
-    }
+    const pct = Math.max(0, Math.min(100, (quota.tokensRemaining / DAILY_MAX_TOKENS) * 100));
+    tokenBar.style.width = `${pct}%`;
+    tokenBar.className = pct < 25
+      ? "token-bar-fill h-full bg-red-600 rounded-full"
+      : "token-bar-fill h-full bg-blue-600 rounded-full";
   }
 }
 
-// Append Message to Agent UI
+function consumeVisitorTokens(amount) {
+  const quota = getVisitorQuota();
+  quota.tokensRemaining = Math.max(0, quota.tokensRemaining - amount);
+  quota.questionsAsked = (quota.questionsAsked || 0) + 1;
+  saveVisitorQuota(quota);
+  updateTokenDisplay();
+}
+
 function appendMessage(sender, text, tokenCost = null, originalQuestion = "") {
   const container = document.getElementById("agent-messages");
   if (!container) return;
 
   const msgDiv = document.createElement("div");
-  msgDiv.className = `flex ${sender === "user" ? "justify-end" : "justify-start"} mb-4`;
+  msgDiv.className = `flex ${sender === "user" ? "justify-end" : "justify-start"}`;
 
-  let innerHTML = "";
   if (sender === "user") {
-    innerHTML = `
-      <div class="chat-bubble-user max-w-[85%] px-4 py-3 text-sm shadow-md">
+    msgDiv.innerHTML = `
+      <div class="chat-bubble-user max-w-[85%] px-3.5 py-2.5 text-sm shadow-xs">
         <p>${escapeHtml(text)}</p>
       </div>
     `;
   } else {
-    // Agent bubble with token metadata and SMS notify quick-link
     const formattedText = renderMarkdown(text);
-    const smsLink = `sms:+64220512513?body=${encodeURIComponent("Hi Suman, inquiry regarding: " + (originalQuestion || text.slice(0, 50)))}`;
-    const waLink = `https://wa.me/64220512513?text=${encodeURIComponent("Kia Ora Suman, inquiry from portfolio: " + (originalQuestion || text.slice(0, 50)))}`;
-
-    innerHTML = `
-      <div class="chat-bubble-agent max-w-[90%] px-4 py-3 text-sm shadow-md text-slate-200">
-        <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-700/60 text-xs text-slate-400">
-          <span class="flex items-center text-emerald-400 font-medium">
-            <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-            Suman AI Assistant
-          </span>
-          ${tokenCost ? `<span class="bg-slate-800 px-2 py-0.5 rounded text-[10px] text-sky-300 font-mono">⚡ ${tokenCost} tokens used</span>` : ''}
+    const smsLink = `sms:+64220512513?body=${encodeURIComponent("Hi Suman, regarding: " + (originalQuestion || "").slice(0, 60))}`;
+    msgDiv.innerHTML = `
+      <div class="chat-bubble-agent max-w-[90%] px-4 py-3 text-sm">
+        <div class="flex items-center justify-between pb-1.5 mb-1.5 border-b border-slate-200 text-[11px] text-slate-500">
+          <span class="font-semibold text-blue-700">Portfolio Assistant</span>
+          ${tokenCost !== null ? `<span class="font-mono">${tokenCost} tokens</span>` : ""}
         </div>
-        <div class="prose prose-invert prose-sm text-slate-200 leading-relaxed">${formattedText}</div>
-        
-        <!-- SMS and WhatsApp direct reach-out action pills -->
-        <div class="mt-3 pt-2 border-t border-slate-700/50 flex flex-wrap gap-2 items-center text-xs">
-          <a href="${smsLink}" class="inline-flex items-center px-2.5 py-1 rounded-md bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/40 text-emerald-300 font-medium transition-colors">
-            <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
-            Text Suman (022 051 2513)
-          </a>
-          <a href="${waLink}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-2.5 py-1 rounded-md bg-sky-950/80 hover:bg-sky-900 border border-sky-500/40 text-sky-300 transition-colors">
-            WhatsApp Suman
-          </a>
-          <span class="text-[11px] text-slate-400 ml-auto flex items-center">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1 animate-pulse"></span>
-            SMS notification sent to 220512513
-          </span>
+        <div class="text-slate-800 leading-relaxed text-xs sm:text-sm">${formattedText}</div>
+        <div class="mt-2.5 pt-2 border-t border-slate-200 flex items-center justify-between text-[11px]">
+          <a href="${smsLink}" class="text-blue-700 hover:underline font-medium">Text Suman (022 051 2513)</a>
+          <span class="text-slate-400">✓ Suman notified</span>
         </div>
       </div>
     `;
   }
 
-  msgDiv.innerHTML = innerHTML;
   container.appendChild(msgDiv);
   container.scrollTop = container.scrollHeight;
 }
 
-// Typing Indicator
 function showTypingIndicator() {
   const container = document.getElementById("agent-messages");
   if (!container) return null;
-
   const id = "typing-" + Date.now();
   const div = document.createElement("div");
   div.id = id;
-  div.className = "flex justify-start mb-4";
+  div.className = "flex justify-start";
   div.innerHTML = `
-    <div class="chat-bubble-agent px-4 py-3 text-sm flex items-center space-x-1.5 text-slate-400">
-      <span class="text-xs mr-1 text-sky-400 font-mono">Thinking within token limit...</span>
-      <span class="w-2 h-2 rounded-full bg-sky-400 animate-bounce"></span>
-      <span class="w-2 h-2 rounded-full bg-sky-400 animate-bounce [animation-delay:0.2s]"></span>
-      <span class="w-2 h-2 rounded-full bg-sky-400 animate-bounce [animation-delay:0.4s]"></span>
+    <div class="chat-bubble-agent px-3.5 py-2 text-xs text-slate-500 font-mono">
+      Checking Suman's portfolio...
     </div>
   `;
   container.appendChild(div);
@@ -321,112 +583,145 @@ function removeTypingIndicator(id) {
   if (el) el.remove();
 }
 
-// 4. SMS & Mobile Notification Dispatcher to Suman (+64 22 051 2513)
-async function triggerSmsAlert(questionText) {
-  const timestamp = new Date().toLocaleTimeString("en-NZ", { timeZone: "Pacific/Auckland" });
-  const alertItem = {
-    time: timestamp,
-    question: questionText,
-    destination: "+64 22 051 2513",
-    status: "Dispatched"
-  };
+// 6. MULTI-CHANNEL VISITOR NOTIFICATION SYSTEM (Email + CORS-Safe Phone Push + Local Log + Browser Alert)
+async function triggerSmsAlert(questionText, aiReply = "", source = "AI Chat Assistant") {
+  const timestamp = new Date().toLocaleString("en-NZ", { timeZone: "Pacific/Auckland" });
+  const cleanQuestion = String(questionText).slice(0, 200);
+  const cleanReply = String(aiReply).slice(0, 280);
 
-  notificationHistory.unshift(alertItem);
-  if (notificationHistory.length > 20) notificationHistory.pop();
-  renderNotificationBadge();
+  // 1) Save to browser log & update UI badge immediately
+  saveStoredNotification({
+    timestamp,
+    source,
+    question: cleanQuestion,
+    reply: cleanReply
+  });
 
-  // Show Toast Alert Banner
-  showToastNotification(`📱 Notification Alert: Suman's mobile (+64 22 051 2513) alerted with your inquiry!`);
-
-  // 1) Asynchronous Free Webhook to NTFY (https://ntfy.sh/suman-portfolio-nz-220512513)
-  // Suman can subscribe to this topic from his phone to receive immediate push notifications!
-  try {
-    fetch("https://ntfy.sh/suman-portfolio-nz-220512513", {
-      method: "POST",
-      body: `Portfolio Inquiry: "${questionText.slice(0, 180)}" - Sent at ${timestamp} (NZT). Destination: +64 22 051 2513`,
-      headers: {
-        "Title": "New Portfolio Visitor Question!",
-        "Priority": "high",
-        "Tags": "speech_balloon,briefcase"
-      }
-    }).catch(() => {});
-  } catch (e) {
-    // Silent failover for offline/local environments
+  // 2) Native Browser Notification if granted
+  if ("Notification" in window && Notification.permission === "granted") {
+    try {
+      new Notification(`New Portfolio ${source}`, {
+        body: cleanQuestion,
+        icon: "assets/suman-bhandari.jpg"
+      });
+    } catch (e) {}
   }
 
-  // 2) Optional local Python backend forwarder if running server.py
+  // 3) CORS-Safe NTFY Push Notification (No custom headers -> No CORS preflight block!)
+  const ntfyUrl = `https://ntfy.sh/suman-portfolio-nz-220512513?title=${encodeURIComponent("Portfolio: " + source)}&priority=high&tags=bell`;
+  const pushBody = `Visitor Question (${timestamp} NZT):\n"${cleanQuestion}"\n\nReply: ${cleanReply || "N/A"}`;
+  try {
+    fetch(ntfyUrl, {
+      method: "POST",
+      body: pushBody
+    }).catch(() => {});
+  } catch (e) {}
+
+  // 4) Automatic Email Notification to bhsuman11@gmail.com via FormSubmit AJAX
+  try {
+    fetch("https://formsubmit.co/ajax/bhsuman11@gmail.com", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        _subject: `Portfolio Alert (${source}): "${cleanQuestion.slice(0, 50)}"`,
+        Visitor_Inquiry: cleanQuestion,
+        Assistant_Reply: cleanReply || "Direct Contact Form",
+        Timestamp_NZT: timestamp,
+        Portfolio_Source: window.location.href,
+        _template: "table",
+        _captcha: "false"
+      })
+    }).catch(() => {});
+  } catch (e) {}
+
+  // 5) Custom Webhook (Discord / Slack / etc.) if configured by Suman
+  if (customWebhookUrl && customWebhookUrl.startsWith("https://")) {
+    try {
+      fetch(customWebhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          content: `🔔 **Portfolio Inquiry (${source})**\n**Question:** ${cleanQuestion}\n**Time:** ${timestamp}`,
+          text: `Portfolio Inquiry (${source}): ${cleanQuestion} (${timestamp})`
+        })
+      }).catch(() => {});
+    } catch (e) {}
+  }
+
+  // 6) Local Python Server Relay (/api/notify-sms) when running server.py
   try {
     fetch("/api/notify-sms", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         phone: "+64220512513",
-        text: questionText,
+        email: "bhsuman11@gmail.com",
+        text: cleanQuestion,
+        reply: cleanReply,
+        source: source,
+        webhookUrl: customWebhookUrl,
         timestamp: timestamp
       })
     }).catch(() => {});
   } catch (e) {}
 }
+window.triggerSmsAlert = triggerSmsAlert;
 
-function renderNotificationBadge() {
-  const notifyBadge = document.getElementById("sms-notify-status");
-  if (notifyBadge) {
-    notifyBadge.innerHTML = `
-      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse mr-1.5"></span>
-      SMS Alert Active: <strong class="text-emerald-300 ml-1">+64 22 051 2513</strong>
-    `;
-  }
-}
-
-// 5. Dual Engine Agent Response Generator (Gemini API with Token Bounding + Smart Local Engine)
+// 7. TOKEN-BOUNDED GEMINI + VERIFIED LOCAL RESPONSE GENERATOR
 async function generateAgentResponse(userQuery) {
-  // Truncate query to prevent input token overflow
-  const cleanQuery = userQuery.slice(0, 300);
-  const estimatedInputTokens = Math.ceil(cleanQuery.length / 4);
+  const cleanQuery = userQuery.slice(0, HARD_MAX_INPUT_CHARS);
+  const estimatedInputTokens = Math.max(5, Math.ceil(cleanQuery.length / 4));
 
-  // If Gemini API Key is configured, attempt real Gemini call
   if (geminiApiKey && geminiApiKey.trim().length > 10) {
     try {
       return await callGeminiAPI(cleanQuery, estimatedInputTokens);
     } catch (apiError) {
-      console.warn("Gemini API error, falling back to local knowledge engine:", apiError);
+      console.warn("Gemini API fallback to local verified knowledge:", apiError);
     }
   }
 
-  // Fallback to Smart Offline Local Knowledge Engine
   return generateLocalResponse(cleanQuery, estimatedInputTokens);
 }
 
-// Real Gemini API Calling (Strictly Token Limited)
 async function callGeminiAPI(userQuery, inputTokens) {
-  // Using official Gemini API endpoint with generationConfig: maxOutputTokens
   const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${geminiApiKey}`;
 
-  const systemInstruction = `You are the personal AI Career Assistant for Suman Bhandari, an Aspiring Data Analyst & Associate Data Engineer currently located in Henderson, Auckland, New Zealand.
-Suman is currently pursuing a Master of Applied Technologies (Computing – Data Analytics) at Unitec Institute of Technology, Auckland (July 2026 - Present).
-His Bachelor's is in Computer Science and IT from Samriddhi College, Nepal (2018 - 2023).
-His experience includes:
-1) Trainee Assistant - ICT at Laxmi Sunrise Bank Limited, Nepal (Feb 2026 - Jun 2026)
-2) Associate Data Engineer at DEVELOPMENT CATALYST CONSULTANCY (Jan 2024 - Jan 2026) working with Python, SQL, ETL pipelines, data quality.
-3) Data Engineer Trainee at LIS NEPAL (July 2023 - Oct 2023) working with Snowflake, SQL, data warehousing.
-Key Technical Skills: Python, SQL, R, Microsoft Power BI, Snowflake, MS SQL Server, MySQL, Databricks Delta Lake, Medallion Architecture, AWS (Basic), Git, Jira.
-Top Projects: Cloud Data Warehousing & BI pipeline on Databricks/PySpark/Delta Lake/Power BI (Medallion architecture), Music Genre Classification (Python/Django), Diwali Sales Analysis, Weather Analysis.
-Contact: Mobile +64 22 051 2513 (NZ text/call: 022 051 2513), Email: bhsuman11@gmail.com, GitHub: bhsuman, LinkedIn: suman-bhandari-ab4394279.
-Tone: Warm, professional, Australasian / Kiwi friendly ("Kia Ora!"), clear and concise.
-CRITICAL CONSTRAINT: Keep response under ${configuredMaxOutputTokens} tokens. Always be helpful, factual, and invite recruiters to contact Suman directly.`;
+  const projectSummaries = SUMAN_INFO.projects
+    .slice(0, 6)
+    .map(p => `${p.name} (${p.repo}): ${p.tech}`)
+    .join("; ");
+
+  const systemInstruction = `You are a strictly bounded portfolio Q&A assistant for Suman Bhandari.
+FACTS:
+- Name: Suman Bhandari (based in Henderson, Auckland)
+- Current Status: Master's Student • Open to Work (seeking student roles, internships, part-time, and graduate data roles). Do NOT mention Australia or NZ-wide open work visa claims.
+- Current Education: Master of Applied Technologies (Computing – Data Analytics) at Unitec Institute of Technology (Jul 2026 – Present).
+- Bachelor's: B.Sc. CSIT, Samriddhi College, Nepal (2018 – 2023).
+- Work Experience:
+  1) Trainee Assistant - ICT at Laxmi Sunrise Bank (Feb 2026 – Jun 2026)
+  2) Associate Data Engineer at Development Catalyst Consultancy (Jan 2024 – Jan 2026)
+  3) Data Engineer Trainee at LIS Nepal (Jul 2023 – Oct 2023)
+- Skills: Python, SQL, R, Power BI, Snowflake, Databricks Delta Lake, SQL Server, MySQL, ETL, Git, AWS Basics.
+- Live GitHub Projects (github.com/bhsuman): ${projectSummaries}.
+- Contact: +64 22 051 2513 (022 051 2513), bhsuman11@gmail.com.
+STRICT RULES:
+1) Answer ONLY questions about Suman Bhandari's education, skills, projects, experience, or contact details.
+2) NEVER write code, jokes, stories, essays, or answer unrelated topics.
+3) Keep your reply under 55 words and under ${HARD_MAX_OUTPUT_TOKENS} tokens.`;
 
   const requestBody = {
     contents: [
       {
         role: "user",
-        parts: [
-          { text: systemInstruction + "\n\nUser Question: " + userQuery }
-        ]
+        parts: [{ text: `${systemInstruction}\n\nVisitor Question: ${userQuery}` }]
       }
     ],
     generationConfig: {
-      maxOutputTokens: configuredMaxOutputTokens,
-      temperature: 0.4,
+      maxOutputTokens: HARD_MAX_OUTPUT_TOKENS,
+      temperature: 0.15,
       topP: 0.8
     }
   };
@@ -438,62 +733,171 @@ CRITICAL CONSTRAINT: Keep response under ${configuredMaxOutputTokens} tokens. Al
   });
 
   if (!response.ok) {
-    const errorData = await response.json();
-    throw new Error(errorData.error?.message || "Gemini API request failed");
+    throw new Error("Gemini API call failed");
   }
 
   const data = await response.json();
-  const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "Thank you for reaching out! Please connect with Suman directly.";
-  
-  // Calculate tokens used
-  const outputTokens = data.usageMetadata?.candidatesTokenCount || Math.ceil(text.length / 4);
-  const totalUsed = (data.usageMetadata?.totalTokenCount) ? data.usageMetadata.totalTokenCount : (inputTokens + outputTokens);
-  
-  sessionTokensRemaining = Math.max(0, sessionTokensRemaining - totalUsed);
-  updateTokenDisplay();
+  let text = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+  text = text.trim();
+  if (!text) {
+    return generateLocalResponse(userQuery, inputTokens);
+  }
 
-  return {
-    text: text,
-    tokenCost: totalUsed
-  };
+  // Enforce hard character ceiling even on API output
+  if (text.length > 320) {
+    text = text.slice(0, 317) + "...";
+  }
+
+  const outputTokens = Math.min(HARD_MAX_OUTPUT_TOKENS, Math.ceil(text.length / 4));
+  const totalUsed = Math.min(HARD_MAX_OUTPUT_TOKENS + inputTokens, inputTokens + outputTokens);
+  consumeVisitorTokens(totalUsed);
+
+  return { text, tokenCost: totalUsed };
 }
 
-// Smart Local Knowledge Engine (No Key Required, Instant, Token-Bounded)
 function generateLocalResponse(query, inputTokens) {
   const q = query.toLowerCase();
   let responseText = "";
 
-  if (q.includes("hi") || q.includes("hello") || q.includes("kia ora") || q.includes("hey") || q.includes("who are you")) {
-    responseText = "Kia Ora! I'm Suman's AI Career Assistant. Suman is a Data Analyst & Associate Data Engineer based in Henderson, Auckland, currently completing his Master's in Applied Technologies (Data Analytics) at Unitec. How can I help you learn more about his background, projects, or work availability?";
-  } else if (q.includes("contact") || q.includes("phone") || q.includes("number") || q.includes("call") || q.includes("email") || q.includes("reach") || q.includes("sms")) {
-    responseText = "You can reach Suman directly in Auckland:\n• **Mobile / SMS**: +64 22 051 2513 (NZ local: 022 051 2513)\n• **Email**: bhsuman11@gmail.com\n• **Location**: Henderson, Auckland, New Zealand\n• **LinkedIn**: linkedin.com/in/suman-bhandari-ab4394279\n• **GitHub**: github.com/bhsuman\n\nYour inquiry has also triggered a notification alert to his phone!";
-  } else if (q.includes("skill") || q.includes("python") || q.includes("sql") || q.includes("power bi") || q.includes("tech") || q.includes("stack") || q.includes("tools")) {
-    responseText = "Suman's core technical stack includes:\n• **Languages**: Python (Pandas, NumPy, Matplotlib, Scikit-Learn), SQL, R\n• **BI & Visualization**: Microsoft Power BI, DAX, Jupyter Notebook\n• **Databases & Warehouses**: Snowflake, Microsoft SQL Server, MySQL, Databricks Delta Lake\n• **Data Engineering**: ETL Pipelines, Medallion Architecture (Bronze/Silver/Gold), Data Quality & Cleaning\n• **Cloud & Tools**: AWS (Basic), Git/GitHub, Jira, Agile.";
-  } else if (q.includes("project") || q.includes("portfolio") || q.includes("databricks") || q.includes("dewali") || q.includes("music") || q.includes("weather")) {
-    responseText = "Featured projects developed by Suman:\n1. **Big Data Warehousing Pipeline**: Implemented Databricks, PySpark, Delta Lake & Power BI with Medallion Architecture (github.com/bhsuman/big-data-warehousing-pipeline).\n2. **Music Genre Classifier**: Django & Python audio classification using GTZAN (github.com/bhsuman/Music).\n3. **Diwali Sales Analytics**: EDA and customer purchase behavioral insights (github.com/bhsuman/Data-Analysis-Dewali).\n4. **Weather Data Analytics**: Time-series meteorological trend analysis (github.com/bhsuman/Data-Analysis-Weather).";
-  } else if (q.includes("education") || q.includes("unitec") || q.includes("degree") || q.includes("master") || q.includes("college") || q.includes("study") || q.includes("qualification")) {
-    responseText = "Suman's academic qualifications:\n• **Master of Applied Technologies (Computing – Data Analytics)**: Unitec Institute of Technology, Auckland, New Zealand (July 2026 - Present)\n• **B.Sc. in Computer Science & Information Technology (CSIT)**: Samriddhi College, Nepal (2018 – 2023)\n• **High School (Science & Computing)**: Siddhartha College, Nepal (2016 – 2018).";
-  } else if (q.includes("experience") || q.includes("bank") || q.includes("laxmi") || q.includes("work") || q.includes("history") || q.includes("development catalyst") || q.includes("lis nepal")) {
-    responseText = "Suman brings over 2 years of hands-on data & tech experience:\n1. **Trainee Assistant - ICT** at Laxmi Sunrise Bank Limited, Nepal (Feb 2026 - Jun 2026): Enterprise banking systems, data security, operational workflows.\n2. **Associate Data Engineer** at DEVELOPMENT CATALYST CONSULTANCY (Jan 2024 - Jan 2026): Python, SQL data extraction, cleansing, transformation & client reporting.\n3. **Data Engineer Trainee** at LIS NEPAL (July 2023 - Oct 2023): Snowflake ETL pipelines, SQL data warehousing, automated script generation.";
-  } else if (q.includes("visa") || q.includes("work right") || q.includes("new zealand") || q.includes("australia") || q.includes("auckland") || q.includes("available") || q.includes("relocate")) {
-    responseText = "Suman is currently based in Henderson, Auckland, New Zealand. He has active study and work rights in New Zealand, and is actively seeking Data Analyst, Associate Data Engineer, and Business Intelligence roles across Auckland, throughout New Zealand, and remote Australia/NZ roles!";
+  if (q.includes("contact") || q.includes("phone") || q.includes("number") || q.includes("call") || q.includes("email") || q.includes("reach") || q.includes("sms")) {
+    responseText = "You can contact Suman directly via:\n• **Phone / SMS**: +64 22 051 2513 (022 051 2513)\n• **Email**: bhsuman11@gmail.com\n• **GitHub**: github.com/bhsuman";
+  } else if (q.includes("student") || q.includes("status") || q.includes("open") || q.includes("available") || q.includes("availability") || q.includes("work") && (q.includes("status") || q.includes("open") || q.includes("intern"))) {
+    responseText = "Suman is currently a **Master's Student** (Computing – Data Analytics) at Unitec Institute of Technology and is **Open to Work** for student roles, internships, part-time positions, and graduate data opportunities.";
+  } else if (q.includes("project") || q.includes("github") || q.includes("repo") || q.includes("databricks") || q.includes("dewali") || q.includes("diwali") || q.includes("music") || q.includes("weather")) {
+    const topList = SUMAN_INFO.projects.slice(0, 4).map(p => `• **${p.name}** (${p.tech})`).join("\n");
+    responseText = `Suman's live GitHub repositories (github.com/bhsuman) include:\n${topList}`;
+  } else if (q.includes("skill") || q.includes("python") || q.includes("sql") || q.includes("power bi") || q.includes("snowflake") || q.includes("tech") || q.includes("stack") || q.includes("tool")) {
+    responseText = "Suman's core stack:\n• **Languages & BI**: SQL, Python (Pandas, PySpark), R, Power BI (DAX)\n• **Data Engineering**: Snowflake, Databricks Delta Lake, Medallion Architecture, SQL Server, MySQL, Git.";
+  } else if (q.includes("education") || q.includes("unitec") || q.includes("degree") || q.includes("master") || q.includes("bachelor") || q.includes("study") || q.includes("college")) {
+    responseText = "• **Master of Applied Technologies (Data Analytics)**: Unitec Institute of Technology (Jul 2026 – Present)\n• **B.Sc. CSIT**: Samriddhi College (2018 – 2023).";
+  } else if (q.includes("experience") || q.includes("bank") || q.includes("laxmi") || q.includes("history") || q.includes("catalyst") || q.includes("lis")) {
+    responseText = "Suman has 2+ years of experience:\n• **Trainee Assistant - ICT** at Laxmi Sunrise Bank (2026)\n• **Associate Data Engineer** at Development Catalyst Consultancy (2024–2026)\n• **Data Engineer Trainee** at LIS Nepal (2023).";
   } else {
-    responseText = `Kia Ora! Thank you for asking. Suman is an Auckland-based Data Analyst skilled in SQL, Python, Power BI, Snowflake, and Databricks. For in-depth discussions or interview opportunities, please call/text him directly at **+64 22 051 2513** or email **bhsuman11@gmail.com**. Your question has been forwarded to his mobile!`;
+    responseText = "Suman Bhandari is a Master's Student in Data Analytics at Unitec and former Associate Data Engineer skilled in SQL, Python, Power BI, Snowflake, and Databricks. He is open to student and data roles — contact him at **022 051 2513** or **bhsuman11@gmail.com**.";
   }
 
-  // Token bounding logic
-  const estimatedOutputTokens = Math.min(configuredMaxOutputTokens, Math.ceil(responseText.length / 4));
-  const totalCost = inputTokens + estimatedOutputTokens;
-  sessionTokensRemaining = Math.max(0, sessionTokensRemaining - totalCost);
-  updateTokenDisplay();
+  const outputTokens = Math.min(HARD_MAX_OUTPUT_TOKENS, Math.ceil(responseText.length / 4));
+  const totalCost = inputTokens + outputTokens;
+  consumeVisitorTokens(totalCost);
 
-  return {
-    text: responseText,
-    tokenCost: totalCost
-  };
+  return { text: responseText, tokenCost: totalCost };
 }
 
-// 6. Settings Modal (Gemini API Key, Model Selection, Token Limiter)
+// 8. ALERTS & NOTIFICATION LOG MODAL
+function initAlertsModal() {
+  const openBtn = document.getElementById("open-alerts-btn");
+  const webhookInput = document.getElementById("custom-webhook-input");
+  if (webhookInput) webhookInput.value = customWebhookUrl;
+  if (openBtn) {
+    openBtn.addEventListener("click", openAlertsModal);
+  }
+}
+
+window.openAlertsModal = function() {
+  const modal = document.getElementById("alerts-modal");
+  if (!modal) return;
+  updateAlertBadgeAndList();
+  modal.classList.remove("hidden");
+  modal.classList.add("flex");
+
+  // Also fetch server-side logs if server.py is running
+  fetch("/api/notifications")
+    .then(r => r.ok ? r.json() : null)
+    .then(data => {
+      if (data && Array.isArray(data.notifications) && data.notifications.length > 0) {
+        renderNotificationListItems(data.notifications);
+      }
+    })
+    .catch(() => {});
+};
+
+window.closeAlertsModal = function() {
+  const modal = document.getElementById("alerts-modal");
+  if (!modal) return;
+  modal.classList.add("hidden");
+  modal.classList.remove("flex");
+};
+
+function updateAlertBadgeAndList() {
+  const list = getStoredNotifications();
+  const badge = document.getElementById("alert-count-badge");
+  if (badge) badge.textContent = String(list.length);
+  renderNotificationListItems(list);
+}
+
+function renderNotificationListItems(list) {
+  const container = document.getElementById("notification-log-list");
+  if (!container) return;
+  if (!list || list.length === 0) {
+    container.innerHTML = `<p class="text-slate-400 italic">No inquiries recorded yet.</p>`;
+    return;
+  }
+  container.innerHTML = list.slice(0, 15).map(item => `
+    <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200 space-y-1">
+      <div class="flex items-center justify-between text-[11px] text-slate-500 font-mono">
+        <span class="font-semibold text-blue-700">${escapeHtml(item.source || "Inquiry")}</span>
+        <span>${escapeHtml(item.timestamp || "")}</span>
+      </div>
+      <p class="text-slate-900 font-medium">${escapeHtml(item.question || "")}</p>
+      ${item.reply ? `<p class="text-[11px] text-slate-500">Reply: ${escapeHtml(item.reply)}</p>` : ""}
+    </div>
+  `).join("");
+}
+
+window.clearNotificationHistory = function() {
+  localStorage.removeItem("suman_visitor_notifications_v2");
+  updateAlertBadgeAndList();
+};
+
+window.saveCustomWebhook = function() {
+  const input = document.getElementById("custom-webhook-input");
+  customWebhookUrl = input ? input.value.trim() : "";
+  localStorage.setItem("suman_custom_webhook", customWebhookUrl);
+  showToastNotification("Webhook URL saved!");
+};
+
+window.enableBrowserNotifications = function() {
+  if (!("Notification" in window)) {
+    alert("Browser notifications are not supported on this device.");
+    return;
+  }
+  Notification.requestPermission().then(perm => {
+    if (perm === "granted") {
+      new Notification("Notifications Enabled!", {
+        body: "You will now receive browser alerts when visitors ask questions."
+      });
+      showToastNotification("Browser notifications enabled!");
+    } else {
+      alert("Notification permission was not granted.");
+    }
+  });
+};
+
+window.sendTestAlertNow = async function() {
+  const statusEl = document.getElementById("test-alert-status");
+  const btn = document.getElementById("test-alert-btn");
+  if (statusEl) {
+    statusEl.classList.remove("hidden");
+    statusEl.textContent = "Dispatching test notification to ntfy.sh & bhsuman11@gmail.com...";
+  }
+  if (btn) btn.disabled = true;
+
+  await triggerSmsAlert(
+    "Test Notification: Checking Suman's AI Agent alert delivery!",
+    "Test succeeded. Alerts are active.",
+    "Manual Test"
+  );
+
+  setTimeout(() => {
+    if (statusEl) {
+      statusEl.textContent = "✓ Sent! 1) Check ntfy.sh/suman-portfolio-nz-220512513 for instant push, and 2) Check bhsuman11@gmail.com (including Spam once to click Activate on FormSubmit).";
+    }
+    if (btn) btn.disabled = false;
+    showToastNotification("Test notification sent to Phone Push & Email!");
+  }, 900);
+};
+
+// 9. OWNER API SETTINGS MODAL
 function initKeySettings() {
   const modal = document.getElementById("settings-modal");
   const openBtn = document.getElementById("open-settings-btn");
@@ -501,8 +905,6 @@ function initKeySettings() {
   const saveBtn = document.getElementById("save-settings-btn");
   const keyInput = document.getElementById("gemini-api-key-input");
   const modelSelect = document.getElementById("gemini-model-select");
-  const tokenLimitInput = document.getElementById("token-limit-input");
-  const tokenLimitValue = document.getElementById("token-limit-value");
 
   if (!modal) return;
 
@@ -510,8 +912,6 @@ function initKeySettings() {
     openBtn.addEventListener("click", () => {
       if (keyInput) keyInput.value = geminiApiKey;
       if (modelSelect) modelSelect.value = selectedModel;
-      if (tokenLimitInput) tokenLimitInput.value = configuredMaxOutputTokens;
-      if (tokenLimitValue) tokenLimitValue.textContent = configuredMaxOutputTokens;
       modal.classList.remove("hidden");
       modal.classList.add("flex");
     });
@@ -524,93 +924,69 @@ function initKeySettings() {
     });
   }
 
-  if (tokenLimitInput && tokenLimitValue) {
-    tokenLimitInput.addEventListener("input", (e) => {
-      tokenLimitValue.textContent = e.target.value;
-    });
-  }
-
   if (saveBtn) {
     saveBtn.addEventListener("click", () => {
-      geminiApiKey = (keyInput ? keyInput.value.trim() : "");
-      selectedModel = (modelSelect ? modelSelect.value : "gemini-3.8-flash");
-      configuredMaxOutputTokens = (tokenLimitInput ? parseInt(tokenLimitInput.value, 10) : 180);
-
+      geminiApiKey = keyInput ? keyInput.value.trim() : "";
+      selectedModel = modelSelect ? modelSelect.value : "gemini-2.5-flash";
       localStorage.setItem("suman_gemini_api_key", geminiApiKey);
       localStorage.setItem("suman_gemini_model", selectedModel);
-      
       modal.classList.add("hidden");
       modal.classList.remove("flex");
-
-      showToastNotification(`Settings saved! AI Agent configured with ${selectedModel} (Max tokens: ${configuredMaxOutputTokens})`);
+      showToastNotification("Assistant configuration saved.");
     });
   }
 }
 
-// 7. Toast Notification Utility
+// 10. UTILITIES
 function showToastNotification(message) {
   const toast = document.createElement("div");
-  toast.className = "fixed bottom-5 right-5 z-50 bg-slate-900/95 text-emerald-300 border border-emerald-500/40 px-4 py-3 rounded-xl shadow-2xl backdrop-blur-md flex items-center space-x-3 text-sm transform transition-all duration-300 translate-y-8 opacity-0";
-  toast.innerHTML = `
-    <span class="p-1 rounded-full bg-emerald-500/20 text-emerald-400">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-    </span>
-    <span>${message}</span>
-  `;
+  toast.className = "fixed bottom-5 right-5 z-50 bg-blue-900 text-white px-4 py-2.5 rounded-lg shadow-lg text-xs font-medium transition-all duration-300 translate-y-4 opacity-0";
+  toast.textContent = message;
   document.body.appendChild(toast);
 
-  // Trigger animation
   setTimeout(() => {
-    toast.classList.remove("translate-y-8", "opacity-0");
+    toast.classList.remove("translate-y-4", "opacity-0");
     toast.classList.add("translate-y-0", "opacity-100");
-  }, 50);
+  }, 30);
 
   setTimeout(() => {
     toast.classList.remove("translate-y-0", "opacity-100");
-    toast.classList.add("translate-y-8", "opacity-0");
+    toast.classList.add("translate-y-4", "opacity-0");
     setTimeout(() => toast.remove(), 300);
-  }, 4000);
+  }, 3500);
 }
 
-// 8. Quick Question Click Helper
 window.askQuickQuestion = function(question) {
   const chatInput = document.getElementById("agent-chat-input");
   const chatForm = document.getElementById("agent-chat-form");
   if (chatInput && chatForm) {
     chatInput.value = question;
     chatForm.dispatchEvent(new Event("submit"));
-    // Scroll to chat
-    const chatSection = document.getElementById("ai-agent-section");
-    if (chatSection) {
-      chatSection.scrollIntoView({ behavior: "smooth" });
-    }
   }
 };
 
-// 9. Copy to Clipboard Utility
 window.copyToClipboard = function(text, label) {
   navigator.clipboard.writeText(text).then(() => {
-    showToastNotification(`Copied ${label} to clipboard!`);
+    showToastNotification(`Copied ${label}: ${text}`);
   }).catch(() => {
-    showToastNotification(`Selected: ${text}`);
+    showToastNotification(`${label}: ${text}`);
   });
 };
 
-// Markdown Formatter Helper
 function renderMarkdown(md) {
   if (!md) return "";
-  let html = md
-    .replace(/^### (.*$)/gim, '<h4 class="font-bold text-white mt-2 mb-1">$1</h4>')
-    .replace(/^## (.*$)/gim, '<h3 class="font-bold text-white mt-2 mb-1">$1</h3>')
-    .replace(/^# (.*$)/gim, '<h2 class="font-bold text-white mt-2 mb-1">$1</h2>')
-    .replace(/\*\*(.*?)\*\*/gim, '<strong class="text-white font-semibold">$1</strong>')
+  return md
+    .replace(/\*\*(.*?)\*\*/gim, '<strong class="font-semibold text-slate-900">$1</strong>')
     .replace(/\*(.*?)\*/gim, '<em>$1</em>')
     .replace(/^\• (.*$)/gim, '<li class="ml-4 list-disc">$1</li>')
-    .replace(/\n$/gim, '<br />')
     .replace(/\n/gim, '<br />');
-  return html;
 }
 
 function escapeHtml(str) {
-  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
