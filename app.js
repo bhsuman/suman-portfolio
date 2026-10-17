@@ -630,7 +630,7 @@ function appendMessage(sender, text, tokenCost = null, originalQuestion = "") {
 
   if (sender === "user") {
     msgDiv.innerHTML = `
-      <div class="chat-bubble-user max-w-[85%] px-3.5 py-2.5 text-sm shadow-xs">
+      <div class="chat-bubble-user bg-blue-700 text-white rounded-xl max-w-[85%] px-3.5 py-2.5 text-sm shadow-xs">
         <p>${escapeHtml(text)}</p>
       </div>
     `;
@@ -638,15 +638,15 @@ function appendMessage(sender, text, tokenCost = null, originalQuestion = "") {
     const formattedText = renderMarkdown(text);
     const smsLink = sanitizeUrl(`sms:${p.phoneDial || "+64220512513"}?body=${encodeURIComponent("Hi Suman, regarding: " + (originalQuestion || "").slice(0, 60))}`);
     msgDiv.innerHTML = `
-      <div class="chat-bubble-agent max-w-[90%] px-4 py-3 text-sm">
-        <div class="flex items-center justify-between pb-1.5 mb-1.5 border-b border-slate-200 text-[11px] text-slate-500">
+      <div class="chat-bubble-agent bg-slate-50 text-slate-900 border border-slate-300 rounded-xl max-w-[90%] px-4 py-3 text-sm">
+        <div class="flex items-center justify-between pb-1.5 mb-1.5 border-b border-slate-200 text-[11px] text-slate-600">
           <span class="font-semibold text-blue-700">Portfolio Assistant</span>
           ${tokenCost !== null ? `<span class="font-mono">${tokenCost} tokens</span>` : ""}
         </div>
-        <div class="text-slate-800 leading-relaxed text-xs sm:text-sm">${formattedText}</div>
+        <div class="text-slate-900 leading-relaxed text-xs sm:text-sm">${formattedText}</div>
         <div class="mt-2.5 pt-2 border-t border-slate-200 flex items-center justify-between text-[11px]">
           <a href="${escapeHtml(smsLink)}" class="text-blue-700 hover:underline font-medium">Text Suman (${escapeHtml(p.phoneLocal || "022 051 2513")})</a>
-          <span class="text-slate-400">✓ Suman notified</span>
+          <span class="text-slate-500">✓ Suman notified</span>
         </div>
       </div>
     `;
@@ -664,7 +664,7 @@ function showTypingIndicator() {
   div.id = id;
   div.className = "flex justify-start";
   div.innerHTML = `
-    <div class="chat-bubble-agent px-3.5 py-2 text-xs text-slate-500 font-mono">
+    <div class="chat-bubble-agent bg-slate-50 text-slate-700 border border-slate-300 rounded-xl px-3.5 py-2 text-xs font-mono">
       Checking Suman's portfolio...
     </div>
   `;
