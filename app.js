@@ -15,7 +15,7 @@
 // Hard-Locked Safety & Token Constants
 const DAILY_MAX_TOKENS = 400;
 const DAILY_MAX_QUESTIONS = 6;
-const HARD_MAX_OUTPUT_TOKENS = 80;
+const HARD_MAX_OUTPUT_TOKENS = 100;
 const HARD_MAX_INPUT_CHARS = 140;
 const COOLDOWN_MS = 5000;
 
@@ -486,20 +486,26 @@ function validatePortfolioQuery(rawQuery) {
 
   const allowedKeywords = [
     "suman", "bhandari", "hi", "hello", "hey", "kia ora", "who", "about", "background", "summary", "profile",
-    "skill", "tech", "stack", "tool", "python", "sql", "power bi", "powerbi", "dax", "snowflake", "databricks",
-    "spark", "pyspark", "delta", "medallion", "etl", "warehouse", "warehousing", "database", "mysql", "r ", "aws", "git", "jira",
-    "project", "github", "repo", "repository", "pipeline", "music", "diwali", "dewali", "weather", "quiz", "featured",
-    "work", "experience", "career", "job", "role", "intern", "internship", "student", "study", "studying", "available", "availability", "open", "status", "hire", "part-time", "part time",
+    "skill", "tech", "stack", "tool", "python", "sql", "t-sql", "postgresql", "postgres", "sql server", "mysql",
+    "power bi", "powerbi", "dax", "tableau", "looker", "excel", "xlookup", "pivot", "bi", "business intelligence",
+    "snowflake", "databricks", "spark", "pyspark", "delta", "medallion", "kimball", "star schema", "etl", "elt",
+    "dbt", "airflow", "dag", "orchestration", "azure", "adf", "data factory", "fabric", "synapse", "adls",
+    "bigquery", "gcp", "aws", "s3", "redshift", "glue", "cloud", "warehouse", "warehousing", "database", "lakehouse",
+    "machine learning", "ml", "data science", "scientist", "scikit", "xgboost", "regression", "classification", "clustering",
+    "r ", "tidyverse", "ggplot", "statistics", "statistical", "forecasting", "time-series", "time series", "pandas", "numpy",
+    "git", "github", "docker", "ci/cd", "agile", "scrum", "jira", "clickup", "confluence",
+    "project", "repo", "repository", "pipeline", "music", "diwali", "dewali", "weather", "quiz", "featured",
+    "work", "experience", "career", "job", "role", "intern", "internship", "student", "study", "studying", "available", "availability", "open", "status", "hire", "hiring", "part-time", "part time", "graduate",
     "education", "degree", "master", "bachelor", "unitec", "college", "samriddhi", "siddhartha", "qualification", "university",
-    "bank", "laxmi", "sunrise", "catalyst", "consultancy", "lis", "nepal", "auckland", "henderson",
-    "contact", "phone", "number", "mobile", "sms", "text", "call", "email", "gmail", "linkedin", "reach", "connect", "cv", "resume", "data", "analyst", "engineer", "analytics"
+    "bank", "laxmi", "sunrise", "catalyst", "consultancy", "lis", "nepal", "auckland", "henderson", "new zealand", "nz", "australia",
+    "contact", "phone", "number", "mobile", "sms", "text", "call", "email", "gmail", "linkedin", "reach", "connect", "cv", "resume", "data", "analyst", "engineer", "engineering", "analytics"
   ];
 
   const isRelevant = allowedKeywords.some(kw => q.includes(kw));
   if (!isRelevant) {
     return {
       allowed: false,
-      reason: "I can only answer questions related to Suman Bhandari's skills, Unitec Master's study, work experience, selected projects, or contact details."
+      reason: "I can only answer questions related to Suman Bhandari's Data Engineering, Analytics & Data Science skills, Unitec Master's study, work experience, selected projects, or contact details."
     };
   }
 
@@ -753,23 +759,24 @@ function generateLocalResponse(query, inputTokens) {
   let responseText = "";
 
   if (q.includes("contact") || q.includes("phone") || q.includes("number") || q.includes("call") || q.includes("email") || q.includes("reach") || q.includes("sms")) {
-    responseText = `You can contact ${p.name || "Suman"} directly via:\n• **Phone / SMS**: ${p.phoneDisplay} (${p.phoneLocal})\n• **Email**: ${p.email}`;
+    responseText = `You can contact ${p.name || "Suman"} directly via:\n• **Phone / SMS**: ${p.phoneDisplay} (${p.phoneLocal})\n• **Email**: ${p.email}\n• **Location**: ${p.location}`;
   } else if (q.includes("student") || q.includes("status") || q.includes("open") || q.includes("available") || q.includes("availability") || (q.includes("work") && (q.includes("status") || q.includes("open") || q.includes("intern")))) {
     responseText = (data.assistant && data.assistant.extraNotesForAI) || `Current status: **${p.statusBadge}** — ${data.about?.calloutText || ""}`;
-  } else if (q.includes("project") || q.includes("github") || q.includes("repo") || q.includes("databricks") || q.includes("dewali") || q.includes("diwali") || q.includes("music") || q.includes("weather") || q.includes("featured")) {
+  } else if (q.includes("skill") || q.includes("python") || q.includes("sql") || q.includes("power bi") || q.includes("tableau") || q.includes("snowflake") || q.includes("dbt") || q.includes("airflow") || q.includes("fabric") || q.includes("azure") || q.includes("machine learning") || q.includes("scientist") || q.includes("tech") || q.includes("stack") || q.includes("tool")) {
+    responseText = `Suman's technical stack across key roles:\n• **Data Engineering**: Snowflake, Databricks, PySpark, Delta Lake, dbt, Airflow, Azure Data Factory, MS Fabric, SQL Server, PostgreSQL\n• **Data Analytics & BI**: Advanced SQL, Power BI (DAX, Power Query), Tableau, Looker Studio, Excel\n• **Data Science & ML**: Python (Pandas, Scikit-Learn, XGBoost), R (tidyverse), Statistical Modeling, AWS & BigQuery`;
+  } else if (q.includes("project") || q.includes("github") || q.includes("repo") || q.includes("dewali") || q.includes("diwali") || q.includes("music") || q.includes("weather") || q.includes("featured") || q.includes("pipeline")) {
     const topList = liveProjectsList.map(pr => `• **${pr.displayName}** (${(pr.tags || []).join(", ")})`).join("\n");
     responseText = `Suman's featured portfolio projects include:\n${topList}`;
-  } else if (q.includes("skill") || q.includes("python") || q.includes("sql") || q.includes("power bi") || q.includes("snowflake") || q.includes("tech") || q.includes("stack") || q.includes("tool")) {
-    const skillNames = (data.skills || []).map(s => `**${s.name}** (${s.description})`).slice(0, 5).join("\n• ");
-    responseText = `Core technical stack:\n• ${skillNames}`;
-  } else if (q.includes("education") || q.includes("unitec") || q.includes("degree") || q.includes("master") || q.includes("bachelor") || q.includes("study") || q.includes("college")) {
-    const eduText = (data.education || []).map(ed => `• **${ed.degree} ${ed.major ? '(' + ed.major + ')' : ''}**: ${ed.institution} (${ed.period})`).join("\n");
-    responseText = eduText;
-  } else if (q.includes("experience") || q.includes("bank") || q.includes("laxmi") || q.includes("history") || q.includes("catalyst") || q.includes("lis")) {
+  } else if (q.includes("experience") || q.includes("bank") || q.includes("laxmi") || q.includes("history") || q.includes("catalyst") || q.includes("lis") || (q.includes("work") && q.includes("unitec"))) {
     const expText = (data.experience || []).map(e => `• **${e.role}** at ${e.company} (${e.period})`).join("\n");
-    responseText = `Work experience:\n${expText}`;
+    const eduTop = data.education?.[0];
+    const studyLine = eduTop ? `\n• **Current Study**: ${eduTop.degree} (${eduTop.major}) at ${eduTop.institution}, ${eduTop.location}` : "";
+    responseText = `Suman's 2+ years of industry experience & current study:\n${expText}${studyLine}`;
+  } else if (q.includes("education") || q.includes("unitec") || q.includes("degree") || q.includes("master") || q.includes("bachelor") || q.includes("study") || q.includes("college")) {
+    const eduText = (data.education || []).map(ed => `• **${ed.degree}${ed.major ? ' (' + ed.major + ')' : ''}**: ${ed.institution} (${ed.period})`).join("\n");
+    responseText = eduText;
   } else {
-    responseText = `${p.name} is a ${p.headline} (${p.statusBadge}). Contact him at **${p.phoneLocal}** or **${p.email}**.`;
+    responseText = `${p.name} is a ${p.headline} (${p.statusBadge}) in ${p.location}. Skilled in SQL, Python, Snowflake, Databricks, dbt, Power BI, Tableau & Machine Learning. Contact: **${p.phoneLocal}** or **${p.email}**.`;
   }
 
   const outputTokens = Math.min(HARD_MAX_OUTPUT_TOKENS, Math.ceil(responseText.length / 4));
