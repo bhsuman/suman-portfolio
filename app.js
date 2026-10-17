@@ -12,12 +12,13 @@
  *    and enforces hard 80-token output caps + portfolio-only query filtering.
  */
 
-// Hard-Locked Safety & Token Constants
-const DAILY_MAX_TOKENS = 400;
-const DAILY_MAX_QUESTIONS = 6;
-const HARD_MAX_OUTPUT_TOKENS = 100;
-const HARD_MAX_INPUT_CHARS = 140;
-const COOLDOWN_MS = 5000;
+// Employer-Sized Token & 1-Hour Session Constants
+const HOURLY_MAX_TOKENS = 2500;
+const HOURLY_MAX_QUESTIONS = 15;
+const HARD_MAX_OUTPUT_TOKENS = 220;
+const HARD_MAX_INPUT_CHARS = 250;
+const COOLDOWN_MS = 3000;
+const SESSION_WINDOW_MS = 60 * 60 * 1000; // 1 Hour (3,600,000 ms) auto-restart
 
 // Salted SHA-256 Hash for Default Owner PIN ("2513") — No plaintext password in code
 const PIN_SALT = "suman_portfolio_v1:";
@@ -513,26 +514,39 @@ function validatePortfolioQuery(rawQuery) {
 }
 
 // ============================================================================
-// 5. AI ASSISTANT ENGINE (STRICT 80-TOKEN LIMIT)
+// 5. AI ASSISTANT ENGINE (EMPLOYER-SIZED 2,500 TOKENS / 1-HOUR AUTO-RESTART)
 // ============================================================================
 function getVisitorQuota() {
-  const today = new Date().toISOString().slice(0, 10);
+  const now = Date.now();
   try {
-    const raw = localStorage.getItem("suman_daily_token_quota_v2");
+    const raw = localStorage.getItem("suman_hourly_token_quota_v3");
     if (raw) {
       const parsed = JSON.parse(raw);
-      if (parsed.date === today) return parsed;
+      if (parsed && parsed.expiresAt && now < parsed.expiresAt) {
+        return parsed;
+      }
     }
   } catch (e) {}
-  const fresh = { date: today, tokensRemaining: DAILY_MAX_TOKENS, questionsAsked: 0 };
+  const fresh = {
+    startedAt: now,
+    expiresAt: now + SESSION_WINDOW_MS,
+    tokensRemaining: HOURLY_MAX_TOKENS,
+    questionsAsked: 0
+  };
   saveVisitorQuota(fresh);
   return fresh;
 }
 
 function saveVisitorQuota(quota) {
   try {
-    localStorage.setItem("suman_daily_token_quota_v2", JSON.stringify(quota));
+    localStorage.setItem("suman_hourly_token_quota_v3", JSON.stringify(quota));
   } catch (e) {}
+}
+
+function getMinutesUntilSessionReset(quota) {
+  if (!quota || !quota.expiresAt) return 60;
+  const remainingMs = Math.max(0, quota.expiresAt - Date.now());
+  return Math.max(1, Math.ceil(remainingMs / 60000));
 }
 
 function initAgentUI() {
@@ -540,6 +554,8 @@ function initAgentUI() {
   const chatInput = document.getElementById("agent-chat-input");
 
   updateTokenDisplay();
+  // Automatically check and refresh the 1-hour session countdown every 15 seconds
+  setInterval(updateTokenDisplay, 15000);
 
   if (chatForm && chatInput) {
     chatForm.addEventListener("submit", async (e) => {
@@ -555,11 +571,12 @@ function initAgentUI() {
       }
 
       const quota = getVisitorQuota();
-      if (quota.tokensRemaining <= 15 || quota.questionsAsked >= DAILY_MAX_QUESTIONS) {
+      if (quota.tokensRemaining <= 20 || quota.questionsAsked >= HOURLY_MAX_QUESTIONS) {
+        const minsLeft = getMinutesUntilSessionReset(quota);
         const p = getData().profile || {};
         appendMessage(
           "agent",
-          `Session allowance reached (capped at 400 tokens / 6 questions per visitor). Please contact Suman directly at **${p.email || "bhsuman11@gmail.com"}** or **${p.phoneDisplay || "+64 22 051 2513"}**.`
+          `1-hour screening allowance reached (${HOURLY_MAX_TOKENS} tokens / ${HOURLY_MAX_QUESTIONS} questions per hour). Your session will automatically restart in **${minsLeft} min**, or you can reach Suman directly at **${p.email || "bhsuman11@gmail.com"}** or **${p.phoneDisplay || "+64 22 051 2513"}**.`
         );
         return;
       }
@@ -598,15 +615,16 @@ function initAgentUI() {
 
 function updateTokenDisplay() {
   const quota = getVisitorQuota();
+  const minsLeft = getMinutesUntilSessionReset(quota);
   const tokenMeter = document.getElementById("agent-token-meter");
   const tokenBar = document.getElementById("agent-token-bar");
   if (tokenMeter) {
-    tokenMeter.textContent = `${quota.tokensRemaining} / ${DAILY_MAX_TOKENS} tokens`;
+    tokenMeter.textContent = `${quota.tokensRemaining} / ${HOURLY_MAX_TOKENS} tokens (Resets in ${minsLeft}m)`;
   }
   if (tokenBar) {
-    const pct = Math.max(0, Math.min(100, (quota.tokensRemaining / DAILY_MAX_TOKENS) * 100));
+    const pct = Math.max(0, Math.min(100, (quota.tokensRemaining / HOURLY_MAX_TOKENS) * 100));
     tokenBar.style.width = `${pct}%`;
-    tokenBar.className = pct < 25
+    tokenBar.className = pct < 20
       ? "token-bar-fill h-full bg-red-600 rounded-full"
       : "token-bar-fill h-full bg-blue-600 rounded-full";
   }
@@ -722,7 +740,7 @@ ${summaryContext}
 STRICT SECURITY & CONTENT RULES:
 1) Answer ONLY questions about Suman Bhandari's education, skills, whitelisted projects, experience, or public contact details.
 2) NEVER write code, jokes, stories, essays, or answer unrelated topics.
-3) Keep your reply under 55 words and under ${HARD_MAX_OUTPUT_TOKENS} tokens.`;
+3) Keep your reply clear, employer-focused, under 150 words, and under ${HARD_MAX_OUTPUT_TOKENS} tokens.`;
 
   const response = await fetch(endpoint, {
     method: "POST",
@@ -743,7 +761,7 @@ STRICT SECURITY & CONTENT RULES:
   let text = (data.candidates?.[0]?.content?.parts?.[0]?.text || "").trim();
   if (!text) return generateLocalResponse(userQuery, inputTokens);
 
-  if (text.length > 320) text = text.slice(0, 317) + "...";
+  if (text.length > 850) text = text.slice(0, 847) + "...";
 
   const outputTokens = Math.min(HARD_MAX_OUTPUT_TOKENS, Math.ceil(text.length / 4));
   const totalUsed = Math.min(HARD_MAX_OUTPUT_TOKENS + inputTokens, inputTokens + outputTokens);
