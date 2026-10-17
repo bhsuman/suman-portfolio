@@ -572,11 +572,10 @@ function initAgentUI() {
 
       const quota = getVisitorQuota();
       if (quota.tokensRemaining <= 20 || quota.questionsAsked >= HOURLY_MAX_QUESTIONS) {
-        const minsLeft = getMinutesUntilSessionReset(quota);
         const p = getData().profile || {};
         appendMessage(
           "agent",
-          `1-hour screening allowance reached (${HOURLY_MAX_TOKENS} tokens / ${HOURLY_MAX_QUESTIONS} questions per hour). Your session will automatically restart in **${minsLeft} min**, or you can reach Suman directly at **${p.email || "bhsuman11@gmail.com"}** or **${p.phoneDisplay || "+64 22 051 2513"}**.`
+          `Session allowance reached. Please contact Suman directly at **${p.email || "bhsuman11@gmail.com"}** or **${p.phoneDisplay || "+64 22 051 2513"}**.`
         );
         return;
       }
@@ -615,11 +614,10 @@ function initAgentUI() {
 
 function updateTokenDisplay() {
   const quota = getVisitorQuota();
-  const minsLeft = getMinutesUntilSessionReset(quota);
   const tokenMeter = document.getElementById("agent-token-meter");
   const tokenBar = document.getElementById("agent-token-bar");
   if (tokenMeter) {
-    tokenMeter.textContent = `${quota.tokensRemaining} / ${HOURLY_MAX_TOKENS} tokens (Resets in ${minsLeft}m)`;
+    tokenMeter.textContent = `${quota.tokensRemaining} / ${HOURLY_MAX_TOKENS} tokens`;
   }
   if (tokenBar) {
     const pct = Math.max(0, Math.min(100, (quota.tokensRemaining / HOURLY_MAX_TOKENS) * 100));
