@@ -262,9 +262,9 @@ window.PORTFOLIO_DATA = {
       highlighted: false
     },
     {
-      badge: "High School Diploma",
+      badge: "High School",
       period: "Jun 2016 – Jul 2018",
-      degree: "High School (+2 Science & Computing)",
+      degree: "High School (+2 Science)",
       major: "Mathematics, Physics & Computer Science",
       institution: "Siddhartha College",
       location: "Banepa, Nepal",
