@@ -72,7 +72,7 @@ window.PORTFOLIO_DATA = {
     ],
     calloutTitle: "Current Status: Master's Student • Open to Work",
     calloutText:
-      "Actively seeking student roles, internships, part-time positions, and graduate opportunities in Data Engineering, Data Analytics, Business Intelligence, and Data Science.",
+      "Actively seeking internships, part-time positions, and graduate opportunities in Data Engineering, Data Analytics, Business Intelligence, and Data Science.",
     quickDetails: [
       { label: "Full Name", value: "Suman Bhandari" },
       { label: "Current Location", value: "Henderson, Auckland, New Zealand" },
