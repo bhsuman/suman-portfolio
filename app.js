@@ -449,7 +449,7 @@ async function syncWhitelistedGitHubRepos() {
 
     const countEl = document.getElementById("github-repo-count");
     if (countEl) countEl.textContent = `${updatedList.length} Repos`;
-    if (pill) pill.textContent = `${updatedList.length} Verified Public Repositories`;
+    if (pill) pill.textContent = `${updatedList.length} Public Repositories`;
 
     enrichReposWithReadmes(username, updatedList);
   } catch (e) {
