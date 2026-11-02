@@ -16,7 +16,7 @@ window.PORTFOLIO_DATA = {
     name: "Suman Bhandari",
     initials: "SB",
     headline: "Data Analyst, Associate Data Engineer & Data Science Postgraduate",
-    subheadline: "Data Engineering • Analytics • Machine Learning",
+    subheadline: "Data Engineering & Analytics",
     statusBadge: "Student • Open to Work",
     heroBadge: "Master's Student at Unitec (Auckland) • Open to Work",
     photo: "assets/suman-bhandari.jpg",

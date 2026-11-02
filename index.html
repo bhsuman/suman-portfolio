@@ -69,7 +69,7 @@
     }
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=8">
+  <link rel="stylesheet" href="styles.css?v=9">
   <link rel="icon" type="image/jpeg" href="assets/suman-bhandari.jpg">
 </head>
 <body class="bg-white text-slate-900 min-h-screen selection:bg-blue-600 selection:text-white">
@@ -107,46 +107,45 @@
   <!-- Main Header Navigation -->
   <header class="border-b border-slate-200 bg-white/95 backdrop-blur-sm sticky top-0 z-30">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
+      <div class="flex items-center justify-between h-16 gap-4">
 
-        <!-- Brand -->
-        <a href="#hero" class="flex items-center space-x-3 group">
-          <div id="brand-initials" class="w-9 h-9 rounded-lg bg-blue-700 group-hover:bg-blue-800 text-white flex items-center justify-center font-bold text-sm tracking-tight transition-colors">
+        <!-- Brand (Left Zone - Never Wraps) -->
+        <a href="#hero" class="flex items-center gap-3 flex-shrink-0 group">
+          <div id="brand-initials" class="w-9 h-9 rounded-lg bg-blue-700 group-hover:bg-blue-800 text-white flex items-center justify-center font-bold text-sm tracking-tight flex-shrink-0 transition-colors">
             SB
           </div>
-          <div>
-            <span id="brand-name" class="font-bold text-slate-900 text-base block leading-none">Suman Bhandari</span>
-            <span id="brand-subheadline" class="text-[11px] text-slate-500 font-mono block mt-0.5">Data Engineering • Analytics • Machine Learning</span>
+          <div class="whitespace-nowrap">
+            <span id="brand-name" class="font-bold text-slate-900 text-sm sm:text-base block leading-tight">Suman Bhandari</span>
+            <span id="brand-subheadline" class="text-[11px] text-slate-500 font-mono block leading-tight mt-0.5">Data Engineering &amp; Analytics</span>
           </div>
         </a>
 
-        <!-- Desktop Navigation Links -->
-        <nav aria-label="Primary navigation" class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-600">
+        <!-- Desktop Navigation Links (Center Zone - Clean Section Links Only) -->
+        <nav aria-label="Primary navigation" class="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-600 whitespace-nowrap">
           <a href="#about" class="hover:text-blue-700 transition-colors py-1">About</a>
           <a href="#skills" class="hover:text-blue-700 transition-colors py-1">Skills</a>
           <a href="#projects" class="hover:text-blue-700 transition-colors py-1">Projects</a>
           <a href="#experience" class="hover:text-blue-700 transition-colors py-1">Experience</a>
           <a href="#education" class="hover:text-blue-700 transition-colors py-1">Education</a>
-          <button type="button" onclick="openSumanAIPopup()" class="text-blue-700 font-semibold hover:text-blue-800 transition-colors flex items-center gap-1.5 py-1 cursor-pointer">
-            <span class="w-2 h-2 rounded-full bg-blue-600" aria-hidden="true"></span>
-            <span>Suman AI</span>
-          </button>
-          <a href="#contact" class="hover:text-blue-700 transition-colors py-1">Contact</a>
         </nav>
 
-        <!-- Header Actions -->
-        <div class="hidden sm:flex items-center space-x-2.5">
-          <button type="button" onclick="openCvModal()" class="px-3 py-1.5 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-50 hover:border-slate-400 text-xs font-semibold transition-colors cursor-pointer">
-            CV Summary
-          </button>
-          <a href="#contact" class="px-3.5 py-1.5 rounded-lg bg-blue-700 hover:bg-blue-800 text-white text-xs font-semibold transition-colors">
-            Contact Me
-          </a>
-        </div>
+        <!-- Header Actions + Mobile Toggle (Right Zone - Never Wraps) -->
+        <div class="flex items-center gap-2 flex-shrink-0">
+          <div class="hidden sm:flex items-center gap-2 whitespace-nowrap">
+            <button type="button" onclick="openSumanAIPopup()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer">
+              <span class="w-1.5 h-1.5 rounded-full bg-blue-600 flex-shrink-0" aria-hidden="true"></span>
+              <span>Suman AI</span>
+            </button>
+            <button type="button" onclick="openCvModal()" class="inline-flex items-center px-3 py-1.5 rounded-lg bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 hover:border-slate-400 text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer">
+              CV Summary
+            </button>
+            <a href="#contact" class="inline-flex items-center px-3.5 py-1.5 rounded-lg bg-blue-700 hover:bg-blue-800 text-white text-xs font-semibold whitespace-nowrap transition-colors">
+              Contact Me
+            </a>
+          </div>
 
-        <!-- Mobile Menu Button -->
-        <div class="flex md:hidden items-center space-x-2">
-          <button id="mobile-menu-btn" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu" class="p-2 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50">
+          <!-- Mobile / Tablet Menu Button -->
+          <button id="mobile-menu-btn" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu" class="lg:hidden p-2 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
           </button>
         </div>
@@ -154,8 +153,8 @@
       </div>
     </div>
 
-    <!-- Mobile Navigation Drawer -->
-    <nav id="mobile-menu" aria-label="Mobile navigation" class="hidden md:hidden border-t border-slate-200 bg-white px-4 pt-2 pb-4 space-y-1 text-sm">
+    <!-- Mobile / Tablet Navigation Drawer -->
+    <nav id="mobile-menu" aria-label="Mobile navigation" class="hidden lg:hidden border-t border-slate-200 bg-white px-4 pt-2 pb-4 space-y-1 text-sm">
       <a href="#about" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">About</a>
       <a href="#skills" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">Technical Skills</a>
       <a href="#projects" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">Featured Projects</a>
@@ -163,7 +162,7 @@
       <a href="#education" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">Education</a>
       <button type="button" onclick="openCvModal()" class="w-full text-left block px-3 py-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">View / Print CV Summary</button>
       <button type="button" onclick="openSumanAIPopup()" class="w-full text-left block px-3 py-2 rounded-lg font-semibold text-blue-700 bg-blue-50">Ask Suman AI Assistant</button>
-      <a href="#contact" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">Contact</a>
+      <a href="#contact" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">Contact Me</a>
     </nav>
   </header>
 
@@ -195,14 +194,15 @@
 
             <!-- Primary & Secondary Actions -->
             <div class="flex flex-wrap items-center gap-3 pt-1">
-              <a href="#projects" class="px-5 py-2.5 rounded-lg bg-blue-700 hover:bg-blue-800 text-white font-semibold text-sm shadow-xs transition-colors">
+              <a href="#projects" class="inline-flex items-center justify-center whitespace-nowrap px-5 py-2.5 rounded-lg bg-blue-700 hover:bg-blue-800 text-white font-semibold text-sm shadow-xs transition-colors">
                 View Projects
               </a>
-              <button type="button" onclick="openCvModal()" class="px-4 py-2.5 rounded-lg bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 hover:border-slate-400 font-semibold text-sm transition-colors flex items-center gap-2 cursor-pointer">
-                <svg class="w-4 h-4 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+              <button type="button" onclick="openCvModal()" class="inline-flex items-center justify-center whitespace-nowrap px-4 py-2.5 rounded-lg bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 hover:border-slate-400 font-semibold text-sm transition-colors gap-2 cursor-pointer">
+                <svg class="w-4 h-4 text-blue-700 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                 <span>CV Summary</span>
               </button>
-              <button type="button" onclick="openSumanAIPopup()" class="px-4 py-2.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 font-semibold text-sm transition-colors flex items-center gap-2 cursor-pointer">
+              <button type="button" onclick="openSumanAIPopup()" class="inline-flex items-center justify-center whitespace-nowrap px-4 py-2.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 font-semibold text-sm transition-colors gap-2 cursor-pointer">
+                <span class="w-1.5 h-1.5 rounded-full bg-blue-600 flex-shrink-0" aria-hidden="true"></span>
                 <span>Ask Suman AI</span>
               </button>
             </div>
@@ -332,38 +332,36 @@
     <section id="skills" class="py-14 md:py-20 bg-slate-50 border-b border-slate-200">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-8 gap-4">
-          <div>
-            <p class="text-xs font-mono uppercase tracking-wider text-blue-700 font-semibold">Technical Capabilities</p>
-            <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-1">
-              Technical Skills &amp; Data Stack
-            </h2>
-            <p class="text-sm text-slate-600 mt-1">
-              Organised by domain with clear distinction between commercial experience, completed projects, and postgraduate study.
-            </p>
-          </div>
+        <div class="mb-6">
+          <p class="text-xs font-mono uppercase tracking-wider text-blue-700 font-semibold">Technical Capabilities</p>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-1">
+            Technical Skills &amp; Data Stack
+          </h2>
+          <p class="text-sm text-slate-600 mt-1">
+            Organised by domain with clear distinction between commercial experience, completed projects, and postgraduate study.
+          </p>
+        </div>
 
-          <!-- 5-Category Filter Bar -->
-          <div id="skills-filter-bar" role="group" aria-label="Filter technical skills by category" class="flex flex-wrap gap-2">
-            <button type="button" data-category="all" aria-pressed="true" class="skill-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-700 text-white border border-blue-700 transition-colors cursor-pointer">
-              All Skills (15)
-            </button>
-            <button type="button" data-category="engineering-cloud" aria-pressed="false" class="skill-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-300 hover:border-blue-400 transition-colors cursor-pointer">
-              Data Engineering &amp; Cloud
-            </button>
-            <button type="button" data-category="programming" aria-pressed="false" class="skill-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-300 hover:border-blue-400 transition-colors cursor-pointer">
-              Programming &amp; Querying
-            </button>
-            <button type="button" data-category="analytics" aria-pressed="false" class="skill-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-300 hover:border-blue-400 transition-colors cursor-pointer">
-              Analytics &amp; Visualisation
-            </button>
-            <button type="button" data-category="ml-ai" aria-pressed="false" class="skill-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-300 hover:border-blue-400 transition-colors cursor-pointer">
-              Machine Learning &amp; AI
-            </button>
-            <button type="button" data-category="databases" aria-pressed="false" class="skill-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-300 hover:border-blue-400 transition-colors cursor-pointer">
-              Databases &amp; Data Platforms
-            </button>
-          </div>
+        <!-- 5-Category Filter Bar (Full-Width Clean Row) -->
+        <div id="skills-filter-bar" role="group" aria-label="Filter technical skills by category" class="flex flex-wrap items-center gap-2 mb-8">
+          <button type="button" data-category="all" aria-pressed="true" class="skill-filter-btn inline-flex items-center whitespace-nowrap px-3.5 py-2 rounded-lg text-xs font-semibold bg-blue-700 text-white border border-blue-700 transition-colors cursor-pointer">
+            All Skills (15)
+          </button>
+          <button type="button" data-category="engineering-cloud" aria-pressed="false" class="skill-filter-btn inline-flex items-center whitespace-nowrap px-3.5 py-2 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-300 hover:border-blue-400 transition-colors cursor-pointer">
+            Data Engineering &amp; Cloud
+          </button>
+          <button type="button" data-category="programming" aria-pressed="false" class="skill-filter-btn inline-flex items-center whitespace-nowrap px-3.5 py-2 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-300 hover:border-blue-400 transition-colors cursor-pointer">
+            Programming &amp; Querying
+          </button>
+          <button type="button" data-category="analytics" aria-pressed="false" class="skill-filter-btn inline-flex items-center whitespace-nowrap px-3.5 py-2 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-300 hover:border-blue-400 transition-colors cursor-pointer">
+            Analytics &amp; Visualisation
+          </button>
+          <button type="button" data-category="ml-ai" aria-pressed="false" class="skill-filter-btn inline-flex items-center whitespace-nowrap px-3.5 py-2 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-300 hover:border-blue-400 transition-colors cursor-pointer">
+            Machine Learning &amp; AI
+          </button>
+          <button type="button" data-category="databases" aria-pressed="false" class="skill-filter-btn inline-flex items-center whitespace-nowrap px-3.5 py-2 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-300 hover:border-blue-400 transition-colors cursor-pointer">
+            Databases &amp; Data Platforms
+          </button>
         </div>
 
         <div id="skills-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -919,8 +917,8 @@
   </div>
 
   <!-- 1) Master Content File -->
-  <script src="portfolio-data.js?v=8"></script>
+  <script src="portfolio-data.js?v=9"></script>
   <!-- 2) Portfolio Renderer, Project & CV Modals, Validated Contact Form & Suman AI Engine -->
-  <script src="app.js?v=8"></script>
+  <script src="app.js?v=9"></script>
 </body>
 </html>

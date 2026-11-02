@@ -578,14 +578,14 @@ function renderProjectsGrid(repos) {
 
         <!-- Card Actions: GitHub Repo, Project Details Modal, Ask Suman AI -->
         <div class="pt-4 border-t border-slate-100 mt-5 flex flex-wrap items-center justify-between gap-2">
-          <a href="${escapeHtml(safeUrl)}" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-700 hover:text-blue-900 inline-flex items-center">
+          <a href="${escapeHtml(safeUrl)}" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-700 hover:text-blue-900 inline-flex items-center whitespace-nowrap">
             GitHub Repository ↗
           </a>
-          <div class="flex items-center gap-2">
-            <button type="button" onclick="openProjectDetailsModal('${safeRepoName}')" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-[11px] font-semibold transition-colors cursor-pointer">
+          <div class="flex items-center gap-2 flex-shrink-0">
+            <button type="button" onclick="openProjectDetailsModal('${safeRepoName}')" class="inline-flex items-center whitespace-nowrap px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-colors cursor-pointer">
               Project Details
             </button>
-            <button type="button" onclick="askAboutProject('${safeProjectTitle}')" class="px-2.5 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-[11px] font-semibold transition-colors cursor-pointer">
+            <button type="button" onclick="askAboutProject('${safeProjectTitle}')" class="inline-flex items-center whitespace-nowrap px-3 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-xs font-semibold transition-colors cursor-pointer">
               Ask Suman AI
             </button>
           </div>
