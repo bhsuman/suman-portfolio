@@ -1129,7 +1129,22 @@ function generateLocalResponse(query, inputTokens) {
       `• **LinkedIn**: [Suman Bhandari on LinkedIn](${p.linkedinUrl || "https://www.linkedin.com/in/suman-bhandari-ab4394279/"})\n` +
       `• **GitHub**: [github.com/bhsuman](${p.githubUrl || "https://github.com/bhsuman"})`;
   }
-  // 7) Student Work Status & Availability
+  // 7) Token Allowance & Session Limits
+  else if (
+    q.includes("token") ||
+    q.includes("quota") ||
+    q.includes("session limit") ||
+    q.includes("allowance")
+  ) {
+    const quota = getVisitorQuota();
+    responseText =
+      `**Suman AI Session Allowance**\n` +
+      `• **Tokens Remaining**: **${quota.tokensRemaining} / ${HOURLY_MAX_TOKENS} tokens**\n` +
+      `• **Questions Asked**: ${quota.questionsAsked} / ${HOURLY_MAX_QUESTIONS} queries in this session\n` +
+      `• **Session Window**: 1 hour auto-refresh window\n\n` +
+      `This allowance is generously configured for employers and recruiters to explore Suman's portfolio projects, studies at Unitec, commercial experience, and technical skills.`;
+  }
+  // 8) Student Work Status & Availability
   else if (
     q.includes("student") ||
     q.includes("status") ||
