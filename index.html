@@ -29,7 +29,7 @@
     }
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="styles.css?v=7">
   <link rel="icon" type="image/jpeg" href="assets/suman-bhandari.jpg">
 </head>
 <body class="bg-white text-slate-900 min-h-screen selection:bg-blue-600 selection:text-white">
@@ -955,62 +955,50 @@
     </div>
   </div>
 
-  <!-- PRIVATE OWNER DASHBOARD: ALERT SETUP, VISITOR LOGS & API CONFIG (Unlocked ONLY after PIN verification) -->
-  <div id="alerts-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center p-4">
+  <!-- PRIVATE OWNER DASHBOARD: ALERT SETUP & VISITOR LOGS (Unlocked ONLY after PIN verification) -->
+  <div id="alerts-modal" role="dialog" aria-modal="true" aria-labelledby="owner-dashboard-title" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center p-4">
     <div class="bg-white border border-slate-200 rounded-2xl max-w-lg w-full p-6 shadow-xl space-y-4 max-h-[90vh] overflow-y-auto">
       <div class="flex items-center justify-between pb-3 border-b border-slate-200">
         <div>
           <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-mono text-[10px] font-semibold">OWNER ONLY • PRIVATE</span>
-          <h3 class="font-bold text-slate-900 text-base mt-1">Owner Alert Setup, Visitor Logs &amp; Config</h3>
+          <h3 id="owner-dashboard-title" class="font-bold text-slate-900 text-base mt-1">Owner Alert Setup &amp; Visitor Logs</h3>
         </div>
-        <button onclick="closeAlertsModal()" class="text-slate-400 hover:text-slate-700 p-1 rounded-lg">✕</button>
+        <button type="button" onclick="closeAlertsModal()" aria-label="Close Owner Dashboard" class="text-slate-400 hover:text-slate-700 p-1 rounded-lg">✕</button>
       </div>
 
       <!-- Notification Setup (Visible ONLY to Suman) -->
       <div class="p-4 rounded-xl bg-blue-50 border border-blue-200 space-y-2.5 text-xs">
-        <p class="font-bold text-blue-950">1. Instant Phone &amp; Email Notification Channels</p>
+        <p class="font-bold text-blue-950">1. Notification Channels &amp; Server Security</p>
         <ol class="list-decimal list-inside space-y-1.5 text-slate-700">
           <li>
-            <strong>Email Alerts (bhsuman11@gmail.com):</strong> Click <em>"Send Test Notification"</em> below, then check your <strong>bhsuman11@gmail.com</strong> inbox (and Spam folder once) to click FormSubmit's one-time "Activate" button.
+            <strong>Email Alerts (bhsuman11@gmail.com):</strong> Click <em>"Send Test Notification"</em> below, then check your <strong>bhsuman11@gmail.com</strong> inbox to confirm delivery.
           </li>
           <li>
-            <strong>Private Mobile Push (ntfy app):</strong> Subscribe on your phone to your private topic:
-            <input id="owner-ntfy-topic-input" type="text" class="mt-1 w-full bg-white border border-blue-300 rounded px-2.5 py-1.5 font-mono text-xs text-slate-900" placeholder="Enter private ntfy topic">
+            <strong>Server-Side Secrets (.env):</strong> AI provider keys (<code class="font-mono">GEMINI_API_KEY</code>) and push topics (<code class="font-mono">PORTFOLIO_NTFY_TOPIC</code>) are kept strictly on the server in <code class="font-mono">.env</code> and never stored in browser storage.
           </li>
           <li>
             <strong>Browser Desktop/Mobile Alert:</strong>
-            <button onclick="enableBrowserNotifications()" class="text-blue-700 font-semibold underline ml-1">Enable Browser Push</button>
+            <button type="button" onclick="enableBrowserNotifications()" class="text-blue-700 font-semibold underline ml-1">Enable Browser Push</button>
           </li>
         </ol>
 
         <div class="pt-2 flex flex-wrap gap-2">
-          <button id="test-alert-btn" onclick="sendTestAlertNow()" class="px-3.5 py-2 rounded-lg bg-blue-700 hover:bg-blue-800 text-white font-semibold text-xs transition-colors">
+          <button id="test-alert-btn" type="button" onclick="sendTestAlertNow()" class="px-3.5 py-2 rounded-lg bg-blue-700 hover:bg-blue-800 text-white font-semibold text-xs transition-colors">
             Send Test Notification Now
-          </button>
-          <button onclick="openOwnerNtfyTopic()" class="px-3.5 py-2 rounded-lg bg-white border border-blue-300 text-blue-700 hover:bg-blue-100 font-semibold text-xs transition-colors">
-            Open Push Channel ↗
           </button>
         </div>
         <p id="test-alert-status" class="text-[11px] font-mono text-blue-800 hidden"></p>
       </div>
 
-      <!-- Optional Custom Webhook & Gemini API Key (Owner Only) -->
+      <!-- Owner PIN Management -->
       <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3 text-xs">
-        <p class="font-bold text-slate-900">2. Owner API &amp; Webhook Settings (Stored locally in your browser only)</p>
+        <p class="font-bold text-slate-900">2. Owner Session PIN Management</p>
         <div>
-          <label for="custom-webhook-input" class="block font-medium text-slate-700 mb-1">Optional Discord / Slack / Telegram Webhook URL</label>
-          <input id="custom-webhook-input" type="url" placeholder="https://discord.com/api/webhooks/..." class="w-full bg-white border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-900">
+          <label for="owner-new-pin-input" class="block font-medium text-slate-700 mb-1">Update Local Owner PIN (Salted SHA-256)</label>
+          <input id="owner-new-pin-input" type="password" autocomplete="new-password" placeholder="New PIN (minimum 4 characters)" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-1.5 text-xs font-mono text-slate-900">
         </div>
-        <div>
-          <label for="gemini-api-key-input" class="block font-medium text-slate-700 mb-1">Optional Gemini API Key (Leave blank to use built-in portfolio engine)</label>
-          <input id="gemini-api-key-input" type="password" placeholder="AIzaSy..." class="w-full bg-white border border-slate-300 rounded-lg px-3 py-1.5 text-xs font-mono text-slate-900">
-        </div>
-        <div>
-          <label for="owner-new-pin-input" class="block font-medium text-slate-700 mb-1">Change Owner PIN (Optional)</label>
-          <input id="owner-new-pin-input" type="password" placeholder="New PIN (leave blank to keep current)" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-1.5 text-xs font-mono text-slate-900">
-        </div>
-        <button id="save-settings-btn" onclick="saveOwnerSettings()" class="px-4 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs">
-          Save Owner Settings
+        <button id="save-settings-btn" type="button" onclick="saveOwnerSettings()" class="px-4 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs">
+          Update PIN
         </button>
       </div>
 
@@ -1018,7 +1006,7 @@
       <div class="space-y-2 pt-2 border-t border-slate-200">
         <div class="flex items-center justify-between">
           <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider font-mono">3. Private Visitor Inquiry Log</h4>
-          <button onclick="clearNotificationHistory()" class="text-[11px] text-slate-500 hover:text-red-600">Clear Log</button>
+          <button type="button" onclick="clearNotificationHistory()" class="text-[11px] text-slate-500 hover:text-red-600">Clear Log</button>
         </div>
         <div id="notification-log-list" class="space-y-2 max-h-52 overflow-y-auto text-xs">
           <p class="text-slate-400 italic">No inquiries recorded yet.</p>
@@ -1028,77 +1016,82 @@
   </div>
 
   <!-- FLOATING SIDE-OF-SCREEN SUMAN AI POPUP WIDGET -->
-  <div id="suman-ai-widget" class="fixed bottom-5 right-5 z-40 flex flex-col items-end">
+  <div id="suman-ai-widget" class="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 z-40 flex flex-col items-end max-w-[calc(100vw-2rem)]">
     
     <!-- Popup Drawer / Window -->
-    <div id="suman-ai-popup" class="hidden mb-3 w-[calc(100vw-2.5rem)] sm:w-[410px] h-[540px] max-h-[82vh] bg-white border border-slate-300 rounded-2xl shadow-2xl overflow-hidden flex-col">
+    <div 
+      id="suman-ai-popup" 
+      role="dialog" 
+      aria-modal="false" 
+      aria-labelledby="popup-agent-title" 
+      aria-describedby="popup-agent-subtitle"
+      class="hidden mb-3 w-[calc(100vw-2rem)] sm:w-[420px] md:w-[440px] h-[590px] max-h-[82vh] bg-white border border-slate-300 rounded-2xl shadow-2xl overflow-hidden flex-col"
+    >
       <!-- Header -->
-      <div class="px-4 py-3 bg-blue-700 text-white flex items-center justify-between flex-shrink-0">
-        <div class="flex items-center space-x-2.5">
-          <div class="relative">
-            <img src="assets/suman-bhandari.jpg" alt="Suman AI" class="w-8 h-8 rounded-full object-cover border-2 border-blue-200">
-            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-blue-700 absolute bottom-0 right-0"></span>
+      <div class="px-4 py-3 bg-blue-700 text-white flex items-center justify-between flex-shrink-0 border-b border-blue-800">
+        <div class="flex items-center space-x-3 min-w-0">
+          <div class="relative flex-shrink-0">
+            <img src="assets/suman-bhandari.jpg" alt="Suman Bhandari avatar" class="w-9 h-9 rounded-full object-cover border-2 border-blue-200">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-blue-700 absolute bottom-0 right-0" aria-hidden="true"></span>
           </div>
-          <div>
-            <div class="flex items-center gap-1.5">
-              <h3 id="popup-agent-title" class="font-bold text-sm leading-tight">Suman AI</h3>
-              <span class="px-1.5 py-0.5 rounded bg-blue-800 text-blue-100 text-[9px] font-mono border border-blue-500">PRO AGENT</span>
-            </div>
-            <p id="popup-agent-subtitle" class="text-[11px] text-blue-100 leading-tight">
-              Portfolio &amp; Project Intelligence
+          <div class="min-w-0">
+            <h3 id="popup-agent-title" class="font-bold text-sm leading-tight truncate">Suman AI</h3>
+            <p id="popup-agent-subtitle" class="text-[11px] text-blue-100 leading-tight truncate mt-0.5">
+              Portfolio &amp; Technical Assistant
             </p>
           </div>
         </div>
-        <button type="button" onclick="closeSumanAIPopup()" title="Minimize Suman AI" class="w-7 h-7 rounded-lg bg-blue-800 hover:bg-blue-900 text-blue-100 flex items-center justify-center text-xs transition-colors">
-          ✕
-        </button>
+        <div class="flex items-center gap-1.5 flex-shrink-0">
+          <button 
+            type="button" 
+            onclick="resetSumanAIConversation()" 
+            title="Start a new conversation" 
+            aria-label="Start a new conversation"
+            class="px-2.5 py-1.5 rounded-lg bg-blue-800/90 hover:bg-blue-900 text-blue-100 hover:text-white text-[11px] font-medium flex items-center gap-1 transition-colors focus:outline-none focus:ring-2 focus:ring-white cursor-pointer"
+          >
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+            <span>New</span>
+          </button>
+          <button 
+            type="button" 
+            onclick="closeSumanAIPopup()" 
+            title="Close Suman AI" 
+            aria-label="Close Suman AI assistant"
+            class="w-7 h-7 rounded-lg bg-blue-800/90 hover:bg-blue-900 text-blue-100 hover:text-white flex items-center justify-center text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-white cursor-pointer"
+          >
+            ✕
+          </button>
+        </div>
       </div>
 
       <!-- Messages Container -->
-      <div id="popup-agent-messages" class="flex-1 p-3.5 overflow-y-auto space-y-3 bg-white">
-        <div class="flex justify-start">
-          <div class="chat-bubble-agent bg-slate-50 text-slate-900 border border-slate-300 rounded-xl max-w-[94%] px-3.5 py-2.5 text-xs sm:text-sm">
-            <p id="popup-welcome-msg" class="leading-relaxed text-slate-900">
-              Kia Ora! I'm <strong>Suman AI</strong> — Suman Bhandari's Portfolio &amp; Project Intelligence agent. Ask me for an executive summary of any of his GitHub projects, his Master's studies at Unitec Auckland, his 2+ years of banking &amp; enterprise data experience, or his technical stack.
-            </p>
-          </div>
-        </div>
+      <div id="popup-agent-messages" role="log" aria-live="polite" aria-relevant="additions" class="flex-1 p-4 overflow-y-auto space-y-3.5 bg-white">
+        <!-- Rendered dynamically by renderWelcomeState() in app.js -->
       </div>
 
-      <!-- Quick Prompts inside Side Popup -->
-      <div id="popup-quick-prompts" class="px-3 py-2 bg-slate-50 border-t border-slate-200 flex items-center space-x-1.5 overflow-x-auto no-scrollbar flex-shrink-0">
-        <button type="button" onclick="askQuickQuestion('Give me an executive summary of all of Suman\'s projects')" class="px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 text-[11px] text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors">
-          All Projects Summary
-        </button>
-        <button type="button" onclick="askQuickQuestion('Tell me more about the Residential Property Price Prediction & BI project')" class="px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 text-[11px] text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors">
-          Residential Property
-        </button>
-        <button type="button" onclick="askQuickQuestion('Explain the Cloud Data Warehousing & Analytics Pipeline project')" class="px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 text-[11px] text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors">
-          Cloud Warehousing
-        </button>
-        <button type="button" onclick="askQuickQuestion('Tell me about Suman\'s studies at Unitec and academic background')" class="px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 text-[11px] text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors">
-          Studies &amp; Degree
-        </button>
-        <button type="button" onclick="askQuickQuestion('What is Suman\'s commercial work experience?')" class="px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 text-[11px] text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors">
-          Work Experience
-        </button>
+      <!-- Compact Category Strip above Input -->
+      <div id="popup-quick-prompts" aria-label="Quick topic categories" class="px-3 py-2 bg-slate-50 border-t border-slate-200 flex items-center gap-1.5 overflow-x-auto no-scrollbar flex-shrink-0">
+        <!-- Populated by app.js -->
       </div>
 
-      <!-- Input Form -->
-      <form id="popup-chat-form" class="p-2.5 bg-white border-t border-slate-200 flex items-center space-x-2 flex-shrink-0">
-        <input 
+      <!-- Input Form (Supports Enter to send, Shift+Enter for new line) -->
+      <form id="popup-chat-form" class="p-3 bg-white border-t border-slate-200 flex items-end gap-2 flex-shrink-0">
+        <label for="popup-chat-input" class="sr-only">Ask Suman AI a question about Suman's portfolio</label>
+        <textarea 
           id="popup-chat-input" 
-          type="text" 
-          maxlength="250"
-          placeholder="Ask Suman AI about projects, studies, skills..." 
-          class="flex-1 bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:bg-white transition-all"
+          rows="1"
+          maxlength="300"
+          placeholder="Ask about projects, architecture, skills, or experience..." 
+          class="flex-1 bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 focus:bg-white resize-none max-h-24 transition-all leading-relaxed"
           required
-        >
+        ></textarea>
         <button 
+          id="popup-send-btn"
           type="submit" 
-          class="px-3.5 py-2 rounded-lg bg-blue-700 hover:bg-blue-800 text-white font-semibold text-xs sm:text-sm transition-colors flex-shrink-0"
+          aria-label="Send message"
+          class="px-4 py-2 rounded-xl bg-blue-700 hover:bg-blue-800 disabled:bg-slate-300 disabled:text-slate-500 text-white font-semibold text-xs sm:text-sm transition-colors flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-blue-600 cursor-pointer"
         >
-          Ask
+          Send
         </button>
       </form>
     </div>
@@ -1108,19 +1101,18 @@
       id="suman-ai-fab" 
       type="button" 
       onclick="toggleSumanAIPopup()" 
-      class="group flex items-center gap-2.5 pl-2.5 pr-4 py-2.5 rounded-full bg-blue-700 hover:bg-blue-800 text-white shadow-lg hover:shadow-xl border border-blue-500 transition-all cursor-pointer"
-      aria-label="Open Suman AI Assistant"
+      aria-expanded="false"
+      aria-controls="suman-ai-popup"
+      aria-label="Open Suman AI Portfolio and Technical Assistant"
+      class="group flex items-center gap-2.5 pl-2.5 pr-4 py-2.5 rounded-full bg-blue-700 hover:bg-blue-800 text-white shadow-lg hover:shadow-xl border border-blue-500 transition-all focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 cursor-pointer"
     >
       <div class="relative flex-shrink-0">
-        <img src="assets/suman-bhandari.jpg" alt="Suman AI" class="w-8 h-8 rounded-full object-cover border-2 border-white">
-        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-blue-700 absolute -bottom-0.5 -right-0.5"></span>
+        <img src="assets/suman-bhandari.jpg" alt="" class="w-8 h-8 rounded-full object-cover border-2 border-white">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-blue-700 absolute -bottom-0.5 -right-0.5" aria-hidden="true"></span>
       </div>
       <div class="text-left leading-tight">
-        <div class="flex items-center gap-1.5">
-          <span class="font-bold text-xs sm:text-sm tracking-tight">Suman AI</span>
-          <span class="px-1.5 py-0.2 rounded bg-blue-600 text-[9px] font-mono uppercase tracking-wider text-blue-100">Pro</span>
-        </div>
-        <p class="text-[10px] text-blue-100 hidden sm:block">Ask about Projects &amp; Experience</p>
+        <span class="font-bold text-xs sm:text-sm tracking-tight block">Suman AI</span>
+        <span class="text-[10px] text-blue-100 hidden sm:block">Portfolio &amp; Technical Assistant</span>
       </div>
     </button>
   </div>
@@ -1156,8 +1148,8 @@
   </script>
 
   <!-- 1) Master Content File (Edit portfolio-data.js to update any portfolio content!) -->
-  <script src="portfolio-data.js?v=6"></script>
-  <!-- 2) Live Rendering, Authentic Public GitHub Sync & Suman AI Pro Agent Engine -->
-  <script src="app.js?v=6"></script>
+  <script src="portfolio-data.js?v=7"></script>
+  <!-- 2) Live Rendering, Authentic Public GitHub Sync & Suman AI Engine -->
+  <script src="app.js?v=7"></script>
 </body>
 </html>

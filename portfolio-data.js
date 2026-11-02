@@ -282,74 +282,160 @@ window.PORTFOLIO_DATA = {
   excludedRepos: ["suman-portfolio", "bhsuman"],
 
   githubRepoOverrides: {
+    "big-data-warehousing-pipeline": {
+      displayName: "Cloud Data Warehousing & Credit Risk Analytics Pipeline",
+      category: "Data Engineering & BI",
+      status: "Completed Project",
+      description:
+        "End-to-end Lakehouse data warehousing and credit risk analytics pipeline processing LendingClub loan data using Databricks, PySpark, Delta Lake (Bronze/Silver/Gold Medallion architecture), Kimball dimensional modelling, and Power BI.",
+      objective:
+        "Design a scalable cloud data warehouse capable of ingesting raw LendingClub financial loan records, enforcing strict data quality rules, and serving conformed dimensional models for credit risk and loan portfolio analysis.",
+      architecture:
+        "Implemented a 3-tier Medallion Architecture in Databricks (Delta Lake): Bronze layer for raw LendingClub ingestion, Silver layer for PySpark standardization, deduplication, and null/type validation, and Gold layer structured as a Kimball Star Schema (FactLoan performance table joined to borrower, grade, purpose, and time dimensions) connected to Power BI.",
+      highlights: [
+        "Processed LendingClub loan datasets in Databricks using distributed PySpark and Delta Lake storage.",
+        "Enforced Silver-layer data quality checks including schema validation, loan status normalization, debt-to-income cleaning, and duplicate removal.",
+        "Designed a Gold-layer Kimball Star Schema optimized for analytical queries on default rates, interest spreads, loan grades, and borrower risk segments.",
+        "Delivered interactive BI reporting views to evaluate credit risk exposure, delinquency drivers, and portfolio performance."
+      ],
+      challenges:
+        "Handling inconsistent raw financial attributes (mixed string/numeric formats for term lengths, employment duration, and interest rates) and high-cardinality borrower fields required modular PySpark transformation rules and surrogate key generation before loading the Gold dimensional tables.",
+      limitations:
+        "The pipeline operates on historical batch LendingClub datasets rather than a live streaming loan origination feed; exact cluster benchmark timings and live Power BI tenant links are not publicly hosted due to licensing.",
+      followUpQuestions: [
+        "Give me a technical deep dive into the Medallion and Kimball schema in the data warehousing project.",
+        "How were LendingClub data quality issues and challenges handled?",
+        "What technologies has Suman used in his projects?"
+      ],
+      tags: ["Databricks", "PySpark", "Delta Lake", "Power BI", "SQL", "Kimball Star Schema"],
+      featured: true
+    },
     "Residential-Property-Price-Prediction-BI": {
       displayName: "Residential Property Price Prediction & BI",
       category: "Machine Learning & BI",
+      status: "Completed Project",
       description:
         "End-to-end residential property valuation and Business Intelligence solution combining Python machine learning regression models with interactive BI analytics to predict housing prices and uncover key market value drivers.",
+      objective:
+        "Predict residential property values accurately from structural and locational attributes while providing business stakeholders with an interactive BI dashboard to explore regional price trends.",
+      architecture:
+        "Two-stage analytics workflow: (1) Python data preparation and Scikit-Learn supervised regression pipeline for feature engineering, outlier treatment, and model evaluation; (2) Curated analytical dataset exported for interactive Business Intelligence dashboarding and price-driver visualization.",
       highlights: [
-        "Engineered end-to-end data preprocessing, outlier handling, and feature engineering across property attributes (location, floor area, bedrooms, land size, and market indicators).",
-        "Trained and evaluated supervised regression models in Python (Scikit-Learn) to deliver accurate residential property price predictions.",
-        "Built interactive Business Intelligence views to visualize regional price distributions, valuation trends, and key price determinants for decision-makers."
+        "Engineered data preprocessing, skewness correction, outlier handling, and feature engineering across property attributes (location, floor area, bedrooms, land size, and market indicators).",
+        "Trained and evaluated supervised regression models in Python (Scikit-Learn) to estimate residential property prices.",
+        "Built interactive Business Intelligence views to inspect regional price distributions, price-per-square-meter trends, and feature importance for buyers and analysts."
+      ],
+      challenges:
+        "Addressing right-skewed property price distributions, multicollinearity among size/room features, and extreme luxury property outliers without distorting baseline neighbourhood valuations.",
+      limitations:
+        "Trained on static historical housing records without real-time macroeconomic interest-rate feeds or automated live MLS scraping.",
+      followUpQuestions: [
+        "What machine learning methods and features were used in the Residential Property project?",
+        "What challenges and limitations exist in the Residential Property project?",
+        "Walk me through the end-to-end data warehousing project."
       ],
       tags: ["Python", "Scikit-Learn", "Machine Learning", "Power BI", "Predictive Modeling"],
-      featured: true
-    },
-    "big-data-warehousing-pipeline": {
-      displayName: "Cloud Data Warehousing & BI Pipeline",
-      category: "Data Engineering & BI",
-      description:
-        "End-to-end cloud data warehousing and Business Intelligence pipeline implementing Medallion Architecture (Bronze/Silver/Gold) and Kimball dimensional star-schema modeling using Databricks, PySpark, Delta Lake, SQL, and Power BI.",
-      highlights: [
-        "Architected a multi-hop Medallion Lakehouse pipeline (Bronze raw ingestion, Silver cleansed/conformed layer, Gold dimensional presentation layer) in Databricks.",
-        "Developed distributed PySpark and Delta Lake ETL transformations to enforce schema validation, deduplication, and data quality rules.",
-        "Modeled Kimball Star Schema fact and dimension tables in SQL to power interactive executive KPI dashboards in Microsoft Power BI."
-      ],
-      tags: ["Databricks", "PySpark", "Delta Lake", "Power BI", "SQL"],
       featured: true
     },
     "Music": {
       displayName: "Music Genre Classification ML Portal",
       category: "Data Science & ML",
+      status: "Completed Project",
       description:
         "Machine learning web application that extracts acoustic and spectrogram features from audio files and classifies music tracks into genres using Python, Scikit-Learn, Django, and Matplotlib on the GTZAN dataset.",
+      objective:
+        "Automate multi-class music genre recognition from raw audio signals and expose the trained classifier through an accessible web interface.",
+      architecture:
+        "Audio signal processing pipeline extracting frequency and time-domain features (MFCCs, spectral centroid, spectral rolloff, chroma frequencies, zero-crossing rate) from the GTZAN collection, paired with Scikit-Learn classification models serialized and served via a Python Django web application.",
       highlights: [
-        "Processed raw audio signals from the GTZAN dataset to extract acoustic features including MFCCs, spectral centroid, chroma frequencies, and mel-spectrograms.",
-        "Trained and benchmarked supervised multi-class classification algorithms in Python (Scikit-Learn) for automated genre recognition.",
-        "Integrated the trained ML inference pipeline into an interactive Django web portal allowing users to upload audio files and view real-time classification results."
+        "Processed raw audio signals from the GTZAN dataset (10 genres) to extract numerical acoustic features and mel-spectrogram representations.",
+        "Trained and compared supervised multi-class classification algorithms in Python (Scikit-Learn) on extracted audio feature vectors.",
+        "Integrated the inference workflow into a Django web portal where users can upload audio tracks and view predicted genres alongside visual plots."
       ],
-      tags: ["Python", "Machine Learning", "Django", "Matplotlib", "GTZAN"],
+      challenges:
+        "Translating raw waveform audio into compact, discriminative tabular features and managing overlapping acoustic characteristics between closely related genres (such as Rock, Country, and Blues).",
+      limitations:
+        "Trained on the standard GTZAN benchmark dataset (1,000 tracks across 10 genres), so generalization to modern sub-genres or full-length multi-genre tracks is bounded by the training corpus. Formal confusion-matrix test benchmarks are not separately published in the repository README.",
+      followUpQuestions: [
+        "How does the audio feature extraction and Django inference work in the Music project?",
+        "What are the limitations of the Music Genre Classification project?",
+        "What technologies has Suman used in his projects?"
+      ],
+      tags: ["Python", "Machine Learning", "Scikit-Learn", "Django", "Matplotlib", "GTZAN"],
       featured: true
     },
     "Data-Analysis-Dewali": {
       displayName: "Retail Festive Sales & Customer Analytics",
       category: "Data Analytics & EDA",
+      status: "Completed Project",
       description:
         "In-depth exploratory data analysis inspecting customer demographics, regional segments, product categories, and order values to identify high-revenue retail purchasing patterns.",
+      objective:
+        "Identify top-spending customer segments, regional demand centres, and high-performing product categories during peak festive retail periods to guide inventory and marketing decisions.",
+      architecture:
+        "Jupyter-based Python exploratory data analysis (EDA) pipeline using Pandas and NumPy for data cleaning/wrangling and Seaborn/Matplotlib for multi-dimensional statistical aggregation and visualization.",
       highlights: [
-        "Cleaned and standardized raw retail transaction datasets in Python (Pandas, NumPy), resolving missing values, data-type mismatches, and duplicate records.",
-        "Conducted multi-dimensional exploratory data analysis across customer age groups, gender, occupations, states, and product categories.",
-        "Created statistical visualizations in Seaborn and Matplotlib to identify top-performing customer segments and optimize inventory and marketing targeting."
+        "Cleaned and standardized raw retail transaction records in Python (Pandas, NumPy), resolving missing values, null columns, and float-to-integer type casting.",
+        "Conducted multi-dimensional exploratory analysis across customer age groups, gender, marital status, occupations, states, and product categories.",
+        "Produced clear statistical visualizations in Seaborn and Matplotlib highlighting key revenue drivers and target buyer personas."
       ],
-      tags: ["Python", "Pandas", "Seaborn", "EDA", "Jupyter"],
+      challenges:
+        "Resolving incomplete demographic records and skewed order-amount distributions across diverse regional states and product SKUs.",
+      limitations:
+        "Focused on descriptive and diagnostic exploratory analysis (EDA) of historical campaign sales rather than predictive demand forecasting.",
+      followUpQuestions: [
+        "What business insights and data cleaning steps were performed in the Retail Sales project?",
+        "How do Suman's skills map to real project evidence?",
+        "Summarise Suman's professional experience."
+      ],
+      tags: ["Python", "Pandas", "NumPy", "Seaborn", "EDA", "Jupyter"],
       featured: true
     }
   },
 
   // --------------------------------------------------------------------------
-  // 8. SUMAN AI ASSISTANT QUICK PROMPTS & EXTRA NOTES
+  // 8. SUMAN AI ASSISTANT CONFIGURATION
   // --------------------------------------------------------------------------
   assistant: {
     name: "Suman AI",
-    subtitle: "Portfolio & Project Intelligence",
-    welcomeMessage:
-      "Kia Ora! I'm **Suman AI**, Suman Bhandari's interactive portfolio assistant. Ask me for a detailed breakdown of any of his projects (such as Residential Property Price Prediction, Cloud Data Warehousing, or Music ML), his technical stack, his 2+ years of work experience, or his Master's studies at Unitec Auckland.",
+    subtitle: "Portfolio & Technical Assistant",
+    welcomeParagraph1:
+      "Kia ora! I'm Suman AI, your guide to Suman Bhandari's technical portfolio. Explore his data engineering, analytics, and machine learning projects, learn about his technical skills, and discover how he approaches real-world problems.",
+    welcomeParagraph2:
+      "What would you like to explore today?",
+    categoryChips: [
+      {
+        label: "Project Portfolio",
+        description: "End-to-end overview of verified projects",
+        question: "Show me an overview of Suman's project portfolio."
+      },
+      {
+        label: "Data Engineering & Cloud",
+        description: "Databricks, Delta Lake, Snowflake & ETL",
+        question: "Walk me through the end-to-end data warehousing project."
+      },
+      {
+        label: "Machine Learning & Analytics",
+        description: "Predictive models, GTZAN audio ML & BI",
+        question: "What Machine Learning and Data Analytics projects has Suman built?"
+      },
+      {
+        label: "Experience & Technical Skills",
+        description: "2+ years commercial roles & stack evidence",
+        question: "Summarise Suman's professional experience."
+      }
+    ],
+    exampleQuestions: [
+      "Walk me through the end-to-end data warehousing project.",
+      "What technologies has Suman used in his projects?",
+      "Explain the Music Genre Classification project.",
+      "Summarise Suman's professional experience."
+    ],
     quickPrompts: [
-      { label: "Project Summaries", question: "Give me a professional summary of Suman's GitHub projects." },
-      { label: "Residential Property ML & BI", question: "Tell me more about the Residential Property Price Prediction BI project." },
-      { label: "Cloud Data Warehouse Pipeline", question: "Explain his Cloud Data Warehousing & BI Pipeline project." },
-      { label: "Data Engineer & Analyst Skills", question: "What are Suman's skills for Data Engineer, Data Analyst, and Data Scientist roles?" },
-      { label: "Experience & Unitec Studies", question: "Tell me about his work experience and his Master's studies at Unitec." }
+      { label: "Project Portfolio", question: "Show me an overview of Suman's project portfolio." },
+      { label: "Data Engineering & Cloud", question: "Walk me through the end-to-end data warehousing project." },
+      { label: "Machine Learning & Analytics", question: "Explain the Music Genre Classification project." },
+      { label: "Experience & Technical Skills", question: "Summarise Suman's professional experience." }
     ],
     extraNotesForAI:
       "Suman Bhandari is based in Henderson, Auckland, New Zealand, pursuing his Master of Applied Technologies (Computing – Data Analytics) at Unitec Institute of Technology. He is a Student • Open to Work for Data Analyst, Data Engineer, Business Intelligence, and Data Scientist roles (internships, part-time, and graduate opportunities)."

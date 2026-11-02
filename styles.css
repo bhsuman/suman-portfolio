@@ -31,6 +31,15 @@ code, pre, .font-mono {
   font-family: 'JetBrains Mono', monospace;
 }
 
+/* Accessible Focus States */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
 /* Custom Scrollbar - Clean White & Blue */
 ::-webkit-scrollbar {
   width: 8px;
@@ -64,13 +73,88 @@ code, pre, .font-mono {
   background: #f8fafc;
   color: #0f172a;
   border: 1px solid #cbd5e1;
-  border-radius: 0.75rem 0.75rem 0.75rem 0.15rem;
+  border-radius: 0.875rem 0.875rem 0.875rem 0.2rem;
+  overflow-wrap: anywhere;
 }
 
 .chat-bubble-user {
   background: #1d4ed8;
   color: #ffffff;
-  border-radius: 0.75rem 0.75rem 0.15rem 0.75rem;
+  border-radius: 0.875rem 0.875rem 0.2rem 0.875rem;
+  overflow-wrap: anywhere;
+}
+
+/* Safe Markdown Typography inside Chat Bubbles */
+.md-content h3,
+.md-content h4 {
+  font-weight: 700;
+  color: #0f172a;
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
+  font-size: 0.85rem;
+  line-height: 1.35;
+}
+
+.md-content h3:first-child,
+.md-content h4:first-child {
+  margin-top: 0;
+}
+
+.md-content p {
+  margin-bottom: 0.45rem;
+}
+
+.md-content p:last-child {
+  margin-bottom: 0;
+}
+
+.md-content ul,
+.md-content ol {
+  margin: 0.35rem 0 0.5rem 1.15rem;
+  padding: 0;
+}
+
+.md-content li {
+  margin-bottom: 0.22rem;
+}
+
+.md-content code.md-inline-code {
+  background: #e2e8f0;
+  color: #1e3a8a;
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+}
+
+.md-content pre.md-code-block {
+  background: #0f172a;
+  color: #f8fafc;
+  padding: 0.65rem 0.8rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  font-size: 0.72rem;
+  line-height: 1.45;
+  margin: 0.45rem 0;
+}
+
+.md-content table.md-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.5rem 0;
+  font-size: 0.72rem;
+}
+
+.md-content table.md-table th,
+.md-content table.md-table td {
+  border: 1px solid #cbd5e1;
+  padding: 0.35rem 0.5rem;
+  text-align: left;
+}
+
+.md-content table.md-table th {
+  background: #eff6ff;
+  color: #1e3a8a;
+  font-weight: 600;
 }
 
 /* Token Meter Bar */
@@ -100,5 +184,20 @@ code, pre, .font-mono {
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+/* Respect User Reduced-Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  #suman-ai-popup {
+    animation: none !important;
   }
 }
