@@ -185,9 +185,9 @@
           </div>
 
           <!-- Right Column: Clean Editorial Portrait Card -->
-          <div class="lg:col-span-5 flex justify-center">
-            <div class="w-72 sm:w-80 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-              <div class="aspect-[4/4.3] overflow-hidden bg-slate-100">
+          <div class="lg:col-span-5 flex justify-center lg:justify-end">
+            <div class="w-full max-w-sm bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+              <div class="aspect-[4/4.2] overflow-hidden bg-slate-100">
                 <img 
                   id="hero-photo"
                   src="assets/suman-bhandari.jpg" 
@@ -196,14 +196,20 @@
                   loading="eager"
                 >
               </div>
-              <div class="p-4 border-t border-slate-100 bg-white flex items-center justify-between">
-                <div>
-                  <p id="card-name" class="font-bold text-slate-900 text-sm">Suman Bhandari</p>
-                  <p id="card-location" class="text-xs text-slate-500">Henderson, Auckland</p>
+              <div class="p-4 border-t border-slate-100 bg-white space-y-2">
+                <div class="flex items-center justify-between gap-2">
+                  <div>
+                    <p id="card-name" class="font-bold text-slate-900 text-sm">Suman Bhandari</p>
+                    <p id="card-location" class="text-xs text-slate-500">Henderson, Auckland, NZ</p>
+                  </div>
+                  <span id="card-status-badge" class="px-2.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-[11px] font-semibold">
+                    Student • Open to Work
+                  </span>
                 </div>
-                <span id="card-status-badge" class="px-2.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-[11px] font-medium">
-                  Student • Open to Work
-                </span>
+                <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-600">
+                  <span class="font-medium text-slate-700">Unitec Institute of Technology</span>
+                  <span class="font-mono text-blue-700">Master's (Data)</span>
+                </div>
               </div>
             </div>
           </div>
@@ -211,26 +217,34 @@
         </div>
 
         <!-- Summary Strip -->
-        <div id="hero-highlights-grid" class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div class="p-4 rounded-xl bg-white border border-slate-200">
+        <div id="hero-highlights-grid" class="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="p-5 rounded-xl bg-white border border-slate-200 border-t-2 border-t-blue-600 shadow-2xs flex flex-col justify-between">
             <p class="text-2xl font-bold text-blue-700 font-mono">2+ Years</p>
-            <p class="text-xs sm:text-sm text-slate-700 font-medium mt-0.5">Industry Experience</p>
-            <p class="text-xs text-slate-500">Data Engineering, Analytics &amp; ICT</p>
+            <div class="mt-1">
+              <p class="text-xs sm:text-sm text-slate-900 font-semibold">Industry Experience</p>
+              <p class="text-xs text-slate-500 mt-0.5">Data Engineering, Analytics &amp; ICT</p>
+            </div>
           </div>
-          <div class="p-4 rounded-xl bg-white border border-slate-200">
+          <div class="p-5 rounded-xl bg-white border border-slate-200 border-t-2 border-t-blue-600 shadow-2xs flex flex-col justify-between">
             <p class="text-2xl font-bold text-blue-700 font-mono">15+ Tools</p>
-            <p class="text-xs sm:text-sm text-slate-700 font-medium mt-0.5">Modern Data Stack</p>
-            <p class="text-xs text-slate-500">SQL, Python, Snowflake, Databricks, BI</p>
+            <div class="mt-1">
+              <p class="text-xs sm:text-sm text-slate-900 font-semibold">Modern Data Stack</p>
+              <p class="text-xs text-slate-500 mt-0.5">SQL, Python, Snowflake, Databricks, BI</p>
+            </div>
           </div>
-          <div class="p-4 rounded-xl bg-white border border-slate-200">
+          <div class="p-5 rounded-xl bg-white border border-slate-200 border-t-2 border-t-blue-600 shadow-2xs flex flex-col justify-between">
             <p class="text-2xl font-bold text-blue-700 font-mono">Master's</p>
-            <p class="text-xs sm:text-sm text-slate-700 font-medium mt-0.5">Applied Tech (Data Analytics)</p>
-            <p class="text-xs text-slate-500">Unitec Institute of Technology, Auckland</p>
+            <div class="mt-1">
+              <p class="text-xs sm:text-sm text-slate-900 font-semibold">Applied Tech (Data Analytics)</p>
+              <p class="text-xs text-slate-500 mt-0.5">Unitec Institute of Technology, Auckland</p>
+            </div>
           </div>
-          <div class="p-4 rounded-xl bg-white border border-slate-200">
-            <p class="text-2xl font-bold text-blue-700 font-mono">Student</p>
-            <p class="text-xs sm:text-sm text-slate-700 font-medium mt-0.5">Open to Work</p>
-            <p class="text-xs text-slate-500">Data Analyst, Engineer &amp; Scientist Roles</p>
+          <div class="p-5 rounded-xl bg-white border border-slate-200 border-t-2 border-t-blue-600 shadow-2xs flex flex-col justify-between">
+            <p class="text-2xl font-bold text-blue-700 font-mono">4 Projects</p>
+            <div class="mt-1">
+              <p class="text-xs sm:text-sm text-slate-900 font-semibold">Public GitHub Portfolio</p>
+              <p class="text-xs text-slate-500 mt-0.5">Data Warehousing, ML &amp; BI Analytics</p>
+            </div>
           </div>
         </div>
       </div>
@@ -241,11 +255,14 @@
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
-          <div class="lg:col-span-7 space-y-4">
-            <p class="text-xs font-mono uppercase tracking-wider text-blue-700 font-semibold">About</p>
-            <h2 id="about-heading" class="text-2xl sm:text-3xl font-bold text-slate-900">
-              Bridging Data Engineering, Business Analytics &amp; Data Science
-            </h2>
+          <div class="lg:col-span-7 space-y-5">
+            <div>
+              <p class="text-xs font-mono uppercase tracking-wider text-blue-700 font-semibold">Executive Profile</p>
+              <h2 id="about-heading" class="text-2xl sm:text-3xl font-bold text-slate-900 mt-1">
+                Bridging Data Engineering, Business Analytics &amp; Data Science
+              </h2>
+            </div>
+
             <div id="about-paragraphs" class="space-y-4 text-slate-600 text-sm sm:text-base leading-relaxed">
               <p>
                 Kia Ora! I am Suman Bhandari, currently based in Henderson, Auckland, New Zealand, pursuing my Master of Applied Technologies (Computing – Data Analytics) at Unitec Institute of Technology. Prior to my postgraduate studies in Auckland, I built practical industry experience across commercial banking IT operations at Laxmi Sunrise Bank, data engineering consultancy at Development Catalyst Consultancy, and cloud data warehousing at LIS Nepal.
@@ -255,60 +272,73 @@
               </p>
             </div>
 
-            <div class="p-4 rounded-xl bg-blue-50/70 border border-blue-200 mt-4">
+            <!-- Structured Role Alignment Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                <p class="text-xs font-mono font-bold text-blue-700 uppercase">Data Engineering</p>
+                <p class="text-xs text-slate-600 mt-1">Snowflake, Databricks, PySpark, dbt, Airflow &amp; Star Schemas</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                <p class="text-xs font-mono font-bold text-blue-700 uppercase">Data Analytics &amp; BI</p>
+                <p class="text-xs text-slate-600 mt-1">Advanced SQL, Power BI (DAX), Tableau &amp; Executive KPIs</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                <p class="text-xs font-mono font-bold text-blue-700 uppercase">Data Science &amp; ML</p>
+                <p class="text-xs text-slate-600 mt-1">Python, Scikit-Learn, Predictive Modeling &amp; Statistical EDA</p>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-blue-50/70 border border-blue-200">
               <p id="about-callout-title" class="font-semibold text-blue-950 text-sm">Current Status: Master's Student • Open to Work</p>
               <p id="about-callout-text" class="text-xs sm:text-sm text-slate-700 mt-1">
-                Actively seeking student roles, internships, part-time positions, and graduate opportunities in Data Engineering, Data Analytics, Business Intelligence, and Data Science.
+                Actively seeking student roles, internships, part-time positions, and graduate opportunities in Data Engineering, Data Analytics, Business Intelligence, and Data Science across New Zealand &amp; Australia.
               </p>
             </div>
           </div>
 
-          <!-- Profile Details Table -->
+          <!-- Profile Attributes Card (Cleanly Arranged 2-Column Attribute Grid) -->
           <div class="lg:col-span-5">
-            <div class="p-6 rounded-xl bg-slate-50 border border-slate-200 space-y-4">
-              <h3 class="text-base font-bold text-slate-900 border-b border-slate-200 pb-3">
-                Quick Details
-              </h3>
-              <dl id="about-details-list" class="space-y-2.5 text-xs sm:text-sm divide-y divide-slate-200">
-                <div class="flex justify-between pt-2">
-                  <dt class="text-slate-500">Full Name</dt>
-                  <dd class="text-slate-900 font-medium">Suman Bhandari</dd>
+            <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
+              <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                <h3 class="text-base font-bold text-slate-900">
+                  Candidate Overview
+                </h3>
+                <span class="px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800 text-[11px] font-mono font-semibold">
+                  NZ • Open to Work
+                </span>
+              </div>
+              <dl id="about-details-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                <div class="p-3 rounded-lg bg-white border border-slate-200/80">
+                  <dt class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Full Name</dt>
+                  <dd class="text-slate-900 font-semibold text-xs sm:text-sm mt-0.5">Suman Bhandari</dd>
                 </div>
-                <div class="flex justify-between pt-2">
-                  <dt class="text-slate-500">Current Location</dt>
-                  <dd class="text-slate-900 font-medium">Henderson, Auckland, New Zealand</dd>
+                <div class="p-3 rounded-lg bg-white border border-slate-200/80">
+                  <dt class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Location</dt>
+                  <dd class="text-slate-900 font-semibold text-xs sm:text-sm mt-0.5">Henderson, Auckland, NZ</dd>
                 </div>
-                <div class="flex justify-between pt-2">
-                  <dt class="text-slate-500">University</dt>
-                  <dd class="text-slate-900 font-medium">Unitec Institute of Technology (Auckland)</dd>
+                <div class="p-3 rounded-lg bg-white border border-slate-200/80 sm:col-span-2">
+                  <dt class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Current Degree &amp; University</dt>
+                  <dd class="text-slate-900 font-semibold text-xs sm:text-sm mt-0.5">Master of Applied Technologies (Data Analytics) — Unitec</dd>
                 </div>
-                <div class="flex justify-between pt-2">
-                  <dt class="text-slate-500">Current Degree</dt>
-                  <dd class="text-slate-900 font-medium">Master of Applied Technologies (Data Analytics)</dd>
+                <div class="p-3 rounded-lg bg-white border border-slate-200/80 sm:col-span-2">
+                  <dt class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Target Roles</dt>
+                  <dd class="text-blue-700 font-semibold text-xs sm:text-sm mt-0.5">Data Engineer • Data Analyst • Data Scientist</dd>
                 </div>
-                <div class="flex justify-between pt-2">
-                  <dt class="text-slate-500">Work Status</dt>
-                  <dd class="text-blue-700 font-semibold">Student • Open to Work</dd>
+                <div class="p-3 rounded-lg bg-white border border-slate-200/80">
+                  <dt class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Direct Phone / SMS</dt>
+                  <dd class="mt-0.5"><a href="sms:+64220512513" class="text-blue-700 hover:underline font-mono font-semibold">+64 22 051 2513</a></dd>
                 </div>
-                <div class="flex justify-between pt-2">
-                  <dt class="text-slate-500">Target Roles</dt>
-                  <dd class="text-slate-900 font-medium">Data Engineer / Data Analyst / Data Scientist</dd>
+                <div class="p-3 rounded-lg bg-white border border-slate-200/80">
+                  <dt class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Email</dt>
+                  <dd class="mt-0.5 truncate"><a href="mailto:bhsuman11@gmail.com" class="text-blue-700 hover:underline font-semibold">bhsuman11@gmail.com</a></dd>
                 </div>
-                <div class="flex justify-between pt-2">
-                  <dt class="text-slate-500">Direct Phone / SMS</dt>
-                  <dd><a href="sms:+64220512513" class="text-blue-700 hover:underline font-mono">+64 22 051 2513 (022 051 2513)</a></dd>
+                <div class="p-3 rounded-lg bg-white border border-slate-200/80">
+                  <dt class="text-[11px] font-mono uppercase tracking-wider text-slate-400">LinkedIn</dt>
+                  <dd class="mt-0.5 truncate"><a href="https://www.linkedin.com/in/suman-bhandari-ab4394279/" target="_blank" rel="noopener noreferrer" class="text-blue-700 hover:underline font-semibold">in/suman-bhandari ↗</a></dd>
                 </div>
-                <div class="flex justify-between pt-2">
-                  <dt class="text-slate-500">Email</dt>
-                  <dd><a href="mailto:bhsuman11@gmail.com" class="text-blue-700 hover:underline">bhsuman11@gmail.com</a></dd>
-                </div>
-                <div class="flex justify-between pt-2">
-                  <dt class="text-slate-500">LinkedIn</dt>
-                  <dd><a href="https://www.linkedin.com/in/suman-bhandari-ab4394279/" target="_blank" rel="noopener noreferrer" class="text-blue-700 hover:underline">linkedin.com/in/suman-bhandari-ab4394279</a></dd>
-                </div>
-                <div class="flex justify-between pt-2">
-                  <dt class="text-slate-500">GitHub</dt>
-                  <dd><a href="https://github.com/bhsuman" target="_blank" rel="noopener noreferrer" class="text-blue-700 hover:underline">github.com/bhsuman</a></dd>
+                <div class="p-3 rounded-lg bg-white border border-slate-200/80">
+                  <dt class="text-[11px] font-mono uppercase tracking-wider text-slate-400">GitHub</dt>
+                  <dd class="mt-0.5 truncate"><a href="https://github.com/bhsuman" target="_blank" rel="noopener noreferrer" class="text-blue-700 hover:underline font-semibold">github.com/bhsuman ↗</a></dd>
                 </div>
               </dl>
             </div>
@@ -764,225 +794,109 @@
       </div>
     </section>
 
-    <!-- PORTFOLIO Q&A ASSISTANT (SUMAN AI) -->
-    <section id="ai-agent-section" class="py-14 md:py-20 bg-white border-b border-slate-200">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="max-w-2xl mb-8">
-          <p class="text-xs font-mono uppercase tracking-wider text-blue-700 font-semibold">Suman AI • Portfolio &amp; Project Intelligence</p>
-          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-1">
-            Ask Suman AI About Projects, Skills &amp; Experience
-          </h2>
-          <p class="text-sm text-slate-600 mt-1">
-            Ask Suman AI for executive summaries of any GitHub project, his Master's study at Unitec Auckland, his 2+ years of commercial data experience, or his technical stack.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
-          <!-- Chat Box (8 cols) -->
-          <div class="lg:col-span-8 bg-white border border-slate-300 rounded-xl shadow-sm overflow-hidden flex flex-col h-[540px]">
-            
-            <!-- Header (No admin/config buttons exposed to public visitors) -->
-            <div class="px-4 py-3 bg-blue-700 text-white flex items-center justify-between">
-              <div class="flex items-center space-x-3">
-                <div class="relative">
-                  <img src="assets/suman-bhandari.jpg" alt="Suman AI" class="w-9 h-9 rounded-full object-cover border-2 border-blue-200">
-                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-blue-700 absolute bottom-0 right-0"></span>
-                </div>
-                <div>
-                  <div class="flex items-center gap-2">
-                    <h3 id="agent-header-title" class="font-bold text-sm leading-tight">Suman AI</h3>
-                    <span class="px-1.5 py-0.5 rounded bg-blue-800 text-blue-100 text-[10px] font-mono border border-blue-500">PRO AGENT</span>
-                  </div>
-                  <p id="agent-header-subtitle" class="text-[11px] text-blue-100">
-                    Portfolio &amp; Project Intelligence
-                  </p>
-                </div>
-              </div>
-              <button type="button" onclick="openSumanAIPopup()" class="px-2.5 py-1 rounded-md bg-blue-800 hover:bg-blue-900 text-blue-100 text-[11px] font-mono border border-blue-600 transition-colors">
-                Open Side Panel ↗
-              </button>
-            </div>
-
-            <!-- Strict Token Quota Bar -->
-            <div class="px-4 py-2 bg-slate-50 border-b border-slate-200 flex items-center justify-between text-[11px] font-mono text-slate-600">
-              <span>
-                Session Allowance: <strong id="agent-token-meter" class="text-blue-700">2500 / 2500 tokens</strong>
-              </span>
-              <div class="w-28 h-1.5 rounded-full bg-slate-200 overflow-hidden">
-                <div id="agent-token-bar" class="token-bar-fill h-full bg-blue-600 rounded-full w-full"></div>
-              </div>
-            </div>
-
-            <!-- Messages Area -->
-            <div id="agent-messages" class="flex-1 p-4 overflow-y-auto space-y-3 bg-white">
-              <div class="flex justify-start">
-                <div class="chat-bubble-agent bg-slate-50 text-slate-900 border border-slate-300 rounded-xl max-w-[92%] px-4 py-3 text-sm">
-                  <p id="agent-welcome-msg" class="leading-relaxed text-slate-900">
-                    Kia Ora! I'm <strong>Suman AI</strong> — Suman Bhandari's Portfolio &amp; Project Intelligence agent. Ask me for an executive summary of any of his GitHub projects, his Master's studies at Unitec Auckland, his 2+ years of banking &amp; enterprise data experience, or his technical stack.
-                  </p>
-                  <p class="mt-1.5 text-xs text-slate-600">
-                    Click any prompt below or ask about a specific project (e.g., <em>"Tell me more about Residential Property Price Prediction"</em>).
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Preset Question Pills -->
-            <div id="agent-quick-prompts" class="px-4 py-2 bg-slate-50 border-t border-slate-200 flex items-center space-x-2 overflow-x-auto no-scrollbar">
-              <span class="text-[11px] font-mono text-slate-500 flex-shrink-0">Ask Suman AI:</span>
-              <button type="button" onclick="askQuickQuestion('Give me an executive summary of all of Suman\'s projects')" class="px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 text-xs text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors">
-                Summarize All Projects
-              </button>
-              <button type="button" onclick="askQuickQuestion('Tell me more about the Residential Property Price Prediction & BI project')" class="px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 text-xs text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors">
-                Residential Property Project
-              </button>
-              <button type="button" onclick="askQuickQuestion('Explain the Cloud Data Warehousing & Analytics Pipeline project')" class="px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 text-xs text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors">
-                Cloud Warehousing Project
-              </button>
-              <button type="button" onclick="askQuickQuestion('Tell me about Suman\'s studies at Unitec and academic background')" class="px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 text-xs text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors">
-                Studies &amp; Education
-              </button>
-              <button type="button" onclick="askQuickQuestion('What are Suman\'s core skills for Data Engineer, Data Analyst, and Data Scientist roles?')" class="px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 text-xs text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors">
-                Skills &amp; Role Fit
-              </button>
-            </div>
-
-            <!-- Input Form -->
-            <form id="agent-chat-form" class="p-3 bg-white border-t border-slate-200 flex items-center space-x-2">
-              <input 
-                id="agent-chat-input" 
-                type="text" 
-                maxlength="250"
-                placeholder="Ask Suman AI about any project, his studies, work experience, or skills..." 
-                class="flex-1 bg-slate-50 border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:bg-white transition-all"
-                required
-              >
-              <button 
-                type="submit" 
-                class="px-4 py-2.5 rounded-lg bg-blue-700 hover:bg-blue-800 text-white font-semibold text-sm transition-colors flex-shrink-0"
-              >
-                Ask
-              </button>
-            </form>
-          </div>
-
-          <!-- Right Column: Clean Visitor Info (No private channels or logs exposed!) -->
-          <div class="lg:col-span-4 space-y-4">
-            <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
-              <h3 class="text-sm font-bold text-slate-900">
-                Direct Contact for Employers
-              </h3>
-              <p class="text-xs text-slate-600 leading-relaxed">
-                Questions asked here automatically notify Suman. For direct conversations regarding Data Engineer, Data Analyst, Data Scientist, or internship opportunities:
-              </p>
-              <div class="pt-1 flex flex-col gap-2">
-                <a href="sms:+64220512513?body=Hi%20Suman,%20I%20viewed%20your%20portfolio%20and%20would%20like%20to%20connect." class="w-full py-2 px-3 rounded-lg bg-blue-700 hover:bg-blue-800 text-white font-semibold text-xs text-center transition-colors">
-                  Send SMS (022 051 2513)
-                </a>
-                <a href="mailto:bhsuman11@gmail.com" class="w-full py-2 px-3 rounded-lg bg-white hover:bg-blue-50 text-blue-700 border border-blue-300 font-semibold text-xs text-center transition-colors">
-                  Email bhsuman11@gmail.com
-                </a>
-              </div>
-            </div>
-
-            <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
-              <h4 class="font-bold text-slate-900 text-sm">
-                Suman AI Capabilities
-              </h4>
-              <ul class="space-y-1.5 text-xs text-slate-600">
-                <li>• Provides structured executive summaries, architecture highlights, and tech stacks for every GitHub project.</li>
-                <li>• Answers detailed questions about Suman's Unitec Master's degree, banking &amp; analytics career, and technical skills.</li>
-                <li>• Available anytime from the side of your screen via the floating <strong>Suman AI</strong> button.</li>
-              </ul>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
     <!-- CONTACT SECTION -->
-    <section id="contact" class="py-14 md:py-20 bg-slate-50">
+    <section id="contact" class="py-14 md:py-20 bg-white">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div class="max-w-2xl mb-10">
-          <p class="text-xs font-mono uppercase tracking-wider text-blue-700 font-semibold">Contact</p>
+          <p class="text-xs font-mono uppercase tracking-wider text-blue-700 font-semibold">Direct Contact</p>
           <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-1">
             Get in Touch
           </h2>
           <p class="text-sm text-slate-600 mt-1">
-            Open to student roles, internships, and Data Engineer / Data Analyst / Data Scientist opportunities. Feel free to call, text, or send an email.
+            Open to student roles, internships, and Data Engineer / Data Analyst / Data Scientist opportunities across New Zealand &amp; Australia.
           </p>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
-          <div class="lg:col-span-5 space-y-3">
-            <div class="p-4 rounded-xl bg-white border border-slate-200 flex items-center justify-between">
-              <div>
-                <p class="text-xs text-slate-500">Phone / SMS</p>
-                <p id="contact-phone-display" class="text-sm font-bold text-slate-900 font-mono mt-0.5">+64 22 051 2513</p>
+          <div class="lg:col-span-5 flex flex-col justify-between space-y-3">
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+              <div class="flex items-center space-x-3.5">
+                <div class="w-10 h-10 rounded-lg bg-blue-100/80 text-blue-700 flex items-center justify-center font-mono text-xs font-bold flex-shrink-0">TEL</div>
+                <div>
+                  <p class="text-[11px] font-mono uppercase tracking-wider text-slate-500">Phone / SMS</p>
+                  <p id="contact-phone-display" class="text-sm font-bold text-slate-900 font-mono mt-0.5">+64 22 051 2513</p>
+                </div>
               </div>
               <div class="flex gap-2">
-                <a href="sms:+64220512513" class="px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 text-xs font-semibold">SMS</a>
-                <a href="tel:+64220512513" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-semibold">Call</a>
+                <a href="sms:+64220512513" class="px-3 py-1.5 rounded-lg bg-blue-700 text-white hover:bg-blue-800 text-xs font-semibold transition-colors">SMS</a>
+                <a href="tel:+64220512513" class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-700 hover:bg-slate-100 text-xs font-semibold transition-colors">Call</a>
               </div>
             </div>
 
-            <div class="p-4 rounded-xl bg-white border border-slate-200 flex items-center justify-between">
-              <div>
-                <p class="text-xs text-slate-500">Email</p>
-                <p id="contact-email-display" class="text-sm font-bold text-slate-900 mt-0.5">bhsuman11@gmail.com</p>
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+              <div class="flex items-center space-x-3.5 min-w-0">
+                <div class="w-10 h-10 rounded-lg bg-blue-100/80 text-blue-700 flex items-center justify-center font-mono text-xs font-bold flex-shrink-0">MAIL</div>
+                <div class="min-w-0">
+                  <p class="text-[11px] font-mono uppercase tracking-wider text-slate-500">Email Address</p>
+                  <p id="contact-email-display" class="text-sm font-bold text-slate-900 mt-0.5 truncate">bhsuman11@gmail.com</p>
+                </div>
               </div>
-              <button onclick="copyToClipboard('bhsuman11@gmail.com', 'Email')" class="px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 text-xs font-semibold">
+              <button onclick="copyToClipboard('bhsuman11@gmail.com', 'Email')" class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-blue-700 hover:bg-blue-50 text-xs font-semibold flex-shrink-0">
                 Copy
               </button>
             </div>
 
-            <div class="p-4 rounded-xl bg-white border border-slate-200">
-              <p class="text-xs text-slate-500">Location &amp; Status</p>
-              <p id="contact-location-display" class="text-sm font-bold text-slate-900 mt-0.5">Henderson, Auckland</p>
-              <p id="contact-status-display" class="text-xs text-blue-700 font-medium mt-0.5">Student • Open to Work</p>
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+              <div class="flex items-center space-x-3.5">
+                <div class="w-10 h-10 rounded-lg bg-blue-100/80 text-blue-700 flex items-center justify-center font-mono text-xs font-bold flex-shrink-0">LOC</div>
+                <div>
+                  <p class="text-[11px] font-mono uppercase tracking-wider text-slate-500">Location &amp; Status</p>
+                  <p id="contact-location-display" class="text-sm font-bold text-slate-900 mt-0.5">Henderson, Auckland, NZ</p>
+                </div>
+              </div>
+              <span id="contact-status-display" class="px-2.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-[11px] font-semibold">
+                Student • Open to Work
+              </span>
             </div>
 
-            <div class="p-4 rounded-xl bg-white border border-slate-200 flex items-center justify-between">
-              <a id="contact-linkedin-link" href="https://www.linkedin.com/in/suman-bhandari-ab4394279/" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-sm font-semibold text-blue-700 hover:underline">
-                LinkedIn Profile →
-              </a>
-              <a id="contact-github-link" href="https://github.com/bhsuman" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-sm font-semibold text-slate-700 hover:text-blue-700">
-                GitHub (@bhsuman) →
-              </a>
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+              <div class="flex items-center space-x-3.5">
+                <div class="w-10 h-10 rounded-lg bg-blue-100/80 text-blue-700 flex items-center justify-center font-mono text-xs font-bold flex-shrink-0">WEB</div>
+                <div>
+                  <p class="text-[11px] font-mono uppercase tracking-wider text-slate-500">Professional Profiles</p>
+                  <div class="flex items-center gap-4 mt-0.5">
+                    <a id="contact-linkedin-link" href="https://www.linkedin.com/in/suman-bhandari-ab4394279/" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-sm font-semibold text-blue-700 hover:underline">
+                      LinkedIn ↗
+                    </a>
+                    <a id="contact-github-link" href="https://github.com/bhsuman" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-sm font-semibold text-slate-700 hover:text-blue-700">
+                      GitHub (@bhsuman) ↗
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="lg:col-span-7 bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
-            <h3 class="text-base font-bold text-slate-900 mb-1">Send a Direct Message</h3>
-            <p class="text-xs text-slate-500 mb-5">
-              Fill out the form below to send a direct inquiry to Suman.
-            </p>
+          <div class="lg:col-span-7 bg-slate-50 border border-slate-200 rounded-xl p-6 flex flex-col justify-between">
+            <div>
+              <h3 class="text-base font-bold text-slate-900 mb-1">Send a Direct Message</h3>
+              <p class="text-xs text-slate-500 mb-5">
+                Fill out the form below to send a direct inquiry to Suman.
+              </p>
+            </div>
 
             <form id="contact-form" onsubmit="event.preventDefault(); handleContactSubmit();" class="space-y-4">
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label for="contact-name" class="block text-xs font-medium text-slate-700 mb-1">Your Name *</label>
-                  <input id="contact-name" type="text" required placeholder="Jane Doe" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-blue-600 focus:bg-white">
+                  <input id="contact-name" type="text" required placeholder="Jane Doe" class="w-full bg-white border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-blue-600">
                 </div>
                 <div>
                   <label for="contact-phone" class="block text-xs font-medium text-slate-700 mb-1">Your Email or Phone *</label>
-                  <input id="contact-phone" type="text" required placeholder="jane@company.com" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-blue-600 focus:bg-white">
+                  <input id="contact-phone" type="text" required placeholder="jane@company.com" class="w-full bg-white border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-blue-600">
                 </div>
               </div>
 
               <div>
                 <label for="contact-subject" class="block text-xs font-medium text-slate-700 mb-1">Subject</label>
-                <input id="contact-subject" type="text" placeholder="Data Engineer / Data Analyst / Data Scientist Role" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-blue-600 focus:bg-white">
+                <input id="contact-subject" type="text" placeholder="Data Engineer / Data Analyst / Data Scientist Role" class="w-full bg-white border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-blue-600">
               </div>
 
               <div>
                 <label for="contact-msg" class="block text-xs font-medium text-slate-700 mb-1">Message *</label>
-                <textarea id="contact-msg" rows="3" required placeholder="Hi Suman, I'd like to get in touch regarding..." class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-blue-600 focus:bg-white"></textarea>
+                <textarea id="contact-msg" rows="3" required placeholder="Hi Suman, I'd like to get in touch regarding..." class="w-full bg-white border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-blue-600"></textarea>
               </div>
 
               <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-1">
@@ -999,14 +913,16 @@
   </main>
 
   <!-- FOOTER -->
-  <footer class="border-t border-slate-200 bg-white text-slate-600 py-8 text-xs">
+  <footer class="border-t border-slate-200 bg-slate-50 text-slate-600 py-8 text-xs">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div class="flex items-center space-x-2.5">
         <!-- Secret Owner Trigger: Triple-click this SB badge or press Ctrl+Shift+L -->
         <span id="owner-secret-trigger" title="Suman Bhandari" class="w-6 h-6 rounded bg-blue-700 text-white flex items-center justify-center font-bold text-[11px] select-none cursor-default">SB</span>
         <span class="font-semibold text-slate-900">Suman Bhandari</span>
         <span class="text-slate-400">•</span>
-        <span>Student • Open to Work</span>
+        <span>Henderson, Auckland, NZ</span>
+        <span class="text-slate-400">•</span>
+        <span class="text-blue-700 font-medium">Student • Open to Work</span>
       </div>
 
       <div class="flex flex-wrap items-center gap-5">
@@ -1014,6 +930,7 @@
         <a href="#skills" class="hover:text-blue-700">Skills</a>
         <a href="#projects" class="hover:text-blue-700">Projects</a>
         <a href="#experience" class="hover:text-blue-700">Experience</a>
+        <a href="#education" class="hover:text-blue-700">Education</a>
         <a href="https://github.com/bhsuman" target="_blank" rel="noopener noreferrer" class="hover:text-blue-700">GitHub</a>
       </div>
     </div>
@@ -1114,7 +1031,7 @@
   <div id="suman-ai-widget" class="fixed bottom-5 right-5 z-40 flex flex-col items-end">
     
     <!-- Popup Drawer / Window -->
-    <div id="suman-ai-popup" class="hidden mb-3 w-[calc(100vw-2.5rem)] sm:w-[410px] h-[560px] max-h-[82vh] bg-white border border-slate-300 rounded-2xl shadow-2xl overflow-hidden flex-col">
+    <div id="suman-ai-popup" class="hidden mb-3 w-[calc(100vw-2.5rem)] sm:w-[410px] h-[540px] max-h-[82vh] bg-white border border-slate-300 rounded-2xl shadow-2xl overflow-hidden flex-col">
       <!-- Header -->
       <div class="px-4 py-3 bg-blue-700 text-white flex items-center justify-between flex-shrink-0">
         <div class="flex items-center space-x-2.5">
@@ -1135,16 +1052,6 @@
         <button type="button" onclick="closeSumanAIPopup()" title="Minimize Suman AI" class="w-7 h-7 rounded-lg bg-blue-800 hover:bg-blue-900 text-blue-100 flex items-center justify-center text-xs transition-colors">
           ✕
         </button>
-      </div>
-
-      <!-- Session Allowance Bar (No reset timer in UI) -->
-      <div class="px-3.5 py-1.5 bg-slate-50 border-b border-slate-200 flex items-center justify-between text-[11px] font-mono text-slate-600 flex-shrink-0">
-        <span>
-          Session Allowance: <strong id="popup-token-meter" class="text-blue-700">2500 / 2500 tokens</strong>
-        </span>
-        <div class="w-20 h-1.5 rounded-full bg-slate-200 overflow-hidden">
-          <div id="popup-token-bar" class="token-bar-fill h-full bg-blue-600 rounded-full w-full"></div>
-        </div>
       </div>
 
       <!-- Messages Container -->
@@ -1201,7 +1108,7 @@
       id="suman-ai-fab" 
       type="button" 
       onclick="toggleSumanAIPopup()" 
-      class="group flex items-center gap-2.5 pl-2.5 pr-4 py-2.5 rounded-full bg-blue-700 hover:bg-blue-800 text-white shadow-lg hover:shadow-xl border border-blue-500 transition-all"
+      class="group flex items-center gap-2.5 pl-2.5 pr-4 py-2.5 rounded-full bg-blue-700 hover:bg-blue-800 text-white shadow-lg hover:shadow-xl border border-blue-500 transition-all cursor-pointer"
       aria-label="Open Suman AI Assistant"
     >
       <div class="relative flex-shrink-0">
@@ -1249,8 +1156,8 @@
   </script>
 
   <!-- 1) Master Content File (Edit portfolio-data.js to update any portfolio content!) -->
-  <script src="portfolio-data.js?v=5"></script>
+  <script src="portfolio-data.js?v=6"></script>
   <!-- 2) Live Rendering, Authentic Public GitHub Sync & Suman AI Pro Agent Engine -->
-  <script src="app.js?v=5"></script>
+  <script src="app.js?v=6"></script>
 </body>
 </html>

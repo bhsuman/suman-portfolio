@@ -127,10 +127,12 @@ function renderAllFromPortfolioData() {
   const highlightsGrid = document.getElementById("hero-highlights-grid");
   if (highlightsGrid && highlights.length > 0) {
     highlightsGrid.innerHTML = highlights.map(item => `
-      <div class="p-4 rounded-xl bg-white border border-slate-200">
+      <div class="p-5 rounded-xl bg-white border border-slate-200 border-t-2 border-t-blue-600 shadow-2xs flex flex-col justify-between">
         <p ${item.isGitHubCounter ? 'id="github-repo-count"' : ''} class="text-2xl font-bold text-blue-700 font-mono">${escapeHtml(item.value)}</p>
-        <p class="text-xs sm:text-sm text-slate-700 font-medium mt-0.5">${escapeHtml(item.title)}</p>
-        <p ${item.isGitHubCounter ? 'id="github-sync-subtext"' : ''} class="text-xs text-slate-500">${escapeHtml(item.subtitle)}</p>
+        <div class="mt-1">
+          <p class="text-xs sm:text-sm text-slate-900 font-semibold">${escapeHtml(item.title)}</p>
+          <p ${item.isGitHubCounter ? 'id="github-sync-subtext"' : ''} class="text-xs text-slate-500 mt-0.5">${escapeHtml(item.subtitle)}</p>
+        </div>
       </div>
     `).join("");
   }
@@ -152,13 +154,14 @@ function renderAllFromPortfolioData() {
       if (row.href) {
         const safeHref = sanitizeUrl(row.href);
         const external = safeHref.startsWith("http") ? 'target="_blank" rel="noopener noreferrer"' : "";
-        valHtml = `<a href="${escapeHtml(safeHref)}" ${external} class="text-blue-700 hover:underline ${safeHref.startsWith('sms:') ? 'font-mono' : ''}">${valHtml}</a>`;
+        valHtml = `<a href="${escapeHtml(safeHref)}" ${external} class="text-blue-700 hover:underline font-semibold ${safeHref.startsWith('sms:') ? 'font-mono' : ''}">${valHtml}</a>`;
       }
-      const valClass = row.highlight ? "text-blue-700 font-semibold" : "text-slate-900 font-medium";
+      const valClass = row.highlight ? "text-blue-700 font-semibold" : "text-slate-900 font-semibold";
+      const isWide = (row.value && row.value.length > 28 && !row.href);
       return `
-        <div class="flex justify-between pt-2">
-          <dt class="text-slate-500">${escapeHtml(row.label)}</dt>
-          <dd class="${row.href ? '' : valClass}">${valHtml}</dd>
+        <div class="p-3 rounded-lg bg-white border border-slate-200/80 ${isWide ? 'sm:col-span-2' : ''}">
+          <dt class="text-[11px] font-mono uppercase tracking-wider text-slate-400">${escapeHtml(row.label)}</dt>
+          <dd class="mt-0.5 text-xs sm:text-sm truncate ${row.href ? '' : valClass}" title="${escapeHtml(row.value)}">${valHtml}</dd>
         </div>
       `;
     }).join("");
@@ -572,7 +575,7 @@ function validatePortfolioQuery(rawQuery) {
     /bypass|jailbreak|dan\s+mode|developer\s+mode/i,
     /tell\s+me\s+a\s+joke|funny|riddle/i,
     /who\s+is\s+(the\s+president|prime\s+minister|elon|trump|biden)/i,
-    /password|credential|secret|token|private\s+key|api\s+key/i,
+    /password|credential|secret|private\s+key|api\s+key/i,
     /\b(wtf|fuck|shit|bitch|asshole|dick|porn|nsfw|sex|idiot|stupid)\b/i
   ];
 
@@ -774,7 +777,6 @@ function appendMessage(sender, text, tokenCost = null, originalQuestion = "") {
 
   if (containers.length === 0) return;
   const data = getData();
-  const p = data.profile || {};
   const agentName = (data.assistant && data.assistant.agentName) || "Suman AI";
 
   let innerHtml = "";
@@ -786,18 +788,13 @@ function appendMessage(sender, text, tokenCost = null, originalQuestion = "") {
     `;
   } else {
     const formattedText = renderMarkdown(text);
-    const smsLink = sanitizeUrl(`sms:${p.phoneDial || "+64220512513"}?body=${encodeURIComponent("Hi Suman, regarding: " + (originalQuestion || "").slice(0, 60))}`);
     innerHtml = `
       <div class="chat-bubble-agent bg-slate-50 text-slate-900 border border-slate-300 rounded-xl max-w-[94%] px-4 py-3 text-xs sm:text-sm">
-        <div class="flex items-center justify-between pb-1.5 mb-2 border-b border-slate-200 text-[11px] text-slate-600">
-          <span class="font-bold text-blue-700">${escapeHtml(agentName)} • Portfolio Intelligence</span>
-          ${tokenCost !== null ? `<span class="font-mono">${tokenCost} tokens</span>` : ""}
+        <div class="flex items-center justify-between pb-1.5 mb-2 border-b border-slate-200 text-[11px]">
+          <span class="font-bold text-blue-700">${escapeHtml(agentName)}</span>
+          <span class="text-[10px] font-mono text-slate-400">Portfolio Intelligence</span>
         </div>
         <div class="text-slate-900 leading-relaxed text-xs sm:text-sm space-y-1">${formattedText}</div>
-        <div class="mt-2.5 pt-2 border-t border-slate-200 flex items-center justify-between text-[11px]">
-          <a href="${escapeHtml(smsLink)}" class="text-blue-700 hover:underline font-medium">Text Suman (${escapeHtml(p.phoneLocal || "022 051 2513")})</a>
-          <span class="text-slate-500">✓ Suman notified</span>
-        </div>
       </div>
     `;
   }
