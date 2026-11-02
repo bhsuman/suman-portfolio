@@ -3,16 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Suman Bhandari | Data Analyst, Associate Data Engineer &amp; Data Science Postgraduate</title>
-  <meta name="description" content="Portfolio of Suman Bhandari — Master's Student in Computing (Data Analytics) at Unitec Institute of Technology, Auckland. Open to Work (Student) for Data Engineer, Data Analyst, and Data Scientist roles. Experienced in SQL, Python, Power BI, Tableau, Snowflake, Databricks, dbt, and Machine Learning.">
-  <meta name="keywords" content="Suman Bhandari, Data Engineer, Data Analyst, Data Scientist, Business Intelligence, Student, Unitec, Auckland, Python, SQL, Power BI, Tableau, Snowflake, Databricks, PySpark, dbt, Machine Learning">
+  <title>Suman Bhandari | Data Engineer, Data Analyst &amp; Data Science Postgraduate</title>
+  <meta name="description" content="Portfolio of Suman Bhandari — Master of Applied Technologies (Data Analytics) student at Unitec Institute of Technology, Auckland. 2+ years of commercial experience in SQL, Python, Snowflake, Databricks, PySpark, Power BI, Tableau, and Machine Learning.">
+  <meta name="keywords" content="Suman Bhandari, Data Engineer, Data Analyst, Data Scientist, Business Intelligence, Unitec, Auckland, New Zealand, SQL, Python, Power BI, Tableau, Snowflake, Databricks, PySpark, Delta Lake, dbt, Machine Learning">
   <meta name="author" content="Suman Bhandari">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#1d4ed8">
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Suman Bhandari | Data Analyst, Associate Data Engineer &amp; Data Science Postgraduate">
-  <meta property="og:description" content="Master of Applied Technologies (Data Analytics) Student at Unitec • Open to Work • SQL, Python, Snowflake, Databricks, Power BI, Machine Learning">
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:title" content="Suman Bhandari | Data Engineer, Data Analyst &amp; Data Science Postgraduate">
+  <meta property="og:description" content="Master of Applied Technologies (Data Analytics) at Unitec Auckland • 2+ Years Commercial Experience • SQL, Python, Databricks, Snowflake, Power BI &amp; Machine Learning.">
   <meta property="og:image" content="assets/suman-bhandari.jpg">
   <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_NZ">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Suman Bhandari | Data Engineer, Data Analyst &amp; Data Science Postgraduate">
+  <meta name="twitter:description" content="Explore Suman Bhandari's data warehousing, analytics, and machine learning portfolio.">
+  <meta name="twitter:image" content="assets/suman-bhandari.jpg">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Suman Bhandari",
+    "jobTitle": "Data Analyst, Associate Data Engineer & Data Science Postgraduate",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Henderson, Auckland",
+      "addressCountry": "NZ"
+    },
+    "email": "mailto:bhsuman11@gmail.com",
+    "telephone": "+64220512513",
+    "alumniOf": [
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "Unitec Institute of Technology"
+      },
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "Samriddhi College (Tribhuvan University)"
+      }
+    ],
+    "sameAs": [
+      "https://github.com/bhsuman",
+      "https://www.linkedin.com/in/suman-bhandari-ab4394279/"
+    ]
+  }
+  </script>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -29,17 +69,22 @@
     }
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=7">
+  <link rel="stylesheet" href="styles.css?v=8">
   <link rel="icon" type="image/jpeg" href="assets/suman-bhandari.jpg">
 </head>
 <body class="bg-white text-slate-900 min-h-screen selection:bg-blue-600 selection:text-white">
 
-  <!-- Top Utility Bar (Clean Employer-Facing View — No Admin/Log Buttons Exposed to Visitors) -->
-  <aside aria-label="Status Bar" class="bg-blue-900 text-white text-xs py-2 px-4">
+  <!-- Skip to Main Content Link for Keyboard & Screen Reader Users -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:rounded-lg focus:bg-blue-700 focus:text-white focus:font-semibold focus:text-sm focus:shadow-lg">
+    Skip to main content
+  </a>
+
+  <!-- Top Utility Bar -->
+  <aside aria-label="Availability and location status" class="bg-blue-900 text-white text-xs py-2 px-4">
     <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
       <div class="flex items-center space-x-3">
         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-blue-800 border border-blue-600 text-blue-100 font-medium">
-          <span class="w-1.5 h-1.5 rounded-full bg-white mr-1.5"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5" aria-hidden="true"></span>
           <span id="top-status-badge">Student • Open to Work</span>
         </span>
         <span id="auckland-clock" class="text-blue-200 font-mono text-[11px] hidden md:inline">
@@ -51,8 +96,8 @@
         <a id="top-email-link" href="mailto:bhsuman11@gmail.com" class="hover:text-white transition-colors">
           bhsuman11@gmail.com
         </a>
-        <span class="text-blue-700">|</span>
-        <a id="top-phone-link" href="sms:+64220512513" class="hover:text-white font-mono transition-colors">
+        <span class="text-blue-700" aria-hidden="true">|</span>
+        <a id="top-phone-link" href="tel:+64220512513" class="hover:text-white font-mono transition-colors">
           +64 22 051 2513
         </a>
       </div>
@@ -60,41 +105,40 @@
   </aside>
 
   <!-- Main Header Navigation -->
-  <header class="border-b border-slate-200 bg-white/95 backdrop-blur-sm sticky top-0 z-40">
+  <header class="border-b border-slate-200 bg-white/95 backdrop-blur-sm sticky top-0 z-30">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
-        
+
         <!-- Brand -->
-        <a href="#hero" class="flex items-center space-x-3">
-          <div id="brand-initials" class="w-9 h-9 rounded-lg bg-blue-700 text-white flex items-center justify-center font-bold text-sm tracking-tight">
+        <a href="#hero" class="flex items-center space-x-3 group">
+          <div id="brand-initials" class="w-9 h-9 rounded-lg bg-blue-700 group-hover:bg-blue-800 text-white flex items-center justify-center font-bold text-sm tracking-tight transition-colors">
             SB
           </div>
           <div>
             <span id="brand-name" class="font-bold text-slate-900 text-base block leading-none">Suman Bhandari</span>
-            <span id="brand-subheadline" class="text-[11px] text-slate-500 font-mono">Data Engineering • Analytics • Data Science</span>
+            <span id="brand-subheadline" class="text-[11px] text-slate-500 font-mono block mt-0.5">Data Engineering • Analytics • Machine Learning</span>
           </div>
         </a>
 
-        <!-- Desktop Links -->
-        <nav class="hidden md:flex items-center space-x-7 text-sm font-medium text-slate-600">
-          <a href="#about" class="hover:text-blue-700 transition-colors">About</a>
-          <a href="#skills" class="hover:text-blue-700 transition-colors">Skills</a>
-          <a href="#projects" class="hover:text-blue-700 transition-colors">Projects</a>
-          <a href="#experience" class="hover:text-blue-700 transition-colors">Experience</a>
-          <a href="#education" class="hover:text-blue-700 transition-colors">Education</a>
-          <button type="button" onclick="openSumanAIPopup()" class="text-blue-700 font-semibold hover:text-blue-800 transition-colors flex items-center gap-1.5 cursor-pointer">
-            <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-            Suman AI
+        <!-- Desktop Navigation Links -->
+        <nav aria-label="Primary navigation" class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-600">
+          <a href="#about" class="hover:text-blue-700 transition-colors py-1">About</a>
+          <a href="#skills" class="hover:text-blue-700 transition-colors py-1">Skills</a>
+          <a href="#projects" class="hover:text-blue-700 transition-colors py-1">Projects</a>
+          <a href="#experience" class="hover:text-blue-700 transition-colors py-1">Experience</a>
+          <a href="#education" class="hover:text-blue-700 transition-colors py-1">Education</a>
+          <button type="button" onclick="openSumanAIPopup()" class="text-blue-700 font-semibold hover:text-blue-800 transition-colors flex items-center gap-1.5 py-1 cursor-pointer">
+            <span class="w-2 h-2 rounded-full bg-blue-600" aria-hidden="true"></span>
+            <span>Suman AI</span>
           </button>
-          <a href="#contact" class="hover:text-blue-700 transition-colors">Contact</a>
+          <a href="#contact" class="hover:text-blue-700 transition-colors py-1">Contact</a>
         </nav>
 
-        <!-- Actions -->
+        <!-- Header Actions -->
         <div class="hidden sm:flex items-center space-x-2.5">
-          <a id="header-github-link" href="https://github.com/bhsuman" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-medium flex items-center transition-colors">
-            <svg class="w-4 h-4 mr-1.5 text-slate-700" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path></svg>
-            GitHub
-          </a>
+          <button type="button" onclick="openCvModal()" class="px-3 py-1.5 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-50 hover:border-slate-400 text-xs font-semibold transition-colors cursor-pointer">
+            CV Summary
+          </button>
           <a href="#contact" class="px-3.5 py-1.5 rounded-lg bg-blue-700 hover:bg-blue-800 text-white text-xs font-semibold transition-colors">
             Contact Me
           </a>
@@ -102,98 +146,97 @@
 
         <!-- Mobile Menu Button -->
         <div class="flex md:hidden items-center space-x-2">
-          <button id="mobile-menu-btn" aria-label="Toggle Menu" class="p-2 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          <button id="mobile-menu-btn" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu" class="p-2 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
           </button>
         </div>
 
       </div>
     </div>
 
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white px-4 pt-2 pb-4 space-y-1 text-sm">
-      <a href="#about" class="block px-3 py-2 rounded-md text-slate-700 hover:bg-blue-50 hover:text-blue-700">About</a>
-      <a href="#skills" class="block px-3 py-2 rounded-md text-slate-700 hover:bg-blue-50 hover:text-blue-700">Skills</a>
-      <a href="#projects" class="block px-3 py-2 rounded-md text-slate-700 hover:bg-blue-50 hover:text-blue-700">Projects</a>
-      <a href="#experience" class="block px-3 py-2 rounded-md text-slate-700 hover:bg-blue-50 hover:text-blue-700">Experience</a>
-      <a href="#education" class="block px-3 py-2 rounded-md text-slate-700 hover:bg-blue-50 hover:text-blue-700">Education</a>
-      <button type="button" onclick="openSumanAIPopup()" class="w-full text-left block px-3 py-2 rounded-md font-semibold text-blue-700 bg-blue-50">Suman AI (Portfolio Concierge)</button>
-      <a href="#contact" class="block px-3 py-2 rounded-md text-slate-700 hover:bg-blue-50 hover:text-blue-700">Contact</a>
-    </div>
+    <!-- Mobile Navigation Drawer -->
+    <nav id="mobile-menu" aria-label="Mobile navigation" class="hidden md:hidden border-t border-slate-200 bg-white px-4 pt-2 pb-4 space-y-1 text-sm">
+      <a href="#about" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">About</a>
+      <a href="#skills" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">Technical Skills</a>
+      <a href="#projects" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">Featured Projects</a>
+      <a href="#experience" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">Work Experience</a>
+      <a href="#education" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">Education</a>
+      <button type="button" onclick="openCvModal()" class="w-full text-left block px-3 py-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">View / Print CV Summary</button>
+      <button type="button" onclick="openSumanAIPopup()" class="w-full text-left block px-3 py-2 rounded-lg font-semibold text-blue-700 bg-blue-50">Ask Suman AI Assistant</button>
+      <a href="#contact" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">Contact</a>
+    </nav>
   </header>
 
-  <main>
+  <main id="main-content">
     <!-- HERO SECTION -->
-    <section id="hero" class="py-12 md:py-20 bg-gradient-to-b from-blue-50/60 to-white border-b border-slate-200">
+    <section id="hero" class="py-12 md:py-16 lg:py-20 bg-gradient-to-b from-blue-50/50 to-white border-b border-slate-200">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          
-          <!-- Left Column -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+
+          <!-- Left Column: Hierarchy, Bio & Primary Actions -->
           <div class="lg:col-span-7 space-y-5">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-xs font-medium">
-              <span class="w-2 h-2 rounded-full bg-blue-600"></span>
-              <span id="hero-status-pill">Master's Student at Unitec (Auckland) • Open to Work (Student)</span>
+              <span class="w-2 h-2 rounded-full bg-blue-600" aria-hidden="true"></span>
+              <span id="hero-status-pill">Master's Student at Unitec (Auckland) • Open to Work</span>
             </div>
 
             <div class="space-y-2">
-              <h1 id="hero-name" class="text-3xl sm:text-5xl font-bold tracking-tight text-slate-900">
+              <h1 id="hero-name" class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
                 Suman Bhandari
               </h1>
-              <p id="hero-headline" class="text-lg sm:text-xl font-medium text-blue-700">
+              <p id="hero-headline" class="text-lg sm:text-xl font-semibold text-blue-700 leading-snug">
                 Data Analyst, Associate Data Engineer &amp; Data Science Postgraduate
               </p>
             </div>
 
-            <p id="hero-bio" class="text-slate-600 text-base leading-relaxed max-w-2xl">
-              Master of Applied Technologies (Computing – Data Analytics) student at Unitec Institute of Technology, Auckland, with over 2 years of hands-on industry experience across Data Engineering, Business Intelligence, and Banking ICT. Skilled in building scalable ETL/ELT pipelines, cloud data warehouses (Snowflake, Databricks, BigQuery, Azure), interactive Power BI &amp; Tableau dashboards, and Python/R machine learning models.
+            <p id="hero-bio" class="text-slate-600 text-sm sm:text-base leading-relaxed max-w-2xl">
+              Master of Applied Technologies (Computing – Data Analytics) student at Unitec Institute of Technology, Auckland, with over 2 years of commercial experience across data engineering consultancy, cloud data warehousing, and banking ICT operations. I build reliable ETL/ELT pipelines, dimensional data warehouses (Databricks, Delta Lake, Snowflake, SQL), predictive machine learning models in Python, and executive BI dashboards in Power BI and Tableau.
             </p>
 
-            <!-- Primary Buttons -->
+            <!-- Primary & Secondary Actions -->
             <div class="flex flex-wrap items-center gap-3 pt-1">
-              <a href="#projects" class="px-5 py-2.5 rounded-lg bg-blue-700 hover:bg-blue-800 text-white font-semibold text-sm transition-colors">
-                View Featured Projects
+              <a href="#projects" class="px-5 py-2.5 rounded-lg bg-blue-700 hover:bg-blue-800 text-white font-semibold text-sm shadow-xs transition-colors">
+                View Projects
               </a>
-              <button type="button" onclick="openSumanAIPopup()" class="px-5 py-2.5 rounded-lg bg-white hover:bg-blue-50 text-blue-700 border border-blue-300 font-semibold text-sm transition-colors flex items-center gap-2 cursor-pointer">
-                <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-                Ask Suman AI
+              <button type="button" onclick="openCvModal()" class="px-4 py-2.5 rounded-lg bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 hover:border-slate-400 font-semibold text-sm transition-colors flex items-center gap-2 cursor-pointer">
+                <svg class="w-4 h-4 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                <span>CV Summary</span>
               </button>
-              <a href="#contact" class="px-4 py-2.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-sm transition-colors">
-                Get in Touch
-              </a>
+              <button type="button" onclick="openSumanAIPopup()" class="px-4 py-2.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 font-semibold text-sm transition-colors flex items-center gap-2 cursor-pointer">
+                <span>Ask Suman AI</span>
+              </button>
             </div>
 
-            <!-- Direct Links Row -->
-            <div class="flex flex-wrap items-center gap-4 pt-3 text-xs sm:text-sm text-slate-600 border-t border-slate-200">
-              <a id="hero-github-link" href="https://github.com/bhsuman" target="_blank" rel="noopener noreferrer" class="flex items-center hover:text-blue-700 font-medium">
-                <svg class="w-4 h-4 mr-1.5 text-slate-700" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path></svg>
+            <!-- Concise Professional Links Bar -->
+            <div class="flex flex-wrap items-center gap-x-5 gap-y-2 pt-3 text-xs sm:text-sm text-slate-600 border-t border-slate-200">
+              <a id="hero-github-link" href="https://github.com/bhsuman" target="_blank" rel="noopener noreferrer" class="inline-flex items-center hover:text-blue-700 font-medium transition-colors">
+                <svg class="w-4 h-4 mr-1.5 text-slate-700" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path></svg>
                 <span id="hero-github-text">github.com/bhsuman</span>
               </a>
-              <span class="text-slate-300">•</span>
-              <a id="hero-linkedin-link" href="https://www.linkedin.com/in/suman-bhandari-ab4394279/" target="_blank" rel="noopener noreferrer" class="flex items-center hover:text-blue-700 font-medium">
-                <svg class="w-4 h-4 mr-1.5 text-blue-700" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
-                LinkedIn
+              <a id="hero-linkedin-link" href="https://www.linkedin.com/in/suman-bhandari-ab4394279/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center hover:text-blue-700 font-medium transition-colors">
+                <svg class="w-4 h-4 mr-1.5 text-blue-700" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
+                <span>LinkedIn Profile</span>
               </a>
-              <span class="text-slate-300">•</span>
-              <button id="hero-email-btn" onclick="copyToClipboard('bhsuman11@gmail.com', 'Email')" class="flex items-center hover:text-blue-700 font-medium">
-                bhsuman11@gmail.com
-              </button>
-              <span class="text-slate-300">•</span>
-              <a id="hero-phone-link" href="tel:+64220512513" class="font-mono hover:text-blue-700 font-medium">
-                022 051 2513
+              <a href="#contact" class="inline-flex items-center hover:text-blue-700 font-medium transition-colors">
+                <svg class="w-4 h-4 mr-1.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                <span>Direct Contact</span>
               </a>
             </div>
           </div>
 
-          <!-- Right Column: Clean Editorial Portrait Card -->
+          <!-- Right Column: Editorial Portrait Card -->
           <div class="lg:col-span-5 flex justify-center lg:justify-end">
             <div class="w-full max-w-sm bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
               <div class="aspect-[4/4.2] overflow-hidden bg-slate-100">
-                <img 
+                <img
                   id="hero-photo"
-                  src="assets/suman-bhandari.jpg" 
-                  alt="Suman Bhandari" 
+                  src="assets/suman-bhandari.jpg"
+                  alt="Portrait of Suman Bhandari, Data Analyst and Associate Data Engineer"
+                  width="800"
+                  height="840"
                   class="w-full h-full object-cover object-top"
                   loading="eager"
+                  fetchpriority="high"
                 >
               </div>
               <div class="p-4 border-t border-slate-100 bg-white space-y-2">
@@ -208,7 +251,7 @@
                 </div>
                 <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-600">
                   <span class="font-medium text-slate-700">Unitec Institute of Technology</span>
-                  <span class="font-mono text-blue-700">Master's (Data)</span>
+                  <span class="font-mono text-blue-700 font-semibold">MAppTech (Data Analytics)</span>
                 </div>
               </div>
             </div>
@@ -216,36 +259,9 @@
 
         </div>
 
-        <!-- Summary Strip -->
+        <!-- Key Portfolio Metrics Strip -->
         <div id="hero-highlights-grid" class="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <div class="p-5 rounded-xl bg-white border border-slate-200 border-t-2 border-t-blue-600 shadow-2xs flex flex-col justify-between">
-            <p class="text-2xl font-bold text-blue-700 font-mono">2+ Years</p>
-            <div class="mt-1">
-              <p class="text-xs sm:text-sm text-slate-900 font-semibold">Industry Experience</p>
-              <p class="text-xs text-slate-500 mt-0.5">Data Engineering, Analytics &amp; ICT</p>
-            </div>
-          </div>
-          <div class="p-5 rounded-xl bg-white border border-slate-200 border-t-2 border-t-blue-600 shadow-2xs flex flex-col justify-between">
-            <p class="text-2xl font-bold text-blue-700 font-mono">15+ Tools</p>
-            <div class="mt-1">
-              <p class="text-xs sm:text-sm text-slate-900 font-semibold">Modern Data Stack</p>
-              <p class="text-xs text-slate-500 mt-0.5">SQL, Python, Snowflake, Databricks, BI</p>
-            </div>
-          </div>
-          <div class="p-5 rounded-xl bg-white border border-slate-200 border-t-2 border-t-blue-600 shadow-2xs flex flex-col justify-between">
-            <p class="text-2xl font-bold text-blue-700 font-mono">Master's</p>
-            <div class="mt-1">
-              <p class="text-xs sm:text-sm text-slate-900 font-semibold">Applied Tech (Data Analytics)</p>
-              <p class="text-xs text-slate-500 mt-0.5">Unitec Institute of Technology, Auckland</p>
-            </div>
-          </div>
-          <div class="p-5 rounded-xl bg-white border border-slate-200 border-t-2 border-t-blue-600 shadow-2xs flex flex-col justify-between">
-            <p class="text-2xl font-bold text-blue-700 font-mono">4 Projects</p>
-            <div class="mt-1">
-              <p class="text-xs sm:text-sm text-slate-900 font-semibold">Public GitHub Portfolio</p>
-              <p class="text-xs text-slate-500 mt-0.5">Data Warehousing, ML &amp; BI Analytics</p>
-            </div>
-          </div>
+          <!-- Dynamically synced from portfolio-data.js -->
         </div>
       </div>
     </section>
@@ -254,92 +270,56 @@
     <section id="about" class="py-14 md:py-20 bg-white border-b border-slate-200">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-          
+
           <div class="lg:col-span-7 space-y-5">
             <div>
-              <p class="text-xs font-mono uppercase tracking-wider text-blue-700 font-semibold">Executive Profile</p>
+              <p class="text-xs font-mono uppercase tracking-wider text-blue-700 font-semibold">Professional Summary</p>
               <h2 id="about-heading" class="text-2xl sm:text-3xl font-bold text-slate-900 mt-1">
-                Bridging Data Engineering, Business Analytics &amp; Data Science
+                Bridging Data Engineering, Business Analytics &amp; Machine Learning
               </h2>
             </div>
 
             <div id="about-paragraphs" class="space-y-4 text-slate-600 text-sm sm:text-base leading-relaxed">
-              <p>
-                Kia Ora! I am Suman Bhandari, currently based in Henderson, Auckland, New Zealand, pursuing my Master of Applied Technologies (Computing – Data Analytics) at Unitec Institute of Technology. Prior to my postgraduate studies in Auckland, I built practical industry experience across commercial banking IT operations at Laxmi Sunrise Bank, data engineering consultancy at Development Catalyst Consultancy, and cloud data warehousing at LIS Nepal.
-              </p>
-              <p>
-                I work across the end-to-end data lifecycle: ingesting and transforming raw data into clean Medallion (Bronze/Silver/Gold) and Kimball Star Schema models using SQL, Python, PySpark, dbt, Snowflake, and Databricks; building predictive machine learning and statistical models in Python and R; and delivering executive-ready dashboards in Microsoft Power BI and Tableau.
-              </p>
+              <!-- Populated from portfolio-data.js -->
             </div>
 
-            <!-- Structured Role Alignment Grid -->
+            <!-- Core Specialization Pillars -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
               <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
                 <p class="text-xs font-mono font-bold text-blue-700 uppercase">Data Engineering</p>
-                <p class="text-xs text-slate-600 mt-1">Snowflake, Databricks, PySpark, dbt, Airflow &amp; Star Schemas</p>
+                <p class="text-xs text-slate-600 mt-1">Databricks, PySpark, Delta Lake, Snowflake, SQL ETL &amp; Star Schemas</p>
               </div>
               <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
-                <p class="text-xs font-mono font-bold text-blue-700 uppercase">Data Analytics &amp; BI</p>
+                <p class="text-xs font-mono font-bold text-blue-700 uppercase">Analytics &amp; BI</p>
                 <p class="text-xs text-slate-600 mt-1">Advanced SQL, Power BI (DAX), Tableau &amp; Executive KPIs</p>
               </div>
               <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
-                <p class="text-xs font-mono font-bold text-blue-700 uppercase">Data Science &amp; ML</p>
-                <p class="text-xs text-slate-600 mt-1">Python, Scikit-Learn, Predictive Modeling &amp; Statistical EDA</p>
+                <p class="text-xs font-mono font-bold text-blue-700 uppercase">Machine Learning</p>
+                <p class="text-xs text-slate-600 mt-1">Python, Scikit-Learn, Feature Engineering &amp; Statistical EDA</p>
               </div>
             </div>
 
             <div class="p-4 rounded-xl bg-blue-50/70 border border-blue-200">
-              <p id="about-callout-title" class="font-semibold text-blue-950 text-sm">Current Status: Master's Student • Open to Work</p>
+              <p id="about-callout-title" class="font-semibold text-blue-950 text-sm">Availability: Master's Student • Open to Work (NZ &amp; Australia)</p>
               <p id="about-callout-text" class="text-xs sm:text-sm text-slate-700 mt-1">
-                Actively seeking student roles, internships, part-time positions, and graduate opportunities in Data Engineering, Data Analytics, Business Intelligence, and Data Science across New Zealand &amp; Australia.
+                Available for data engineering, data analytics, business intelligence, and data science internships, part-time roles during semester, and graduate/full-time opportunities.
               </p>
             </div>
           </div>
 
-          <!-- Profile Attributes Card (Cleanly Arranged 2-Column Attribute Grid) -->
+          <!-- Candidate Overview Card -->
           <div class="lg:col-span-5">
             <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
               <div class="flex items-center justify-between border-b border-slate-200 pb-3">
                 <h3 class="text-base font-bold text-slate-900">
-                  Candidate Overview
+                  Candidate Profile
                 </h3>
                 <span class="px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800 text-[11px] font-mono font-semibold">
-                  NZ • Open to Work
+                  Auckland, NZ
                 </span>
               </div>
               <dl id="about-details-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                <div class="p-3 rounded-lg bg-white border border-slate-200/80">
-                  <dt class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Full Name</dt>
-                  <dd class="text-slate-900 font-semibold text-xs sm:text-sm mt-0.5">Suman Bhandari</dd>
-                </div>
-                <div class="p-3 rounded-lg bg-white border border-slate-200/80">
-                  <dt class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Location</dt>
-                  <dd class="text-slate-900 font-semibold text-xs sm:text-sm mt-0.5">Henderson, Auckland, NZ</dd>
-                </div>
-                <div class="p-3 rounded-lg bg-white border border-slate-200/80 sm:col-span-2">
-                  <dt class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Current Degree &amp; University</dt>
-                  <dd class="text-slate-900 font-semibold text-xs sm:text-sm mt-0.5">Master of Applied Technologies (Data Analytics) — Unitec</dd>
-                </div>
-                <div class="p-3 rounded-lg bg-white border border-slate-200/80 sm:col-span-2">
-                  <dt class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Target Roles</dt>
-                  <dd class="text-blue-700 font-semibold text-xs sm:text-sm mt-0.5">Data Engineer • Data Analyst • Data Scientist</dd>
-                </div>
-                <div class="p-3 rounded-lg bg-white border border-slate-200/80">
-                  <dt class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Direct Phone / SMS</dt>
-                  <dd class="mt-0.5"><a href="sms:+64220512513" class="text-blue-700 hover:underline font-mono font-semibold">+64 22 051 2513</a></dd>
-                </div>
-                <div class="p-3 rounded-lg bg-white border border-slate-200/80">
-                  <dt class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Email</dt>
-                  <dd class="mt-0.5 truncate"><a href="mailto:bhsuman11@gmail.com" class="text-blue-700 hover:underline font-semibold">bhsuman11@gmail.com</a></dd>
-                </div>
-                <div class="p-3 rounded-lg bg-white border border-slate-200/80">
-                  <dt class="text-[11px] font-mono uppercase tracking-wider text-slate-400">LinkedIn</dt>
-                  <dd class="mt-0.5 truncate"><a href="https://www.linkedin.com/in/suman-bhandari-ab4394279/" target="_blank" rel="noopener noreferrer" class="text-blue-700 hover:underline font-semibold">in/suman-bhandari ↗</a></dd>
-                </div>
-                <div class="p-3 rounded-lg bg-white border border-slate-200/80">
-                  <dt class="text-[11px] font-mono uppercase tracking-wider text-slate-400">GitHub</dt>
-                  <dd class="mt-0.5 truncate"><a href="https://github.com/bhsuman" target="_blank" rel="noopener noreferrer" class="text-blue-700 hover:underline font-semibold">github.com/bhsuman ↗</a></dd>
-                </div>
+                <!-- Populated from portfolio-data.js -->
               </dl>
             </div>
           </div>
@@ -348,178 +328,59 @@
       </div>
     </section>
 
-    <!-- TECHNICAL SKILLS -->
+    <!-- TECHNICAL SKILLS SECTION (5 MEANINGFUL CATEGORIES + EVIDENCE BADGES) -->
     <section id="skills" class="py-14 md:py-20 bg-slate-50 border-b border-slate-200">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-8 gap-4">
           <div>
-            <p class="text-xs font-mono uppercase tracking-wider text-blue-700 font-semibold">Employer-Ready Capabilities</p>
+            <p class="text-xs font-mono uppercase tracking-wider text-blue-700 font-semibold">Technical Capabilities</p>
             <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-1">
               Technical Skills &amp; Data Stack
             </h2>
             <p class="text-sm text-slate-600 mt-1">
-              Comprehensive skills across Data Analytics &amp; BI, Data Engineering &amp; Cloud Warehousing, and Data Science &amp; ML.
+              Organised by domain with clear distinction between commercial experience, completed projects, and postgraduate study.
             </p>
           </div>
 
-          <!-- Filter Buttons -->
-          <div class="flex flex-wrap gap-2">
-            <button data-category="all" class="skill-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-blue-700 text-white border border-blue-700 transition-colors">
-              All (15)
+          <!-- 5-Category Filter Bar -->
+          <div id="skills-filter-bar" role="group" aria-label="Filter technical skills by category" class="flex flex-wrap gap-2">
+            <button type="button" data-category="all" aria-pressed="true" class="skill-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-700 text-white border border-blue-700 transition-colors cursor-pointer">
+              All Skills (15)
             </button>
-            <button data-category="analytics" class="skill-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-300 hover:border-blue-400 transition-colors">
-              Data Analytics &amp; BI
+            <button type="button" data-category="engineering-cloud" aria-pressed="false" class="skill-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-300 hover:border-blue-400 transition-colors cursor-pointer">
+              Data Engineering &amp; Cloud
             </button>
-            <button data-category="engineering" class="skill-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-300 hover:border-blue-400 transition-colors">
-              Data Engineering
+            <button type="button" data-category="programming" aria-pressed="false" class="skill-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-300 hover:border-blue-400 transition-colors cursor-pointer">
+              Programming &amp; Querying
             </button>
-            <button data-category="datascience" class="skill-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-300 hover:border-blue-400 transition-colors">
-              Data Science &amp; ML
+            <button type="button" data-category="analytics" aria-pressed="false" class="skill-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-300 hover:border-blue-400 transition-colors cursor-pointer">
+              Analytics &amp; Visualisation
             </button>
-            <button data-category="cloud" class="skill-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-300 hover:border-blue-400 transition-colors">
-              Cloud &amp; DevOps
+            <button type="button" data-category="ml-ai" aria-pressed="false" class="skill-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-300 hover:border-blue-400 transition-colors cursor-pointer">
+              Machine Learning &amp; AI
+            </button>
+            <button type="button" data-category="databases" aria-pressed="false" class="skill-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-300 hover:border-blue-400 transition-colors cursor-pointer">
+              Databases &amp; Data Platforms
             </button>
           </div>
         </div>
 
-        <div id="skills-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <!-- Data Analytics & BI -->
-          <div data-category="analytics" class="skill-card flex p-5 rounded-xl card-clean">
-            <div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center text-sm font-bold font-mono mr-3.5 flex-shrink-0">SQL</div>
-            <div>
-              <h3 class="text-sm font-bold text-slate-900">Advanced SQL &amp; Data Modeling</h3>
-              <p class="text-xs text-slate-600 mt-1">T-SQL, PostgreSQL, Snowflake SQL, CTEs, Window Functions, Query Optimization, Kimball Star &amp; Snowflake Schemas</p>
-            </div>
-          </div>
-
-          <div data-category="analytics" class="skill-card flex p-5 rounded-xl card-clean">
-            <div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center text-sm font-bold font-mono mr-3.5 flex-shrink-0">PBI</div>
-            <div>
-              <h3 class="text-sm font-bold text-slate-900">Microsoft Power BI &amp; DAX</h3>
-              <p class="text-xs text-slate-600 mt-1">Interactive Executive Dashboards, Advanced DAX, Power Query (M), Data Modeling, KPI Reporting &amp; Storytelling</p>
-            </div>
-          </div>
-
-          <div data-category="analytics" class="skill-card flex p-5 rounded-xl card-clean">
-            <div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center text-sm font-bold font-mono mr-3.5 flex-shrink-0">TAB</div>
-            <div>
-              <h3 class="text-sm font-bold text-slate-900">Tableau &amp; Looker Studio</h3>
-              <p class="text-xs text-slate-600 mt-1">Visual Analytics, Self-Service BI Dashboards, Cross-Filtering, Funnel &amp; Retention Metrics, A/B Test Reporting</p>
-            </div>
-          </div>
-
-          <div data-category="analytics" class="skill-card flex p-5 rounded-xl card-clean">
-            <div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center text-sm font-bold font-mono mr-3.5 flex-shrink-0">XLS</div>
-            <div>
-              <h3 class="text-sm font-bold text-slate-900">Advanced Excel &amp; Business Analysis</h3>
-              <p class="text-xs text-slate-600 mt-1">Pivot Tables, XLOOKUP, Power Pivot, Financial &amp; Operational Reporting, Requirements Gathering, Stakeholder Insights</p>
-            </div>
-          </div>
-
-          <!-- Data Engineering & Warehousing -->
-          <div data-category="engineering" class="skill-card flex p-5 rounded-xl card-clean">
-            <div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center text-sm font-bold font-mono mr-3.5 flex-shrink-0">SF</div>
-            <div>
-              <h3 class="text-sm font-bold text-slate-900">Snowflake Cloud Data Warehouse</h3>
-              <p class="text-xs text-slate-600 mt-1">Cloud Warehousing, SnowSQL, External Stages, Streams &amp; Tasks, Role-Based Access Control, Performance Tuning</p>
-            </div>
-          </div>
-
-          <div data-category="engineering" class="skill-card flex p-5 rounded-xl card-clean">
-            <div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center text-sm font-bold font-mono mr-3.5 flex-shrink-0">DBX</div>
-            <div>
-              <h3 class="text-sm font-bold text-slate-900">Databricks, PySpark &amp; Delta Lake</h3>
-              <p class="text-xs text-slate-600 mt-1">Medallion Lakehouse Architecture (Bronze / Silver / Gold), Apache Spark, Distributed Dataframes, Delta Live Tables</p>
-            </div>
-          </div>
-
-          <div data-category="engineering" class="skill-card flex p-5 rounded-xl card-clean">
-            <div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center text-sm font-bold font-mono mr-3.5 flex-shrink-0">DBT</div>
-            <div>
-              <h3 class="text-sm font-bold text-slate-900">dbt &amp; Apache Airflow (ETL / ELT)</h3>
-              <p class="text-xs text-slate-600 mt-1">Modular SQL Transformations with dbt, Automated Pipeline Orchestration, DAG Scheduling, Data Lineage &amp; Testing</p>
-            </div>
-          </div>
-
-          <div data-category="engineering" class="skill-card flex p-5 rounded-xl card-clean">
-            <div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center text-sm font-bold font-mono mr-3.5 flex-shrink-0">ADF</div>
-            <div>
-              <h3 class="text-sm font-bold text-slate-900">Azure Data Factory &amp; MS Fabric</h3>
-              <p class="text-xs text-slate-600 mt-1">Cloud Data Ingestion Pipelines, Azure Data Lake Storage (ADLS), Microsoft Fabric Lakehouse &amp; Synapse Analytics</p>
-            </div>
-          </div>
-
-          <div data-category="engineering" class="skill-card flex p-5 rounded-xl card-clean">
-            <div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center text-sm font-bold font-mono mr-3.5 flex-shrink-0">RDB</div>
-            <div>
-              <h3 class="text-sm font-bold text-slate-900">MS SQL Server, PostgreSQL &amp; MySQL</h3>
-              <p class="text-xs text-slate-600 mt-1">Relational Database Design, Stored Procedures, Indexing Strategies, ACID Transactions, Data Quality &amp; Cleansing</p>
-            </div>
-          </div>
-
-          <!-- Data Science & Machine Learning -->
-          <div data-category="datascience" class="skill-card flex p-5 rounded-xl card-clean">
-            <div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center text-sm font-bold font-mono mr-3.5 flex-shrink-0">PY</div>
-            <div>
-              <h3 class="text-sm font-bold text-slate-900">Python for Data Science &amp; Automation</h3>
-              <p class="text-xs text-slate-600 mt-1">Pandas, NumPy, SciPy, Matplotlib, Seaborn, Plotly, REST API Data Extraction, Automated Cleaning Pipelines</p>
-            </div>
-          </div>
-
-          <div data-category="datascience" class="skill-card flex p-5 rounded-xl card-clean">
-            <div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center text-sm font-bold font-mono mr-3.5 flex-shrink-0">ML</div>
-            <div>
-              <h3 class="text-sm font-bold text-slate-900">Machine Learning &amp; Predictive Modeling</h3>
-              <p class="text-xs text-slate-600 mt-1">Scikit-Learn, Supervised &amp; Unsupervised Learning (Regression, Random Forest, XGBoost, Clustering), Feature Engineering</p>
-            </div>
-          </div>
-
-          <div data-category="datascience" class="skill-card flex p-5 rounded-xl card-clean">
-            <div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center text-sm font-bold font-mono mr-3.5 flex-shrink-0">STAT</div>
-            <div>
-              <h3 class="text-sm font-bold text-slate-900">R Programming &amp; Statistical Analysis</h3>
-              <p class="text-xs text-slate-600 mt-1">R (tidyverse, ggplot2), Hypothesis Testing, Time-Series Forecasting, Probability Distributions, Anomaly Detection</p>
-            </div>
-          </div>
-
-          <!-- Cloud, DevOps & Delivery -->
-          <div data-category="cloud" class="skill-card flex p-5 rounded-xl card-clean">
-            <div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center text-sm font-bold font-mono mr-3.5 flex-shrink-0">CLD</div>
-            <div>
-              <h3 class="text-sm font-bold text-slate-900">AWS, Azure &amp; Google BigQuery</h3>
-              <p class="text-xs text-slate-600 mt-1">AWS (S3, Redshift, Glue Basics), Google Cloud BigQuery, Azure Cloud Data Services, Serverless Data Querying</p>
-            </div>
-          </div>
-
-          <div data-category="cloud" class="skill-card flex p-5 rounded-xl card-clean">
-            <div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center text-sm font-bold font-mono mr-3.5 flex-shrink-0">GIT</div>
-            <div>
-              <h3 class="text-sm font-bold text-slate-900">Git, CI/CD &amp; Container Basics</h3>
-              <p class="text-xs text-slate-600 mt-1">Git, GitHub Actions, Bitbucket, Docker Basics, Version-Controlled Analytics, Reproducible Jupyter Workflows</p>
-            </div>
-          </div>
-
-          <div data-category="cloud" class="skill-card flex p-5 rounded-xl card-clean">
-            <div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center text-sm font-bold font-mono mr-3.5 flex-shrink-0">AGL</div>
-            <div>
-              <h3 class="text-sm font-bold text-slate-900">Agile, Jira &amp; Data Governance</h3>
-              <p class="text-xs text-slate-600 mt-1">Jira, ClickUp, Confluence, Agile/Scrum Sprints, Data Security Policies, Data Validation &amp; Documentation</p>
-            </div>
-          </div>
+        <div id="skills-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Populated from portfolio-data.js -->
         </div>
 
       </div>
     </section>
 
-    <!-- WHITELISTED GITHUB PROJECTS SECTION -->
+    <!-- FEATURED PROJECTS SECTION -->
     <section id="projects" class="py-14 md:py-20 bg-white border-b border-slate-200">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
           <div>
-            <div class="flex items-center gap-2">
-              <p class="text-xs font-mono uppercase tracking-wider text-blue-700 font-semibold">Selected Portfolio Work</p>
+            <div class="flex flex-wrap items-center gap-2">
+              <p class="text-xs font-mono uppercase tracking-wider text-blue-700 font-semibold">Verified Portfolio Evidence</p>
               <span id="github-live-pill" class="inline-flex items-center px-2 py-0.5 rounded bg-blue-50 border border-blue-200 text-[11px] font-mono text-blue-700">
                 4 Verified Public Repositories
               </span>
@@ -528,265 +389,41 @@
               Featured Projects
             </h2>
             <p class="text-sm text-slate-600 mt-1">
-              Authentic public data engineering, machine learning, and data analytics repositories synced live from GitHub.
+              Each project includes the problem statement, architectural pipeline, what was implemented, technologies used, and links to inspect the code or explore details.
             </p>
           </div>
+          <a href="https://github.com/bhsuman" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-700 hover:text-blue-900 inline-flex items-center self-start sm:self-auto">
+            View All on GitHub (@bhsuman) ↗
+          </a>
         </div>
 
-        <div id="github-projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <!-- 1. Residential Property Price Prediction & BI -->
-          <article class="rounded-xl card-clean p-6 flex flex-col justify-between">
-            <div class="space-y-3">
-              <div class="flex items-center justify-between gap-2">
-                <span class="px-2.5 py-0.5 rounded-md bg-blue-50 border border-blue-200 text-blue-700 text-xs font-mono font-medium">Machine Learning &amp; BI</span>
-                <span class="text-[11px] font-mono text-slate-500">Verified</span>
-              </div>
-              <h3 class="text-lg font-bold text-slate-900">
-                <a href="https://github.com/bhsuman/Residential-Property-Price-Prediction-BI" target="_blank" rel="noopener noreferrer" class="hover:text-blue-700 transition-colors">
-                  Residential Property Price Prediction &amp; BI
-                </a>
-              </h3>
-              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                End-to-end residential property valuation and Business Intelligence solution combining Python machine learning regression models with interactive BI analytics to predict housing prices and uncover key market value drivers.
-              </p>
-              <div class="flex flex-wrap gap-1.5 pt-1">
-                <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">Python</span>
-                <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">Scikit-Learn</span>
-                <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">Machine Learning</span>
-                <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">Power BI</span>
-                <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">Predictive Modeling</span>
-              </div>
-            </div>
-            <div class="pt-4 border-t border-slate-100 mt-5 flex items-center justify-between gap-2">
-              <a href="https://github.com/bhsuman/Residential-Property-Price-Prediction-BI" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-700 hover:text-blue-900 flex items-center">
-                View Repository →
-              </a>
-              <button type="button" onclick="askAboutProject('Residential Property Price Prediction & BI')" class="px-2.5 py-1 rounded-md bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-[11px] font-semibold transition-colors cursor-pointer">
-                Summarize with Suman AI
-              </button>
-            </div>
-          </article>
-
-          <!-- 2. Cloud Data Warehousing & BI Pipeline -->
-          <article class="rounded-xl card-clean p-6 flex flex-col justify-between">
-            <div class="space-y-3">
-              <div class="flex items-center justify-between gap-2">
-                <span class="px-2.5 py-0.5 rounded-md bg-blue-50 border border-blue-200 text-blue-700 text-xs font-mono font-medium">Data Engineering &amp; BI</span>
-                <span class="text-[11px] font-mono text-slate-500">Verified</span>
-              </div>
-              <h3 class="text-lg font-bold text-slate-900">
-                <a href="https://github.com/bhsuman/big-data-warehousing-pipeline" target="_blank" rel="noopener noreferrer" class="hover:text-blue-700 transition-colors">
-                  Cloud Data Warehousing &amp; BI Pipeline
-                </a>
-              </h3>
-              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                End-to-end cloud data warehousing and Business Intelligence pipeline implementing Medallion Architecture (Bronze/Silver/Gold) and Kimball dimensional star-schema modeling using Databricks, PySpark, Delta Lake, SQL, and Power BI.
-              </p>
-              <div class="flex flex-wrap gap-1.5 pt-1">
-                <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">Databricks</span>
-                <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">PySpark</span>
-                <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">Delta Lake</span>
-                <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">Power BI</span>
-                <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">SQL</span>
-              </div>
-            </div>
-            <div class="pt-4 border-t border-slate-100 mt-5 flex items-center justify-between gap-2">
-              <a href="https://github.com/bhsuman/big-data-warehousing-pipeline" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-700 hover:text-blue-900 flex items-center">
-                View Repository →
-              </a>
-              <button type="button" onclick="askAboutProject('Cloud Data Warehousing & BI Pipeline')" class="px-2.5 py-1 rounded-md bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-[11px] font-semibold transition-colors cursor-pointer">
-                Summarize with Suman AI
-              </button>
-            </div>
-          </article>
-
-          <!-- 3. Music Genre Classification ML Portal -->
-          <article class="rounded-xl card-clean p-6 flex flex-col justify-between">
-            <div class="space-y-3">
-              <div class="flex items-center justify-between gap-2">
-                <span class="px-2.5 py-0.5 rounded-md bg-blue-50 border border-blue-200 text-blue-700 text-xs font-mono font-medium">Data Science &amp; ML</span>
-                <span class="text-[11px] font-mono text-slate-500">Verified</span>
-              </div>
-              <h3 class="text-lg font-bold text-slate-900">
-                <a href="https://github.com/bhsuman/Music" target="_blank" rel="noopener noreferrer" class="hover:text-blue-700 transition-colors">
-                  Music Genre Classification ML Portal
-                </a>
-              </h3>
-              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                Machine learning web application that extracts acoustic and spectrogram features from audio files and classifies music tracks into genres using Python, Scikit-Learn, Django, and Matplotlib on the GTZAN dataset.
-              </p>
-              <div class="flex flex-wrap gap-1.5 pt-1">
-                <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">Python</span>
-                <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">Machine Learning</span>
-                <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">Django</span>
-                <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">Matplotlib</span>
-                <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">GTZAN</span>
-              </div>
-            </div>
-            <div class="pt-4 border-t border-slate-100 mt-5 flex items-center justify-between gap-2">
-              <a href="https://github.com/bhsuman/Music" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-700 hover:text-blue-900 flex items-center">
-                View Repository →
-              </a>
-              <button type="button" onclick="askAboutProject('Music Genre Classification ML Portal')" class="px-2.5 py-1 rounded-md bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-[11px] font-semibold transition-colors cursor-pointer">
-                Summarize with Suman AI
-              </button>
-            </div>
-          </article>
-
-          <!-- 4. Retail Festive Sales & Customer Analytics -->
-          <article class="rounded-xl card-clean p-6 flex flex-col justify-between">
-            <div class="space-y-3">
-              <div class="flex items-center justify-between gap-2">
-                <span class="px-2.5 py-0.5 rounded-md bg-blue-50 border border-blue-200 text-blue-700 text-xs font-mono font-medium">Data Analytics &amp; EDA</span>
-                <span class="text-[11px] font-mono text-slate-500">Verified</span>
-              </div>
-              <h3 class="text-lg font-bold text-slate-900">
-                <a href="https://github.com/bhsuman/Data-Analysis-Dewali" target="_blank" rel="noopener noreferrer" class="hover:text-blue-700 transition-colors">
-                  Retail Festive Sales &amp; Customer Analytics
-                </a>
-              </h3>
-              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                In-depth exploratory data analysis inspecting customer demographics, regional segments, product categories, and order values to identify high-revenue retail purchasing patterns.
-              </p>
-              <div class="flex flex-wrap gap-1.5 pt-1">
-                <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">Python</span>
-                <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">Pandas</span>
-                <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">Seaborn</span>
-                <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">EDA</span>
-                <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">Jupyter</span>
-              </div>
-            </div>
-            <div class="pt-4 border-t border-slate-100 mt-5 flex items-center justify-between gap-2">
-              <a href="https://github.com/bhsuman/Data-Analysis-Dewali" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-700 hover:text-blue-900 flex items-center">
-                View Repository →
-              </a>
-              <button type="button" onclick="askAboutProject('Retail Festive Sales & Customer Analytics')" class="px-2.5 py-1 rounded-md bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-[11px] font-semibold transition-colors cursor-pointer">
-                Summarize with Suman AI
-              </button>
-            </div>
-          </article>
+        <div id="github-projects-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Populated by renderProjectsGrid() in app.js -->
         </div>
 
       </div>
     </section>
 
-    <!-- EXPERIENCE & EDUCATION -->
+    <!-- WORK EXPERIENCE & EDUCATION SECTION -->
     <section id="experience" class="py-14 md:py-20 bg-slate-50 border-b border-slate-200">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+
+          <!-- Work Experience Column -->
           <div>
-            <p class="text-xs font-mono uppercase tracking-wider text-blue-700 font-semibold">Career History</p>
-            <h2 class="text-2xl font-bold text-slate-900 mt-1 mb-6">Work Experience</h2>
+            <p class="text-xs font-mono uppercase tracking-wider text-blue-700 font-semibold">Commercial Track Record</p>
+            <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-1 mb-6">Work Experience</h2>
             <div id="experience-timeline" class="relative border-l-2 border-blue-200 ml-3 pl-6 space-y-6">
-              <!-- Job 1 -->
-              <div class="relative">
-                <div class="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-blue-700 border-2 border-white"></div>
-                <div class="p-5 rounded-xl bg-white border border-slate-200">
-                  <div class="flex flex-wrap items-center justify-between gap-1 mb-1">
-                    <h3 class="text-base font-bold text-slate-900">Trainee Assistant - ICT</h3>
-                    <span class="text-xs font-mono px-2 py-0.5 rounded border text-blue-700 bg-blue-50 border-blue-200">Feb 2026 – Jun 2026</span>
-                  </div>
-                  <p class="text-xs sm:text-sm font-medium text-slate-700">Laxmi Sunrise Bank Limited • Kathmandu, Nepal</p>
-                  <ul class="mt-2.5 space-y-1 text-xs text-slate-600 list-disc list-inside">
-                    <li>Supported daily core IT banking operations, system uptime, and technical operations across commercial banking branches.</li>
-                    <li>Resolved user technical queries, core banking application issues, and database connectivity tickets.</li>
-                    <li>Gained hands-on exposure to enterprise banking systems, strict financial data security policies, and operational efficiency.</li>
-                  </ul>
-                </div>
-              </div>
-
-              <!-- Job 2 -->
-              <div class="relative">
-                <div class="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-blue-700 border-2 border-white"></div>
-                <div class="p-5 rounded-xl bg-white border border-slate-200">
-                  <div class="flex flex-wrap items-center justify-between gap-1 mb-1">
-                    <h3 class="text-base font-bold text-slate-900">Associate Data Engineer</h3>
-                    <span class="text-xs font-mono px-2 py-0.5 rounded border text-blue-700 bg-blue-50 border-blue-200">Jan 2024 – Jan 2026</span>
-                  </div>
-                  <p class="text-xs sm:text-sm font-medium text-slate-700">Development Catalyst Consultancy Pvt. Ltd • Kathmandu, Nepal</p>
-                  <ul class="mt-2.5 space-y-1 text-xs text-slate-600 list-disc list-inside">
-                    <li>Analyzed, transformed, and processed large-scale datasets using Python (Pandas, NumPy) and advanced SQL to deliver client business solutions.</li>
-                    <li>Designed and maintained automated ETL data cleaning, transformation, and schema validation pipelines to ensure high data quality.</li>
-                    <li>Authored complex relational SQL queries (CTEs, window functions, multi-table joins) to build reporting data marts.</li>
-                    <li>Collaborated with analysts and business stakeholders to translate reporting requirements into structured analytical datasets and BI dashboards.</li>
-                  </ul>
-                </div>
-              </div>
-
-              <!-- Job 3 -->
-              <div class="relative">
-                <div class="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-slate-400 border-2 border-white"></div>
-                <div class="p-5 rounded-xl bg-white border border-slate-200">
-                  <div class="flex flex-wrap items-center justify-between gap-1 mb-1">
-                    <h3 class="text-base font-bold text-slate-900">Data Engineer Trainee</h3>
-                    <span class="text-xs font-mono px-2 py-0.5 rounded border text-slate-600 bg-slate-100 border-slate-200">Jul 2023 – Oct 2023</span>
-                  </div>
-                  <p class="text-xs sm:text-sm font-medium text-slate-700">LIS Nepal Pvt. Ltd • Lalitpur, Nepal</p>
-                  <ul class="mt-2.5 space-y-1 text-xs text-slate-600 list-disc list-inside">
-                    <li>Completed intensive enterprise training in advanced SQL, Snowflake Cloud Data Warehousing, and dimensional star-schema modeling.</li>
-                    <li>Built Snowflake ETL workflows and automated CSV/file-to-warehouse ingestion pipelines using Python scripts.</li>
-                    <li>Partnered with senior data engineers on SQL query tuning, code refactoring, and pipeline quality assurance.</li>
-                  </ul>
-                </div>
-              </div>
+              <!-- Populated from portfolio-data.js -->
             </div>
           </div>
 
+          <!-- Education Column -->
           <div id="education">
-            <p class="text-xs font-mono uppercase tracking-wider text-blue-700 font-semibold">Academic Background</p>
-            <h2 class="text-2xl font-bold text-slate-900 mt-1 mb-6">Education</h2>
+            <p class="text-xs font-mono uppercase tracking-wider text-blue-700 font-semibold">Academic Qualifications</p>
+            <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-1 mb-6">Education</h2>
             <div id="education-timeline" class="relative border-l-2 border-blue-200 ml-3 pl-6 space-y-6">
-              <!-- Edu 1 -->
-              <div class="relative">
-                <div class="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-blue-700 border-2 border-white"></div>
-                <div class="p-5 rounded-xl bg-white border-2 border-blue-600 shadow-sm">
-                  <div class="flex items-center justify-between gap-1 mb-1">
-                    <span class="px-2 py-0.5 rounded text-[11px] font-mono font-semibold bg-blue-50 text-blue-700 border border-blue-200">Current Postgraduate Study • New Zealand</span>
-                    <span class="text-xs font-mono text-blue-700 font-medium">Jul 2026 – Present</span>
-                  </div>
-                  <h3 class="text-base font-bold text-slate-900 mt-1">Master of Applied Technologies</h3>
-                  <p class="text-xs sm:text-sm font-semibold text-blue-700">Computing – Data Analytics</p>
-                  <p class="text-xs text-slate-700 mt-1">Unitec Institute of Technology • Auckland, New Zealand</p>
-                  <p class="text-xs text-slate-600 mt-2 leading-relaxed">
-                    Postgraduate specialization in Advanced Data Analytics, Machine Learning, Big Data Engineering, Cloud Warehousing, Predictive Modeling, and Business Intelligence.
-                  </p>
-                </div>
-              </div>
-
-              <!-- Edu 2 -->
-              <div class="relative">
-                <div class="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-blue-500 border-2 border-white"></div>
-                <div class="p-5 rounded-xl bg-white border border-slate-200">
-                  <div class="flex items-center justify-between gap-1 mb-1">
-                    <span class="text-xs font-mono text-slate-500">Bachelor's Degree (4-Year Honours)</span>
-                    <span class="text-xs font-mono text-slate-600">Oct 2018 – Dec 2023</span>
-                  </div>
-                  <h3 class="text-base font-bold text-slate-900 mt-1">Bachelor of Science in Computer Science and Information Technology (B.Sc. CSIT)</h3>
-                  <p class="text-xs sm:text-sm font-semibold text-blue-700">Computer Science, Databases &amp; Software Engineering</p>
-                  <p class="text-xs text-slate-700 mt-1">Samriddhi College (Tribhuvan University) • Bhaktapur, Nepal</p>
-                  <p class="text-xs text-slate-600 mt-2 leading-relaxed">
-                    Core coursework in Database Management Systems (DBMS), Data Warehousing &amp; Data Mining, Data Structures &amp; Algorithms, Statistical Computing, Artificial Intelligence, and Software Engineering.
-                  </p>
-                </div>
-              </div>
-
-              <!-- Edu 3 -->
-              <div class="relative">
-                <div class="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-blue-500 border-2 border-white"></div>
-                <div class="p-5 rounded-xl bg-white border border-slate-200">
-                  <div class="flex items-center justify-between gap-1 mb-1">
-                    <span class="text-xs font-mono text-slate-500">High School Diploma</span>
-                    <span class="text-xs font-mono text-slate-600">Jun 2016 – Jul 2018</span>
-                  </div>
-                  <h3 class="text-base font-bold text-slate-900 mt-1">High School (+2 Science &amp; Computing)</h3>
-                  <p class="text-xs sm:text-sm font-semibold text-blue-700">Mathematics, Physics &amp; Computer Science</p>
-                  <p class="text-xs text-slate-700 mt-1">Siddhartha College • Banepa, Nepal</p>
-                  <p class="text-xs text-slate-600 mt-2 leading-relaxed">
-                    Strong quantitative foundation in calculus, linear algebra, statistics, and computer fundamentals.
-                  </p>
-                </div>
-              </div>
+              <!-- Populated from portfolio-data.js -->
             </div>
           </div>
 
@@ -797,35 +434,36 @@
     <!-- CONTACT SECTION -->
     <section id="contact" class="py-14 md:py-20 bg-white">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         <div class="max-w-2xl mb-10">
           <p class="text-xs font-mono uppercase tracking-wider text-blue-700 font-semibold">Direct Contact</p>
           <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-1">
             Get in Touch
           </h2>
           <p class="text-sm text-slate-600 mt-1">
-            Open to student roles, internships, and Data Engineer / Data Analyst / Data Scientist opportunities across New Zealand &amp; Australia.
+            Available for Data Engineer, Data Analyst, Business Intelligence, and Data Scientist roles, internships, and collaborations across New Zealand &amp; Australia.
           </p>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          
-          <div class="lg:col-span-5 flex flex-col justify-between space-y-3">
-            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
-              <div class="flex items-center space-x-3.5">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+          <!-- Left Column: Direct Contact Cards -->
+          <div class="lg:col-span-5 space-y-3.5">
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-3">
+              <div class="flex items-center space-x-3.5 min-w-0">
                 <div class="w-10 h-10 rounded-lg bg-blue-100/80 text-blue-700 flex items-center justify-center font-mono text-xs font-bold flex-shrink-0">TEL</div>
-                <div>
-                  <p class="text-[11px] font-mono uppercase tracking-wider text-slate-500">Phone / SMS</p>
+                <div class="min-w-0">
+                  <p class="text-[11px] font-mono uppercase tracking-wider text-slate-500">Phone / SMS (NZ)</p>
                   <p id="contact-phone-display" class="text-sm font-bold text-slate-900 font-mono mt-0.5">+64 22 051 2513</p>
                 </div>
               </div>
-              <div class="flex gap-2">
+              <div class="flex gap-2 flex-shrink-0">
                 <a href="sms:+64220512513" class="px-3 py-1.5 rounded-lg bg-blue-700 text-white hover:bg-blue-800 text-xs font-semibold transition-colors">SMS</a>
                 <a href="tel:+64220512513" class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-700 hover:bg-slate-100 text-xs font-semibold transition-colors">Call</a>
               </div>
             </div>
 
-            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-3">
               <div class="flex items-center space-x-3.5 min-w-0">
                 <div class="w-10 h-10 rounded-lg bg-blue-100/80 text-blue-700 flex items-center justify-center font-mono text-xs font-bold flex-shrink-0">MAIL</div>
                 <div class="min-w-0">
@@ -833,29 +471,32 @@
                   <p id="contact-email-display" class="text-sm font-bold text-slate-900 mt-0.5 truncate">bhsuman11@gmail.com</p>
                 </div>
               </div>
-              <button onclick="copyToClipboard('bhsuman11@gmail.com', 'Email')" class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-blue-700 hover:bg-blue-50 text-xs font-semibold flex-shrink-0">
-                Copy
-              </button>
+              <div class="flex gap-2 flex-shrink-0">
+                <a href="mailto:bhsuman11@gmail.com" class="px-3 py-1.5 rounded-lg bg-blue-700 text-white hover:bg-blue-800 text-xs font-semibold transition-colors">Email</a>
+                <button type="button" onclick="copyToClipboard('bhsuman11@gmail.com', 'Email')" class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-700 hover:bg-slate-100 text-xs font-semibold transition-colors cursor-pointer">
+                  Copy
+                </button>
+              </div>
             </div>
 
-            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-3">
               <div class="flex items-center space-x-3.5">
                 <div class="w-10 h-10 rounded-lg bg-blue-100/80 text-blue-700 flex items-center justify-center font-mono text-xs font-bold flex-shrink-0">LOC</div>
                 <div>
-                  <p class="text-[11px] font-mono uppercase tracking-wider text-slate-500">Location &amp; Status</p>
+                  <p class="text-[11px] font-mono uppercase tracking-wider text-slate-500">Location &amp; Work Status</p>
                   <p id="contact-location-display" class="text-sm font-bold text-slate-900 mt-0.5">Henderson, Auckland, NZ</p>
                 </div>
               </div>
-              <span id="contact-status-display" class="px-2.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-[11px] font-semibold">
+              <span id="contact-status-display" class="px-2.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-[11px] font-semibold flex-shrink-0">
                 Student • Open to Work
               </span>
             </div>
 
-            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-3">
               <div class="flex items-center space-x-3.5">
                 <div class="w-10 h-10 rounded-lg bg-blue-100/80 text-blue-700 flex items-center justify-center font-mono text-xs font-bold flex-shrink-0">WEB</div>
                 <div>
-                  <p class="text-[11px] font-mono uppercase tracking-wider text-slate-500">Professional Profiles</p>
+                  <p class="text-[11px] font-mono uppercase tracking-wider text-slate-500">Verified Profiles</p>
                   <div class="flex items-center gap-4 mt-0.5">
                     <a id="contact-linkedin-link" href="https://www.linkedin.com/in/suman-bhandari-ab4394279/" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-sm font-semibold text-blue-700 hover:underline">
                       LinkedIn ↗
@@ -869,40 +510,100 @@
             </div>
           </div>
 
-          <div class="lg:col-span-7 bg-slate-50 border border-slate-200 rounded-xl p-6 flex flex-col justify-between">
-            <div>
-              <h3 class="text-base font-bold text-slate-900 mb-1">Send a Direct Message</h3>
-              <p class="text-xs text-slate-500 mb-5">
-                Fill out the form below to send a direct inquiry to Suman.
+          <!-- Right Column: Validated Contact Form -->
+          <div class="lg:col-span-7 bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-7">
+            <div class="mb-5">
+              <h3 class="text-base sm:text-lg font-bold text-slate-900">Send a Direct Message</h3>
+              <p class="text-xs sm:text-sm text-slate-600 mt-0.5">
+                Fill out the form below to message Suman directly. Fields marked with <span class="text-red-600 font-semibold">*</span> are required.
               </p>
             </div>
 
-            <form id="contact-form" onsubmit="event.preventDefault(); handleContactSubmit();" class="space-y-4">
+            <form id="contact-form" novalidate class="space-y-4">
+              <!-- Honeypot field for automated spam protection (hidden from real visitors) -->
+              <div class="hidden" aria-hidden="true">
+                <label for="contact-website">Website (Leave blank)</label>
+                <input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off">
+              </div>
+
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label for="contact-name" class="block text-xs font-medium text-slate-700 mb-1">Your Name *</label>
-                  <input id="contact-name" type="text" required placeholder="Jane Doe" class="w-full bg-white border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-blue-600">
+                  <label for="contact-name" class="block text-xs font-semibold text-slate-700 mb-1.5">
+                    Your Name <span class="text-red-600" aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    id="contact-name"
+                    name="name"
+                    type="text"
+                    required
+                    minlength="2"
+                    maxlength="80"
+                    autocomplete="name"
+                    placeholder="e.g., Sarah Mitchell"
+                    class="w-full bg-white border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600"
+                  >
                 </div>
                 <div>
-                  <label for="contact-phone" class="block text-xs font-medium text-slate-700 mb-1">Your Email or Phone *</label>
-                  <input id="contact-phone" type="text" required placeholder="jane@company.com" class="w-full bg-white border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-blue-600">
+                  <label for="contact-phone" class="block text-xs font-semibold text-slate-700 mb-1.5">
+                    Your Email or Phone <span class="text-red-600" aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    id="contact-phone"
+                    name="contact"
+                    type="text"
+                    required
+                    maxlength="120"
+                    autocomplete="email"
+                    placeholder="e.g., sarah@company.co.nz or +64 21..."
+                    class="w-full bg-white border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600"
+                  >
                 </div>
               </div>
 
               <div>
-                <label for="contact-subject" class="block text-xs font-medium text-slate-700 mb-1">Subject</label>
-                <input id="contact-subject" type="text" placeholder="Data Engineer / Data Analyst / Data Scientist Role" class="w-full bg-white border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-blue-600">
+                <label for="contact-subject" class="block text-xs font-semibold text-slate-700 mb-1.5">
+                  Subject / Role Opportunity
+                </label>
+                <input
+                  id="contact-subject"
+                  name="subject"
+                  type="text"
+                  maxlength="120"
+                  placeholder="e.g., Data Engineer / Data Analyst Opportunity"
+                  class="w-full bg-white border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600"
+                >
               </div>
 
               <div>
-                <label for="contact-msg" class="block text-xs font-medium text-slate-700 mb-1">Message *</label>
-                <textarea id="contact-msg" rows="3" required placeholder="Hi Suman, I'd like to get in touch regarding..." class="w-full bg-white border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-blue-600"></textarea>
+                <label for="contact-msg" class="block text-xs font-semibold text-slate-700 mb-1.5">
+                  Message <span class="text-red-600" aria-hidden="true">*</span>
+                </label>
+                <textarea
+                  id="contact-msg"
+                  name="message"
+                  rows="4"
+                  required
+                  minlength="10"
+                  maxlength="1500"
+                  placeholder="Kia ora Suman, I'd like to discuss a role or project..."
+                  class="w-full bg-white border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600"
+                ></textarea>
               </div>
 
-              <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-1">
-                <button type="submit" class="w-full sm:w-auto px-5 py-2.5 rounded-lg bg-blue-700 hover:bg-blue-800 text-white font-semibold text-sm transition-colors">
+              <!-- Accessible Form Validation & Status Feedback Banner -->
+              <div id="contact-form-status" role="status" aria-live="polite" class="hidden rounded-lg px-4 py-3 text-xs sm:text-sm font-medium border"></div>
+
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
+                <button
+                  id="contact-submit-btn"
+                  type="submit"
+                  class="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-blue-700 hover:bg-blue-800 disabled:bg-slate-400 text-white font-semibold text-sm transition-colors cursor-pointer"
+                >
                   Send Message
                 </button>
+                <p class="text-[11px] text-slate-500">
+                  Or email directly: <a href="mailto:bhsuman11@gmail.com" class="text-blue-700 font-semibold hover:underline">bhsuman11@gmail.com</a>
+                </p>
               </div>
             </form>
           </div>
@@ -915,36 +616,139 @@
   <!-- FOOTER -->
   <footer class="border-t border-slate-200 bg-slate-50 text-slate-600 py-8 text-xs">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center space-x-2.5">
+      <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
         <!-- Secret Owner Trigger: Triple-click this SB badge or press Ctrl+Shift+L -->
         <span id="owner-secret-trigger" title="Suman Bhandari" class="w-6 h-6 rounded bg-blue-700 text-white flex items-center justify-center font-bold text-[11px] select-none cursor-default">SB</span>
         <span class="font-semibold text-slate-900">Suman Bhandari</span>
-        <span class="text-slate-400">•</span>
+        <span class="text-slate-400" aria-hidden="true">•</span>
         <span>Henderson, Auckland, NZ</span>
-        <span class="text-slate-400">•</span>
+        <span class="text-slate-400" aria-hidden="true">•</span>
         <span class="text-blue-700 font-medium">Student • Open to Work</span>
       </div>
 
-      <div class="flex flex-wrap items-center gap-5">
+      <div class="flex flex-wrap items-center justify-center gap-5">
         <a href="#about" class="hover:text-blue-700">About</a>
         <a href="#skills" class="hover:text-blue-700">Skills</a>
         <a href="#projects" class="hover:text-blue-700">Projects</a>
         <a href="#experience" class="hover:text-blue-700">Experience</a>
         <a href="#education" class="hover:text-blue-700">Education</a>
-        <a href="https://github.com/bhsuman" target="_blank" rel="noopener noreferrer" class="hover:text-blue-700">GitHub</a>
+        <button type="button" onclick="openCvModal()" class="hover:text-blue-700 cursor-pointer">CV Summary</button>
+        <a href="https://github.com/bhsuman" target="_blank" rel="noopener noreferrer" class="hover:text-blue-700">GitHub ↗</a>
       </div>
     </div>
   </footer>
 
+  <!-- PROJECT DETAILS & ARCHITECTURE MODAL -->
+  <div id="project-details-modal" role="dialog" aria-modal="true" aria-labelledby="project-modal-title" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 rounded-2xl max-w-2xl w-full p-6 sm:p-7 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-start justify-between gap-4 pb-3 border-b border-slate-200">
+        <div>
+          <div class="flex flex-wrap items-center gap-2">
+            <span id="project-modal-category" class="px-2.5 py-0.5 rounded-md bg-blue-50 border border-blue-200 text-blue-700 text-xs font-mono font-medium">Project</span>
+            <span id="project-modal-status" class="text-xs font-mono text-slate-500">Completed Project</span>
+          </div>
+          <h3 id="project-modal-title" class="text-lg sm:text-xl font-bold text-slate-900 mt-1.5">Project Details</h3>
+        </div>
+        <button type="button" onclick="closeProjectDetailsModal()" aria-label="Close project details" class="w-8 h-8 rounded-lg border border-slate-200 text-slate-500 hover:text-slate-900 hover:bg-slate-50 flex items-center justify-center text-sm cursor-pointer">
+          ✕
+        </button>
+      </div>
+
+      <div id="project-modal-body" class="space-y-4 text-xs sm:text-sm text-slate-700 leading-relaxed">
+        <!-- Populated dynamically by openProjectDetailsModal(repoName) -->
+      </div>
+
+      <div class="pt-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
+        <a id="project-modal-repo-link" href="https://github.com/bhsuman" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-lg bg-blue-700 hover:bg-blue-800 text-white text-xs sm:text-sm font-semibold transition-colors inline-flex items-center gap-1.5">
+          <span>View Source on GitHub ↗</span>
+        </a>
+        <div class="flex items-center gap-2">
+          <button id="project-modal-ai-btn" type="button" class="px-3.5 py-2 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-xs sm:text-sm font-semibold transition-colors cursor-pointer">
+            Explore in Suman AI
+          </button>
+          <button type="button" onclick="closeProjectDetailsModal()" class="px-3.5 py-2 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs sm:text-sm font-medium transition-colors cursor-pointer">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECRUITER CV SUMMARY MODAL (VIEW / PRINT / REQUEST FULL CV) -->
+  <div id="cv-summary-modal" role="dialog" aria-modal="true" aria-labelledby="cv-modal-title" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 rounded-2xl max-w-2xl w-full p-6 sm:p-7 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-start justify-between gap-4 pb-3 border-b border-slate-200">
+        <div>
+          <span class="px-2 py-0.5 rounded bg-blue-50 border border-blue-200 text-blue-700 font-mono text-[11px] font-semibold">CURRICULUM VITAE SUMMARY</span>
+          <h3 id="cv-modal-title" class="text-lg sm:text-xl font-bold text-slate-900 mt-1">Suman Bhandari — Executive CV Overview</h3>
+          <p class="text-xs text-slate-500">Henderson, Auckland, New Zealand • bhsuman11@gmail.com • +64 22 051 2513</p>
+        </div>
+        <button type="button" onclick="closeCvModal()" aria-label="Close CV summary" class="w-8 h-8 rounded-lg border border-slate-200 text-slate-500 hover:text-slate-900 hover:bg-slate-50 flex items-center justify-center text-sm cursor-pointer">
+          ✕
+        </button>
+      </div>
+
+      <div class="space-y-4 text-xs sm:text-sm text-slate-700">
+        <div>
+          <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider font-mono text-blue-700">Profile</h4>
+          <p class="mt-1 leading-relaxed">
+            Master of Applied Technologies (Computing – Data Analytics) student at Unitec Institute of Technology, Auckland, with 2+ years of commercial experience across data engineering consultancy, Snowflake data warehousing, and banking ICT operations.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+            <h4 class="font-bold text-slate-900 text-xs uppercase font-mono text-blue-700">Education</h4>
+            <ul class="mt-1.5 space-y-1.5 text-xs">
+              <li><strong>Master of Applied Technologies (Data Analytics)</strong> — Unitec, Auckland (Jul 2026 – Present)</li>
+              <li><strong>B.Sc. CSIT (4-Year Honours)</strong> — Samriddhi College, Tribhuvan University (2018 – 2023)</li>
+            </ul>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+            <h4 class="font-bold text-slate-900 text-xs uppercase font-mono text-blue-700">Commercial Experience (2+ Yrs)</h4>
+            <ul class="mt-1.5 space-y-1.5 text-xs">
+              <li><strong>Trainee Assistant - ICT</strong> — Laxmi Sunrise Bank (Feb 2026 – Jun 2026)</li>
+              <li><strong>Associate Data Engineer</strong> — Development Catalyst Consultancy (Jan 2024 – Jan 2026)</li>
+              <li><strong>Data Engineer Trainee</strong> — LIS Nepal (Jul 2023 – Oct 2023)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider font-mono text-blue-700">Core Technical Stack</h4>
+          <p class="mt-1 text-xs leading-relaxed">
+            <strong>Data Engineering &amp; Cloud:</strong> Databricks, PySpark, Delta Lake, Snowflake, dbt, Apache Airflow, Azure Data Factory, Kimball Star Schema, Medallion Architecture.<br>
+            <strong>Programming &amp; BI:</strong> Advanced SQL (T-SQL, PostgreSQL, SnowSQL), Python (Pandas, NumPy, Scikit-Learn), R, Power BI (DAX), Tableau, Git.<br>
+            <strong>Key Projects:</strong> Cloud Data Warehousing &amp; Credit Risk Pipeline (LendingClub), Residential Property Price Prediction &amp; BI, Music Genre Classification ML Portal (GTZAN/Django), Retail Festive Sales EDA.
+          </p>
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex flex-wrap items-center gap-2">
+          <button type="button" onclick="window.print()" class="px-4 py-2 rounded-lg bg-blue-700 hover:bg-blue-800 text-white text-xs sm:text-sm font-semibold transition-colors cursor-pointer">
+            Print / Save as PDF
+          </button>
+          <a href="mailto:bhsuman11@gmail.com?subject=Request%20for%20Full%20CV%20%E2%80%94%20Suman%20Bhandari" class="px-3.5 py-2 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-xs sm:text-sm font-semibold transition-colors">
+            Request Full CV via Email
+          </a>
+        </div>
+        <button type="button" onclick="closeCvModal()" class="px-3.5 py-2 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs sm:text-sm font-medium transition-colors cursor-pointer">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- PRIVATE OWNER PASSCODE GATE MODAL (Hidden from visitors; triggered ONLY via Ctrl+Shift+L or #owner) -->
-  <div id="owner-auth-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center p-4">
+  <div id="owner-auth-modal" role="dialog" aria-modal="true" aria-labelledby="owner-auth-title" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center p-4">
     <div class="bg-white border border-slate-200 rounded-2xl max-w-sm w-full p-6 shadow-xl space-y-4">
       <div class="flex items-center justify-between pb-2 border-b border-slate-200">
-        <h3 class="font-bold text-slate-900 text-sm">Owner Access Only</h3>
-        <button onclick="closeOwnerAuthModal()" class="text-slate-400 hover:text-slate-700">✕</button>
+        <h3 id="owner-auth-title" class="font-bold text-slate-900 text-sm">Owner Access Only</h3>
+        <button type="button" onclick="closeOwnerAuthModal()" aria-label="Close owner authentication" class="text-slate-400 hover:text-slate-700">✕</button>
       </div>
       <form onsubmit="event.preventDefault(); verifyOwnerPin();" class="space-y-3 text-xs">
-        <p class="text-slate-600">Enter your private Owner PIN to view Alert Setup &amp; Visitor Logs.</p>
+        <label for="owner-pin-input" class="block text-slate-600">Enter your private Owner PIN to view Alert Setup &amp; Visitor Logs.</label>
         <input id="owner-pin-input" type="password" placeholder="Enter Owner PIN" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-slate-900 font-mono text-sm focus:outline-none focus:border-blue-600" required>
         <p id="owner-pin-error" class="text-red-600 text-[11px] hidden">Incorrect PIN. Access denied.</p>
         <div class="flex justify-end gap-2 pt-1">
@@ -966,10 +770,9 @@
         <button type="button" onclick="closeAlertsModal()" aria-label="Close Owner Dashboard" class="text-slate-400 hover:text-slate-700 p-1 rounded-lg">✕</button>
       </div>
 
-      <!-- Notification Setup (Visible ONLY to Suman) -->
       <div class="p-4 rounded-xl bg-blue-50 border border-blue-200 space-y-2.5 text-xs">
         <p class="font-bold text-blue-950">1. Notification Channels &amp; Server Security</p>
-        <ol class="list-decimal list-inside space-y-1.5 text-slate-700">
+        <ol class="list-decimal pl-4 space-y-1.5 text-slate-700">
           <li>
             <strong>Email Alerts (bhsuman11@gmail.com):</strong> Click <em>"Send Test Notification"</em> below, then check your <strong>bhsuman11@gmail.com</strong> inbox to confirm delivery.
           </li>
@@ -990,7 +793,6 @@
         <p id="test-alert-status" class="text-[11px] font-mono text-blue-800 hidden"></p>
       </div>
 
-      <!-- Owner PIN Management -->
       <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3 text-xs">
         <p class="font-bold text-slate-900">2. Owner Session PIN Management</p>
         <div>
@@ -1002,7 +804,6 @@
         </button>
       </div>
 
-      <!-- Recent Visitor Questions Log (Owner Only) -->
       <div class="space-y-2 pt-2 border-t border-slate-200">
         <div class="flex items-center justify-between">
           <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider font-mono">3. Private Visitor Inquiry Log</h4>
@@ -1015,23 +816,23 @@
     </div>
   </div>
 
-  <!-- FLOATING SIDE-OF-SCREEN SUMAN AI POPUP WIDGET -->
-  <div id="suman-ai-widget" class="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 z-40 flex flex-col items-end max-w-[calc(100vw-2rem)]">
-    
-    <!-- Popup Drawer / Window -->
-    <div 
-      id="suman-ai-popup" 
-      role="dialog" 
-      aria-modal="false" 
-      aria-labelledby="popup-agent-title" 
+  <!-- FLOATING SIDE-OF-SCREEN SUMAN AI ASSISTANT WIDGET -->
+  <div id="suman-ai-widget" class="fixed z-40 flex flex-col items-end max-w-[calc(100vw-2rem)]">
+
+    <!-- Popup Chat Window -->
+    <div
+      id="suman-ai-popup"
+      role="dialog"
+      aria-modal="false"
+      aria-labelledby="popup-agent-title"
       aria-describedby="popup-agent-subtitle"
-      class="hidden mb-3 w-[calc(100vw-2rem)] sm:w-[420px] md:w-[440px] h-[590px] max-h-[82vh] bg-white border border-slate-300 rounded-2xl shadow-2xl overflow-hidden flex-col"
+      class="hidden mb-2.5 w-[calc(100vw-2rem)] sm:w-[410px] md:w-[430px] h-[560px] max-h-[80vh] bg-white border border-slate-300 rounded-2xl shadow-2xl overflow-hidden flex-col"
     >
       <!-- Header -->
       <div class="px-4 py-3 bg-blue-700 text-white flex items-center justify-between flex-shrink-0 border-b border-blue-800">
         <div class="flex items-center space-x-3 min-w-0">
           <div class="relative flex-shrink-0">
-            <img src="assets/suman-bhandari.jpg" alt="Suman Bhandari avatar" class="w-9 h-9 rounded-full object-cover border-2 border-blue-200">
+            <img src="assets/suman-bhandari.jpg" alt="Suman Bhandari avatar" width="36" height="36" class="w-9 h-9 rounded-full object-cover border-2 border-blue-200">
             <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-blue-700 absolute bottom-0 right-0" aria-hidden="true"></span>
           </div>
           <div class="min-w-0">
@@ -1042,22 +843,22 @@
           </div>
         </div>
         <div class="flex items-center gap-1.5 flex-shrink-0">
-          <button 
-            type="button" 
-            onclick="resetSumanAIConversation()" 
-            title="Start a new conversation" 
+          <button
+            type="button"
+            onclick="resetSumanAIConversation()"
+            title="Start a new conversation"
             aria-label="Start a new conversation"
-            class="px-2.5 py-1.5 rounded-lg bg-blue-800/90 hover:bg-blue-900 text-blue-100 hover:text-white text-[11px] font-medium flex items-center gap-1 transition-colors focus:outline-none focus:ring-2 focus:ring-white cursor-pointer"
+            class="px-2.5 py-1.5 rounded-lg bg-blue-800/90 hover:bg-blue-900 text-blue-100 hover:text-white text-[11px] font-medium flex items-center gap-1 transition-colors cursor-pointer"
           >
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
             <span>New</span>
           </button>
-          <button 
-            type="button" 
-            onclick="closeSumanAIPopup()" 
-            title="Close Suman AI" 
+          <button
+            type="button"
+            onclick="closeSumanAIPopup()"
+            title="Close Suman AI"
             aria-label="Close Suman AI assistant"
-            class="w-7 h-7 rounded-lg bg-blue-800/90 hover:bg-blue-900 text-blue-100 hover:text-white flex items-center justify-center text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-white cursor-pointer"
+            class="w-7 h-7 rounded-lg bg-blue-800/90 hover:bg-blue-900 text-blue-100 hover:text-white flex items-center justify-center text-xs transition-colors cursor-pointer"
           >
             ✕
           </button>
@@ -1069,87 +870,57 @@
         <!-- Rendered dynamically by renderWelcomeState() in app.js -->
       </div>
 
-      <!-- Compact Category Strip above Input -->
-      <div id="popup-quick-prompts" aria-label="Quick topic categories" class="px-3 py-2 bg-slate-50 border-t border-slate-200 flex items-center gap-1.5 overflow-x-auto no-scrollbar flex-shrink-0">
+      <!-- Wrapping Suggestion Chips Bar (Wraps cleanly without clipping) -->
+      <div id="popup-quick-prompts" aria-label="Suggested topic categories" class="px-3 py-2 bg-slate-50 border-t border-slate-200 flex flex-wrap items-center gap-1.5 flex-shrink-0">
         <!-- Populated by app.js -->
       </div>
 
       <!-- Input Form (Supports Enter to send, Shift+Enter for new line) -->
       <form id="popup-chat-form" class="p-3 bg-white border-t border-slate-200 flex items-end gap-2 flex-shrink-0">
         <label for="popup-chat-input" class="sr-only">Ask Suman AI a question about Suman's portfolio</label>
-        <textarea 
-          id="popup-chat-input" 
+        <textarea
+          id="popup-chat-input"
           rows="1"
           maxlength="300"
-          placeholder="Ask about projects, architecture, skills, or experience..." 
-          class="flex-1 bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 focus:bg-white resize-none max-h-24 transition-all leading-relaxed"
+          placeholder="Ask about projects, architecture, skills, or experience..."
+          class="flex-1 bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:bg-white resize-none max-h-24 transition-all leading-relaxed"
           required
         ></textarea>
-        <button 
+        <button
           id="popup-send-btn"
-          type="submit" 
+          type="submit"
           aria-label="Send message"
-          class="px-4 py-2 rounded-xl bg-blue-700 hover:bg-blue-800 disabled:bg-slate-300 disabled:text-slate-500 text-white font-semibold text-xs sm:text-sm transition-colors flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-blue-600 cursor-pointer"
+          class="px-4 py-2 rounded-xl bg-blue-700 hover:bg-blue-800 disabled:bg-slate-300 disabled:text-slate-500 text-white font-semibold text-xs sm:text-sm transition-colors flex-shrink-0 cursor-pointer"
         >
           Send
         </button>
       </form>
     </div>
 
-    <!-- Floating Side Launcher Button -->
-    <button 
-      id="suman-ai-fab" 
-      type="button" 
-      onclick="toggleSumanAIPopup()" 
+    <!-- Subtle, Recognisable Floating Launcher Button -->
+    <button
+      id="suman-ai-fab"
+      type="button"
+      onclick="toggleSumanAIPopup()"
       aria-expanded="false"
       aria-controls="suman-ai-popup"
       aria-label="Open Suman AI Portfolio and Technical Assistant"
-      class="group flex items-center gap-2.5 pl-2.5 pr-4 py-2.5 rounded-full bg-blue-700 hover:bg-blue-800 text-white shadow-lg hover:shadow-xl border border-blue-500 transition-all focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 cursor-pointer"
+      class="group flex items-center gap-2.5 pl-2 pr-3.5 py-2 rounded-full bg-blue-700 hover:bg-blue-800 text-white shadow-md hover:shadow-lg border border-blue-600 transition-all cursor-pointer"
     >
       <div class="relative flex-shrink-0">
-        <img src="assets/suman-bhandari.jpg" alt="" class="w-8 h-8 rounded-full object-cover border-2 border-white">
-        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-blue-700 absolute -bottom-0.5 -right-0.5" aria-hidden="true"></span>
+        <img src="assets/suman-bhandari.jpg" alt="" width="32" height="32" class="w-8 h-8 rounded-full object-cover border border-white/90">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 border border-blue-700 absolute bottom-0 right-0" aria-hidden="true"></span>
       </div>
       <div class="text-left leading-tight">
         <span class="font-bold text-xs sm:text-sm tracking-tight block">Suman AI</span>
-        <span class="text-[10px] text-blue-100 hidden sm:block">Portfolio &amp; Technical Assistant</span>
+        <span class="text-[10px] text-blue-100 hidden sm:block">Portfolio Assistant</span>
       </div>
     </button>
   </div>
 
-  <script>
-    // Mobile Menu Toggle
-    const menuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    if (menuBtn && mobileMenu) {
-      menuBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-      });
-      mobileMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
-      });
-    }
-
-    // Contact Form Submit Handler
-    function handleContactSubmit() {
-      const name = document.getElementById('contact-name').value.trim();
-      const contact = document.getElementById('contact-phone').value.trim();
-      const subject = document.getElementById('contact-subject').value.trim() || 'Portfolio Inquiry';
-      const msg = document.getElementById('contact-msg').value.trim();
-
-      const summary = `Contact Form from ${name} (${contact}) - ${subject}: ${msg}`;
-      if (window.triggerSmsAlert) {
-        window.triggerSmsAlert(summary, "Contact Form Submitted", "Contact Form");
-      }
-
-      alert(`Thank you, ${name}! Your message has been sent to Suman.`);
-      document.getElementById('contact-form').reset();
-    }
-  </script>
-
-  <!-- 1) Master Content File (Edit portfolio-data.js to update any portfolio content!) -->
-  <script src="portfolio-data.js?v=7"></script>
-  <!-- 2) Live Rendering, Authentic Public GitHub Sync & Suman AI Engine -->
-  <script src="app.js?v=7"></script>
+  <!-- 1) Master Content File -->
+  <script src="portfolio-data.js?v=8"></script>
+  <!-- 2) Portfolio Renderer, Project & CV Modals, Validated Contact Form & Suman AI Engine -->
+  <script src="app.js?v=8"></script>
 </body>
 </html>

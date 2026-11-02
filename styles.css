@@ -1,21 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
-  --color-primary: #1d4ed8;       /* Classic Professional Blue */
-  --color-primary-dark: #1e40af;  /* Deep Corporate Blue */
-  --color-primary-light: #eff6ff; /* Soft Blue Tint */
+  --color-primary: #1d4ed8;        /* Blue 700 - Primary Brand */
+  --color-primary-hover: #1e40af;  /* Blue 800 - Interactive Hover */
+  --color-primary-deep: #1e3a8a;   /* Blue 900 - Utility & Code Accent */
+  --color-primary-soft: #eff6ff;   /* Blue 50  - Subtle Accent Surface */
+  --color-primary-border: #bfdbfe; /* Blue 200 - Accent Border */
   --color-bg-main: #ffffff;
-  --color-bg-muted: #f8fafc;
-  --color-border: #e2e8f0;
-  --color-text-main: #0f172a;
-  --color-text-muted: #475569;
+  --color-bg-muted: #f8fafc;       /* Slate 50 */
+  --color-border: #e2e8f0;         /* Slate 200 */
+  --color-border-strong: #cbd5e1;  /* Slate 300 */
+  --color-text-main: #0f172a;      /* Slate 900 */
+  --color-text-secondary: #334155; /* Slate 700 */
+  --color-text-muted: #475569;     /* Slate 600 */
+  --radius-card: 0.75rem;          /* 12px */
+  --radius-lg: 1rem;               /* 16px */
+  --shadow-card: 0 1px 2px 0 rgba(15, 23, 42, 0.04);
+  --shadow-card-hover: 0 6px 16px -4px rgba(29, 78, 216, 0.08), 0 2px 6px -2px rgba(15, 23, 42, 0.04);
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html {
   scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;
 }
 
 body {
@@ -25,6 +37,7 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 code, pre, .font-mono {
@@ -35,7 +48,8 @@ code, pre, .font-mono {
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
-textarea:focus-visible {
+textarea:focus-visible,
+select:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
@@ -43,6 +57,7 @@ textarea:focus-visible {
 /* Custom Scrollbar - Clean White & Blue */
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
   background: #f1f5f9;
@@ -52,20 +67,42 @@ textarea:focus-visible {
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #1d4ed8;
+  background: var(--color-primary);
 }
 
-/* Clean Card Surface */
+/* Cohesive Card Surface */
 .card-clean {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.04);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background: var(--color-bg-main);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
 }
 
 .card-clean:hover {
   border-color: #93c5fd;
-  box-shadow: 0 4px 12px -2px rgba(29, 78, 216, 0.08);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* Architecture Pipeline Flow Schematic on Project Cards */
+.pipeline-visual {
+  background: linear-gradient(180deg, #f8fafc 0%, #eff6ff 100%);
+  border: 1px solid #dbeafe;
+  border-radius: 0.625rem;
+  padding: 0.75rem;
+}
+
+.pipeline-step {
+  background: #ffffff;
+  border: 1px solid #bfdbfe;
+  color: #1e3a8a;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 0.25rem 0.55rem;
+  border-radius: 0.375rem;
+  line-height: 1.25;
+  white-space: nowrap;
 }
 
 /* Chat bubble styling - High Contrast Light Blue/White & Dark Slate Text */
@@ -78,7 +115,7 @@ textarea:focus-visible {
 }
 
 .chat-bubble-user {
-  background: #1d4ed8;
+  background: var(--color-primary);
   color: #ffffff;
   border-radius: 0.875rem 0.875rem 0.2rem 0.875rem;
   overflow-wrap: anywhere;
@@ -157,12 +194,7 @@ textarea:focus-visible {
   font-weight: 600;
 }
 
-/* Token Meter Bar */
-.token-bar-fill {
-  transition: width 0.35s ease;
-}
-
-/* Hide horizontal scrollbar on quick question pills */
+/* Hide horizontal scrollbar utility */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -171,15 +203,20 @@ textarea:focus-visible {
   scrollbar-width: none;
 }
 
-/* Suman AI Floating Side Popup Animation */
+/* Suman AI Floating Side Widget & Safe Area Insets */
+#suman-ai-widget {
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  right: max(1rem, env(safe-area-inset-right));
+}
+
 #suman-ai-popup {
-  animation: sumanAiPopupIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: sumanAiPopupIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes sumanAiPopupIn {
   from {
     opacity: 0;
-    transform: translateY(10px) scale(0.98);
+    transform: translateY(8px) scale(0.98);
   }
   to {
     opacity: 1;
@@ -187,8 +224,35 @@ textarea:focus-visible {
   }
 }
 
+/* Print-Friendly Stylesheet for CV / Portfolio Printout */
+@media print {
+  header,
+  aside,
+  #suman-ai-widget,
+  #contact-form,
+  #owner-auth-modal,
+  #alerts-modal,
+  #project-details-modal,
+  .no-print {
+    display: none !important;
+  }
+  body {
+    font-size: 11pt;
+    color: #000000;
+    background: #ffffff;
+  }
+  section {
+    padding: 1rem 0 !important;
+    border-bottom: 1px solid #cbd5e1 !important;
+    page-break-inside: avoid;
+  }
+}
+
 /* Respect User Reduced-Motion Preferences */
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
   *,
   *::before,
   *::after {

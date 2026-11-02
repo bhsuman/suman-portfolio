@@ -10,8 +10,8 @@
  *    excluding the portfolio site repo ("suman-portfolio") and any private/forked repos.
  * 3) XSS-Safe Markdown & URL Sanitization: All HTML is escaped before rendering Markdown; all links
  *    pass through strict scheme/character validation (`sanitizeUrl`).
- * 4) Prompt-Injection & Rate/Quota Controls: Enforces input length caps, cooldowns, session quotas,
- *    and portfolio-scope validation.
+ * 4) Prompt-Injection, Contact Validation & Rate/Quota Controls: Enforces input length caps,
+ *    honeypot spam checks, cooldowns, session quotas, and portfolio-scope validation.
  */
 
 // Session & Rate-Limit Constants
@@ -28,8 +28,12 @@ const DEFAULT_OWNER_PIN_HASH = "471e6d936057a23b8fb9616f116cc8b5fed1e1f16586112c
 const MAX_PIN_ATTEMPTS = 5;
 const PIN_LOCKOUT_MS = 15 * 60 * 1000; // 15 minutes
 
+const CONTACT_EMAIL_OR_PHONE_REGEX = /^([a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}|[\+\d][\d\s\-\(\)]{6,22})$/;
+
 let lastQuestionTimestamp = 0;
 let isRequestInFlight = false;
+let isContactSubmitting = false;
+let lastContactTimestamp = 0;
 let lastSubmittedQuestion = "";
 let isOwnerUnlocked = false;
 let unlockedSessionPin = "";
@@ -59,12 +63,47 @@ function cleanupLegacyClientSecrets() {
 // Initialize on DOM Ready
 document.addEventListener("DOMContentLoaded", () => {
   cleanupLegacyClientSecrets();
+  initNavigation();
   renderAllFromPortfolioData();
   initAucklandClock();
   syncWhitelistedGitHubRepos();
+  initContactForm();
   initAgentUI();
   initOwnerSecurityGate();
 });
+
+// ============================================================================
+// 0. RESPONSIVE NAVIGATION & MODAL KEYBOARD ACCESSIBILITY
+// ============================================================================
+function initNavigation() {
+  const menuBtn = document.getElementById("mobile-menu-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
+  if (menuBtn && mobileMenu) {
+    menuBtn.addEventListener("click", () => {
+      const isHidden = mobileMenu.classList.toggle("hidden");
+      menuBtn.setAttribute("aria-expanded", String(!isHidden));
+    });
+    mobileMenu.querySelectorAll("a, button").forEach(item => {
+      item.addEventListener("click", () => {
+        mobileMenu.classList.add("hidden");
+        menuBtn.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
+
+  // Close backdrop-clicked modals cleanly
+  ["project-details-modal", "cv-summary-modal", "owner-auth-modal", "alerts-modal"].forEach(modalId => {
+    const modalEl = document.getElementById(modalId);
+    if (modalEl) {
+      modalEl.addEventListener("click", (e) => {
+        if (e.target === modalEl) {
+          modalEl.classList.add("hidden");
+          modalEl.classList.remove("flex");
+        }
+      });
+    }
+  });
+}
 
 // ============================================================================
 // 1. RENDER WEBSITE FROM portfolio-data.js (WITH STRICT XSS / URL SANITIZATION)
@@ -98,16 +137,14 @@ function renderAllFromPortfolioData() {
   }
   const topPhone = document.getElementById("top-phone-link");
   if (topPhone && profile.phoneDial) {
-    topPhone.href = sanitizeUrl(`sms:${profile.phoneDial}`);
+    topPhone.href = sanitizeUrl(`tel:${profile.phoneDial}`);
     topPhone.textContent = profile.phoneDisplay;
   }
   const heroPhoto = document.getElementById("hero-photo");
   if (heroPhoto && profile.photo) {
     heroPhoto.src = sanitizeUrl(profile.photo);
-    heroPhoto.alt = profile.name || "Profile Photo";
+    heroPhoto.alt = `Portrait of ${profile.name || "Suman Bhandari"}, ${profile.headline || "Data Professional"}`;
   }
-  const headerGithub = document.getElementById("header-github-link");
-  if (headerGithub && profile.githubUrl) headerGithub.href = sanitizeUrl(profile.githubUrl);
 
   const heroGithub = document.getElementById("hero-github-link");
   if (heroGithub && profile.githubUrl) heroGithub.href = sanitizeUrl(profile.githubUrl);
@@ -115,18 +152,6 @@ function renderAllFromPortfolioData() {
 
   const heroLinkedin = document.getElementById("hero-linkedin-link");
   if (heroLinkedin && profile.linkedinUrl) heroLinkedin.href = sanitizeUrl(profile.linkedinUrl);
-
-  const heroEmailBtn = document.getElementById("hero-email-btn");
-  if (heroEmailBtn && profile.email) {
-    heroEmailBtn.textContent = profile.email;
-    heroEmailBtn.onclick = () => copyToClipboard(profile.email, "Email");
-  }
-
-  const heroPhone = document.getElementById("hero-phone-link");
-  if (heroPhone && profile.phoneDial) {
-    heroPhone.href = sanitizeUrl(`tel:${profile.phoneDial}`);
-    heroPhone.textContent = profile.phoneLocal || profile.phoneDisplay;
-  }
 
   setText("contact-phone-display", profile.phoneDisplay);
   setText("contact-email-display", profile.email);
@@ -172,7 +197,7 @@ function renderAllFromPortfolioData() {
       if (row.href) {
         const safeHref = sanitizeUrl(row.href);
         const external = safeHref.startsWith("http") ? 'target="_blank" rel="noopener noreferrer"' : "";
-        valHtml = `<a href="${escapeHtml(safeHref)}" ${external} class="text-blue-700 hover:underline font-semibold ${safeHref.startsWith('sms:') ? 'font-mono' : ''}">${valHtml}</a>`;
+        valHtml = `<a href="${escapeHtml(safeHref)}" ${external} class="text-blue-700 hover:underline font-semibold ${safeHref.startsWith('tel:') || safeHref.startsWith('sms:') ? 'font-mono' : ''}">${valHtml}</a>`;
       }
       const valClass = row.highlight ? "text-blue-700 font-semibold" : "text-slate-900 font-semibold";
       const isWide = (row.value && row.value.length > 28 && !row.href);
@@ -185,48 +210,62 @@ function renderAllFromPortfolioData() {
     }).join("");
   }
 
-  // Skills Grid
+  // Technical Skills Grid (5 Meaningful Categories + Evidence Distinction)
   const skillsGrid = document.getElementById("skills-grid");
   if (skillsGrid && Array.isArray(skills)) {
-    skillsGrid.innerHTML = skills.map(skill => `
-      <div data-category="${escapeHtml(skill.category)}" class="skill-card flex p-5 rounded-xl card-clean">
-        <div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center text-sm font-bold font-mono mr-3.5 flex-shrink-0">
-          ${escapeHtml(skill.code)}
-        </div>
-        <div>
-          <h3 class="text-sm font-bold text-slate-900">${escapeHtml(skill.name)}</h3>
-          <p class="text-xs text-slate-600 mt-1">${escapeHtml(skill.description)}</p>
-        </div>
-      </div>
-    `).join("");
+    skillsGrid.innerHTML = skills.map(skill => {
+      const isCommercial = (skill.evidenceBadge || "").toLowerCase().includes("commercial");
+      const badgeColor = isCommercial
+        ? "bg-blue-50 text-blue-800 border-blue-200"
+        : "bg-slate-100 text-slate-700 border-slate-200";
+      return `
+        <article data-category="${escapeHtml(skill.category)}" class="skill-card flex flex-col justify-between p-5 rounded-xl card-clean">
+          <div class="flex items-start gap-3.5">
+            <div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center text-xs font-bold font-mono flex-shrink-0">
+              ${escapeHtml(skill.code)}
+            </div>
+            <div class="min-w-0 flex-1">
+              <h3 class="text-sm font-bold text-slate-900 leading-snug">${escapeHtml(skill.name)}</h3>
+              <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">${escapeHtml(skill.description)}</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+            <span class="text-[11px] font-mono text-slate-400 truncate">${escapeHtml(skill.categoryLabel || "")}</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-semibold border ${badgeColor} flex-shrink-0">
+              ${escapeHtml(skill.evidenceBadge || "Verified Skill")}
+            </span>
+          </div>
+        </article>
+      `;
+    }).join("");
     initSkillsFilter();
   }
 
-  // Experience Timeline
+  // Work Experience Timeline (Cleanly Aligned Multi-Line Bullets)
   const expTimeline = document.getElementById("experience-timeline");
   if (expTimeline && Array.isArray(experience)) {
-    expTimeline.innerHTML = experience.map(job => {
-      const dotColor = job.active ? "bg-blue-700" : "bg-slate-400";
-      const badgeClass = job.active
-        ? "text-blue-700 bg-blue-50 border-blue-200"
-        : "text-slate-600 bg-slate-100 border-slate-200";
-      const bulletsHtml = (job.bullets || []).map(b => `<li>${escapeHtml(b)}</li>`).join("");
+    expTimeline.innerHTML = experience.map((job, idx) => {
+      const dotColor = idx === 0 ? "bg-blue-700" : "bg-blue-500";
+      const bulletsHtml = (job.bullets || []).map(b => `<li class="leading-relaxed">${escapeHtml(b)}</li>`).join("");
       return `
-        <div class="relative">
-          <div class="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full ${dotColor} border-2 border-white"></div>
-          <div class="p-5 rounded-xl bg-white border border-slate-200">
-            <div class="flex flex-wrap items-center justify-between gap-1 mb-1">
+        <article class="relative">
+          <div class="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full ${dotColor} border-2 border-white" aria-hidden="true"></div>
+          <div class="p-5 rounded-xl bg-white border border-slate-200 shadow-2xs">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
               <h3 class="text-base font-bold text-slate-900">${escapeHtml(job.role)}</h3>
-              <span class="text-xs font-mono px-2 py-0.5 rounded border ${badgeClass}">
+              <span class="text-xs font-mono px-2.5 py-0.5 rounded border text-blue-700 bg-blue-50 border-blue-200 font-medium">
                 ${escapeHtml(job.period)}
               </span>
             </div>
-            <p class="text-xs sm:text-sm font-medium text-slate-700">${escapeHtml(job.company)} • ${escapeHtml(job.location)}</p>
-            <ul class="mt-2.5 space-y-1 text-xs text-slate-600 list-disc list-inside">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <p class="text-xs sm:text-sm font-semibold text-slate-700">${escapeHtml(job.company)} • ${escapeHtml(job.location)}</p>
+              ${job.typeBadge ? `<span class="text-[11px] font-mono text-slate-500">${escapeHtml(job.typeBadge)}</span>` : ""}
+            </div>
+            <ul class="mt-3 space-y-1.5 text-xs sm:text-[13px] text-slate-600 list-disc pl-4">
               ${bulletsHtml}
             </ul>
           </div>
-        </div>
+        </article>
       `;
     }).join("");
   }
@@ -235,30 +274,30 @@ function renderAllFromPortfolioData() {
   const eduTimeline = document.getElementById("education-timeline");
   if (eduTimeline && Array.isArray(education)) {
     eduTimeline.innerHTML = education.map(edu => {
-      const cardBorder = edu.highlighted ? "border-2 border-blue-600 shadow-sm" : "border border-slate-200";
+      const cardBorder = edu.highlighted ? "border-2 border-blue-600 shadow-xs" : "border border-slate-200 shadow-2xs";
       const dotColor = edu.highlighted ? "bg-blue-700" : "bg-blue-500";
       const badgeHtml = edu.highlighted
         ? `<span class="px-2 py-0.5 rounded text-[11px] font-mono font-semibold bg-blue-50 text-blue-700 border border-blue-200">${escapeHtml(edu.badge)}</span>`
-        : `<span class="text-xs font-mono text-slate-500">${escapeHtml(edu.badge)}</span>`;
+        : `<span class="text-xs font-mono text-slate-500 font-medium">${escapeHtml(edu.badge)}</span>`;
       return `
-        <div class="relative">
-          <div class="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full ${dotColor} border-2 border-white"></div>
+        <article class="relative">
+          <div class="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full ${dotColor} border-2 border-white" aria-hidden="true"></div>
           <div class="p-5 rounded-xl bg-white ${cardBorder}">
-            <div class="flex flex-wrap items-center justify-between gap-1 mb-1">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
               ${badgeHtml}
-              <span class="text-xs font-mono ${edu.highlighted ? 'text-blue-700 font-medium' : 'text-slate-600'}">${escapeHtml(edu.period)}</span>
+              <span class="text-xs font-mono ${edu.highlighted ? 'text-blue-700 font-semibold' : 'text-slate-600'}">${escapeHtml(edu.period)}</span>
             </div>
             <h3 class="text-base font-bold text-slate-900 mt-1">${escapeHtml(edu.degree)}</h3>
-            ${edu.major ? `<p class="text-xs sm:text-sm font-semibold text-blue-700">${escapeHtml(edu.major)}</p>` : ""}
-            <p class="text-xs text-slate-700 mt-1">${escapeHtml(edu.institution)} • ${escapeHtml(edu.location)}</p>
-            ${edu.description ? `<p class="text-xs text-slate-600 mt-2 leading-relaxed">${escapeHtml(edu.description)}</p>` : ""}
+            ${edu.major ? `<p class="text-xs sm:text-sm font-semibold text-blue-700 mt-0.5">${escapeHtml(edu.major)}</p>` : ""}
+            <p class="text-xs sm:text-sm text-slate-700 font-medium mt-1">${escapeHtml(edu.institution)} • ${escapeHtml(edu.location)}</p>
+            ${edu.description ? `<p class="text-xs sm:text-[13px] text-slate-600 mt-2.5 leading-relaxed">${escapeHtml(edu.description)}</p>` : ""}
           </div>
-        </div>
+        </article>
       `;
     }).join("");
   }
 
-  // Suman AI Header & Quick Topic Bar
+  // Suman AI Header & Wrapping Quick Topic Chips
   const agentName = assistant.name || assistant.agentName || "Suman AI";
   const agentSubtitle = assistant.subtitle || assistant.agentTagline || "Portfolio & Technical Assistant";
   setText("popup-agent-title", agentName);
@@ -271,7 +310,7 @@ function renderAllFromPortfolioData() {
     quickCategories.forEach(item => {
       const btn = document.createElement("button");
       btn.type = "button";
-      btn.className = "px-2.5 py-1 rounded-lg bg-white hover:bg-blue-50 text-[11px] font-medium text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors cursor-pointer";
+      btn.className = "px-2.5 py-1 rounded-lg bg-white hover:bg-blue-50 text-[11px] font-medium text-slate-700 hover:text-blue-700 border border-slate-300 hover:border-blue-300 transition-colors cursor-pointer";
       btn.textContent = item.label;
       btn.addEventListener("click", () => askQuickQuestion(item.question));
       popupPromptsEl.appendChild(btn);
@@ -291,7 +330,7 @@ function setText(id, value) {
 }
 
 // ============================================================================
-// 2. AUTHENTIC PUBLIC GITHUB REPOSITORY SYNC + LIVE README INTELLIGENCE
+// 2. AUTHENTIC PUBLIC GITHUB REPOSITORY SYNC + FEATURED PROJECT CARDS
 // ============================================================================
 function findOverrideForRepo(repoName, overrides) {
   if (!repoName || !overrides) return null;
@@ -316,6 +355,9 @@ function getWhitelistedReposList() {
       displayName: meta.displayName || repoName.replace(/[-_]+/g, " "),
       category: meta.category || "Data & Analytics",
       status: meta.status || "Completed Project",
+      problemStatement: meta.problemStatement || meta.objective || meta.description || "",
+      implementedSummary: Array.isArray(meta.implementedSummary) ? meta.implementedSummary : (meta.highlights || []),
+      pipelineStages: Array.isArray(meta.pipelineStages) ? meta.pipelineStages : [],
       description: meta.description || "",
       objective: meta.objective || "",
       architecture: meta.architecture || "",
@@ -376,6 +418,11 @@ async function syncWhitelistedGitHubRepos() {
         displayName: readableName,
         category: curated.category || (liveRepo.language ? `${liveRepo.language} & Analytics` : "Data & Analytics"),
         status: curated.status || "Completed Project",
+        problemStatement: curated.problemStatement || curated.objective || bestDescription,
+        implementedSummary: Array.isArray(curated.implementedSummary)
+          ? [...curated.implementedSummary]
+          : (Array.isArray(curated.highlights) ? [...curated.highlights] : []),
+        pipelineStages: Array.isArray(curated.pipelineStages) ? [...curated.pipelineStages] : [],
         description: bestDescription,
         objective: curated.objective || "",
         architecture: curated.architecture || "",
@@ -401,7 +448,7 @@ async function syncWhitelistedGitHubRepos() {
     renderProjectsGrid(updatedList);
 
     const countEl = document.getElementById("github-repo-count");
-    if (countEl) countEl.textContent = `${updatedList.length} Projects`;
+    if (countEl) countEl.textContent = `${updatedList.length} Repos`;
     if (pill) pill.textContent = `${updatedList.length} Verified Public Repositories`;
 
     enrichReposWithReadmes(username, updatedList);
@@ -437,6 +484,7 @@ async function enrichReposWithReadmes(username, repos) {
       }
       if (bulletLines.length > 0 && (!repo.highlights || repo.highlights.length === 0)) {
         repo.highlights = bulletLines;
+        repo.implementedSummary = bulletLines;
       }
     } catch (e) {}
   }
@@ -444,13 +492,9 @@ async function enrichReposWithReadmes(username, repos) {
 }
 
 function formatRelativeTime(isoDate) {
-  if (!isoDate) return "Verified";
+  if (!isoDate) return "Completed Project";
   const date = new Date(isoDate);
-  if (isNaN(date.getTime())) return "Verified";
-  const diffDays = Math.floor((Date.now() - date.getTime()) / (1000 * 60 * 60 * 24));
-  if (diffDays <= 0) return "Updated today";
-  if (diffDays === 1) return "Updated yesterday";
-  if (diffDays < 30) return `Updated ${diffDays}d ago`;
+  if (isNaN(date.getTime())) return "Completed Project";
   return `Updated ${date.toLocaleDateString("en-NZ", { month: "short", year: "numeric" })}`;
 }
 
@@ -465,10 +509,29 @@ function renderProjectsGrid(repos) {
       `<span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">${escapeHtml(tag)}</span>`
     ).join("");
     const safeProjectTitle = escapeHtml(repo.displayName).replace(/'/g, "\\'");
+    const safeRepoName = escapeHtml(repo.name).replace(/'/g, "\\'");
+
+    // Architecture Pipeline Visual Schematic
+    const stages = Array.isArray(repo.pipelineStages) && repo.pipelineStages.length > 0
+      ? repo.pipelineStages
+      : ["Data Ingestion", "Transformation & QA", "Analytical Model", "Reporting Output"];
+    const pipelineHtml = stages.map((stage, idx) => `
+      <span class="pipeline-step">${escapeHtml(stage)}</span>
+      ${idx < stages.length - 1 ? '<span class="text-blue-500 font-mono text-xs font-bold" aria-hidden="true">→</span>' : ''}
+    `).join("");
+
+    // What I Implemented Bullets
+    const implementedItems = (repo.implementedSummary && repo.implementedSummary.length > 0)
+      ? repo.implementedSummary.slice(0, 3)
+      : [repo.description];
+    const implementedHtml = implementedItems.map(item =>
+      `<li class="leading-relaxed">${escapeHtml(item)}</li>`
+    ).join("");
 
     return `
       <article class="rounded-xl card-clean p-6 flex flex-col justify-between">
-        <div class="space-y-3">
+        <div class="space-y-4">
+          <!-- Category & Status Header -->
           <div class="flex items-center justify-between gap-2">
             <span class="px-2.5 py-0.5 rounded-md bg-blue-50 border border-blue-200 text-blue-700 text-xs font-mono font-medium">
               ${escapeHtml(repo.category)}
@@ -478,35 +541,171 @@ function renderProjectsGrid(repos) {
             </span>
           </div>
 
-          <h3 class="text-lg font-bold text-slate-900">
+          <!-- Project Title -->
+          <h3 class="text-lg font-bold text-slate-900 leading-snug">
             <a href="${escapeHtml(safeUrl)}" target="_blank" rel="noopener noreferrer" class="hover:text-blue-700 transition-colors">
               ${escapeHtml(repo.displayName)}
             </a>
           </h3>
 
-          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-            ${escapeHtml(repo.description)}
-          </p>
+          <!-- Architectural Pipeline Flow Visual -->
+          <div class="pipeline-visual" aria-label="Project architecture pipeline flow">
+            <p class="text-[10px] font-mono uppercase tracking-wider text-blue-800 font-semibold mb-1.5">Architecture &amp; Data Flow</p>
+            <div class="flex flex-wrap items-center gap-1.5">
+              ${pipelineHtml}
+            </div>
+          </div>
 
+          <!-- Short Problem Statement -->
+          <div class="text-xs sm:text-[13px] text-slate-700 leading-relaxed">
+            <span class="font-bold text-slate-900">Problem Statement:</span>
+            ${escapeHtml(repo.problemStatement || repo.description)}
+          </div>
+
+          <!-- What I Implemented -->
+          <div>
+            <p class="text-xs font-bold text-slate-900 mb-1">What I Implemented:</p>
+            <ul class="text-xs text-slate-600 list-disc pl-4 space-y-1">
+              ${implementedHtml}
+            </ul>
+          </div>
+
+          <!-- Main Technologies Used -->
           <div class="flex flex-wrap gap-1.5 pt-1">
             ${tagsHtml}
           </div>
         </div>
 
-        <div class="pt-4 border-t border-slate-100 mt-5 flex items-center justify-between gap-2">
-          <a href="${escapeHtml(safeUrl)}" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-700 hover:text-blue-900 flex items-center">
-            View Repository →
+        <!-- Card Actions: GitHub Repo, Project Details Modal, Ask Suman AI -->
+        <div class="pt-4 border-t border-slate-100 mt-5 flex flex-wrap items-center justify-between gap-2">
+          <a href="${escapeHtml(safeUrl)}" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-700 hover:text-blue-900 inline-flex items-center">
+            GitHub Repository ↗
           </a>
-          <button type="button" onclick="askAboutProject('${safeProjectTitle}')" class="px-2.5 py-1 rounded-md bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-[11px] font-semibold transition-colors cursor-pointer">
-            Ask Suman AI
-          </button>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="openProjectDetailsModal('${safeRepoName}')" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-[11px] font-semibold transition-colors cursor-pointer">
+              Project Details
+            </button>
+            <button type="button" onclick="askAboutProject('${safeProjectTitle}')" class="px-2.5 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-[11px] font-semibold transition-colors cursor-pointer">
+              Ask Suman AI
+            </button>
+          </div>
         </div>
       </article>
     `;
   }).join("");
 }
 
-// 3. Clock & Skills Filter
+// ============================================================================
+// 2B. PROJECT DETAILS MODAL & CV SUMMARY MODAL CONTROLS
+// ============================================================================
+window.openProjectDetailsModal = function(repoName) {
+  const modal = document.getElementById("project-details-modal");
+  const bodyEl = document.getElementById("project-modal-body");
+  const titleEl = document.getElementById("project-modal-title");
+  const catEl = document.getElementById("project-modal-category");
+  const statusEl = document.getElementById("project-modal-status");
+  const repoLinkEl = document.getElementById("project-modal-repo-link");
+  const aiBtnEl = document.getElementById("project-modal-ai-btn");
+
+  if (!modal || !bodyEl) return;
+
+  const proj = liveProjectsList.find(p => p.name.toLowerCase() === String(repoName).toLowerCase()) || liveProjectsList[0];
+  if (!proj) return;
+
+  if (titleEl) titleEl.textContent = proj.displayName;
+  if (catEl) catEl.textContent = proj.category;
+  if (statusEl) statusEl.textContent = proj.status || "Completed Project";
+  if (repoLinkEl) repoLinkEl.href = sanitizeUrl(proj.html_url);
+  if (aiBtnEl) {
+    aiBtnEl.onclick = () => {
+      closeProjectDetailsModal();
+      askAboutProject(proj.displayName);
+    };
+  }
+
+  const stages = Array.isArray(proj.pipelineStages) ? proj.pipelineStages : [];
+  const stagesHtml = stages.map((s, idx) => `
+    <span class="pipeline-step">${escapeHtml(s)}</span>
+    ${idx < stages.length - 1 ? '<span class="text-blue-500 font-mono text-xs font-bold">→</span>' : ''}
+  `).join("");
+
+  const highlightsHtml = (proj.highlights || proj.implementedSummary || []).map(h =>
+    `<li class="leading-relaxed">${escapeHtml(h)}</li>`
+  ).join("");
+
+  const tagsHtml = (proj.tags || []).map(t =>
+    `<span class="px-2 py-0.5 rounded text-xs font-mono bg-slate-100 text-slate-800 border border-slate-200">${escapeHtml(t)}</span>`
+  ).join("");
+
+  bodyEl.innerHTML = `
+    <div class="pipeline-visual">
+      <p class="text-[10px] font-mono uppercase tracking-wider text-blue-800 font-semibold mb-1.5">End-to-End Architecture Flow</p>
+      <div class="flex flex-wrap items-center gap-1.5">${stagesHtml}</div>
+    </div>
+
+    <div>
+      <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider font-mono text-blue-700">1. Problem Statement &amp; Objective</h4>
+      <p class="mt-1">${escapeHtml(proj.problemStatement || proj.objective || proj.description)}</p>
+    </div>
+
+    <div>
+      <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider font-mono text-blue-700">2. Architecture &amp; Methodology</h4>
+      <p class="mt-1">${escapeHtml(proj.architecture || proj.description)}</p>
+    </div>
+
+    <div>
+      <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider font-mono text-blue-700">3. What Was Implemented</h4>
+      <ul class="mt-1.5 list-disc pl-4 space-y-1">${highlightsHtml}</ul>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+        <h4 class="font-bold text-slate-900 text-xs uppercase font-mono text-blue-700">4. Engineering Challenges</h4>
+        <p class="mt-1 text-xs text-slate-600 leading-relaxed">${escapeHtml(proj.challenges || "Standardizing raw input schemas and validating analytical outputs.")}</p>
+      </div>
+      <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+        <h4 class="font-bold text-slate-900 text-xs uppercase font-mono text-blue-700">5. Scope &amp; Limitations</h4>
+        <p class="mt-1 text-xs text-slate-600 leading-relaxed">${escapeHtml(proj.limitations || "Built on historical benchmark datasets.")}</p>
+      </div>
+    </div>
+
+    <div>
+      <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider font-mono text-blue-700 mb-1.5">Technologies Used</h4>
+      <div class="flex flex-wrap gap-1.5">${tagsHtml}</div>
+    </div>
+  `;
+
+  modal.classList.remove("hidden");
+  modal.classList.add("flex");
+};
+
+window.closeProjectDetailsModal = function() {
+  const modal = document.getElementById("project-details-modal");
+  if (modal) {
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+  }
+};
+
+window.openCvModal = function() {
+  const modal = document.getElementById("cv-summary-modal");
+  if (modal) {
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+  }
+};
+
+window.closeCvModal = function() {
+  const modal = document.getElementById("cv-summary-modal");
+  if (modal) {
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+  }
+};
+
+// ============================================================================
+// 3. CLOCK, SKILLS FILTER & VALIDATED CONTACT FORM
+// ============================================================================
 function initAucklandClock() {
   const clockElement = document.getElementById("auckland-clock");
   if (!clockElement) return;
@@ -541,9 +740,11 @@ function initSkillsFilter() {
       filterBtns.forEach(b => {
         b.classList.remove("bg-blue-700", "text-white", "border-blue-700");
         b.classList.add("bg-white", "text-slate-700", "border-slate-300");
+        b.setAttribute("aria-pressed", "false");
       });
       btn.classList.add("bg-blue-700", "text-white", "border-blue-700");
       btn.classList.remove("bg-white", "text-slate-700", "border-slate-300");
+      btn.setAttribute("aria-pressed", "true");
 
       const category = btn.getAttribute("data-category");
       skillCards.forEach(card => {
@@ -556,6 +757,167 @@ function initSkillsFilter() {
         }
       });
     };
+  });
+}
+
+function showContactStatus(type, message) {
+  const statusEl = document.getElementById("contact-form-status");
+  if (!statusEl) return;
+  statusEl.classList.remove(
+    "hidden",
+    "bg-red-50",
+    "text-red-800",
+    "border-red-200",
+    "bg-emerald-50",
+    "text-emerald-900",
+    "border-emerald-200",
+    "bg-blue-50",
+    "text-blue-800",
+    "border-blue-200"
+  );
+  if (type === "error") {
+    statusEl.setAttribute("role", "alert");
+    statusEl.classList.add("bg-red-50", "text-red-800", "border-red-200");
+  } else if (type === "success") {
+    statusEl.setAttribute("role", "status");
+    statusEl.classList.add("bg-emerald-50", "text-emerald-900", "border-emerald-200");
+  } else {
+    statusEl.setAttribute("role", "status");
+    statusEl.classList.add("bg-blue-50", "text-blue-800", "border-blue-200");
+  }
+  statusEl.textContent = message;
+}
+
+function initContactForm() {
+  const form = document.getElementById("contact-form");
+  if (!form) return;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (isContactSubmitting) return;
+
+    const nameInput = document.getElementById("contact-name");
+    const phoneInput = document.getElementById("contact-phone");
+    const subjectInput = document.getElementById("contact-subject");
+    const msgInput = document.getElementById("contact-msg");
+    const honeypotInput = document.getElementById("contact-website");
+    const submitBtn = document.getElementById("contact-submit-btn");
+
+    // Honeypot check against automated bots
+    if (honeypotInput && honeypotInput.value.trim() !== "") {
+      showContactStatus("error", "Submission blocked by spam filter.");
+      return;
+    }
+
+    const now = Date.now();
+    if (now - lastContactTimestamp < 5000) {
+      showContactStatus("error", "Please wait a few seconds before sending another message.");
+      return;
+    }
+
+    const name = (nameInput ? nameInput.value : "").trim();
+    const contact = (phoneInput ? phoneInput.value : "").trim();
+    const subject = (subjectInput ? subjectInput.value : "").trim() || "Portfolio Inquiry";
+    const message = (msgInput ? msgInput.value : "").trim();
+
+    if (name.length < 2 || name.length > 80) {
+      showContactStatus("error", "Please enter your name (between 2 and 80 characters).");
+      if (nameInput) nameInput.focus();
+      return;
+    }
+
+    if (!CONTACT_EMAIL_OR_PHONE_REGEX.test(contact)) {
+      showContactStatus("error", "Please enter a valid email address (e.g., name@company.com) or phone number.");
+      if (phoneInput) phoneInput.focus();
+      return;
+    }
+
+    if (message.length < 10 || message.length > 1500) {
+      showContactStatus("error", "Please enter a message between 10 and 1,500 characters.");
+      if (msgInput) msgInput.focus();
+      return;
+    }
+
+    isContactSubmitting = true;
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sending Message...";
+    }
+    showContactStatus("info", "Sending your message to Suman...");
+
+    const p = getData().profile || {};
+    const targetEmail = p.email || "bhsuman11@gmail.com";
+    const timestamp = new Date().toLocaleString("en-NZ", { timeZone: p.timezone || "Pacific/Auckland" });
+    let delivered = false;
+
+    // 1) Try local backend `/api/contact` when running on localhost
+    if (window.location.protocol.startsWith("http") && window.location.hostname === "localhost") {
+      try {
+        const backendResp = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name,
+            contact,
+            subject,
+            message,
+            website: honeypotInput ? honeypotInput.value : ""
+          })
+        });
+        if (backendResp.ok) {
+          delivered = true;
+        } else {
+          const errJson = await backendResp.json().catch(() => ({}));
+          if (backendResp.status >= 400 && backendResp.status < 500 && errJson.error) {
+            showContactStatus("error", errJson.error);
+            isContactSubmitting = false;
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.textContent = "Send Message";
+            }
+            return;
+          }
+        }
+      } catch (err) {}
+    }
+
+    // 2) Send via FormSubmit AJAX endpoint for email delivery
+    try {
+      const formResp = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(targetEmail)}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({
+          _subject: `Portfolio Contact (${subject}) from ${name}`,
+          Name: name,
+          Contact_Details: contact,
+          Subject: subject,
+          Message: message,
+          Timestamp_NZT: timestamp,
+          _template: "table",
+          _captcha: "false"
+        })
+      });
+      if (formResp.ok) {
+        delivered = true;
+      }
+    } catch (err) {}
+
+    isContactSubmitting = false;
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Send Message";
+    }
+
+    if (delivered) {
+      lastContactTimestamp = Date.now();
+      form.reset();
+      showContactStatus("success", `Thank you, ${name}! Your message has been delivered to Suman.`);
+    } else {
+      showContactStatus(
+        "error",
+        `Unable to reach the mail relay right now. Please email Suman directly at ${targetEmail} or call ${p.phoneDisplay || "+64 22 051 2513"}.`
+      );
+    }
   });
 }
 
@@ -693,7 +1055,6 @@ function initAgentUI() {
   renderWelcomeState();
 
   if (popupInput) {
-    // Auto-resize textarea and support Enter to send / Shift+Enter for new line
     popupInput.addEventListener("input", () => {
       popupInput.style.height = "auto";
       popupInput.style.height = Math.min(popupInput.scrollHeight, 96) + "px";
@@ -719,9 +1080,13 @@ function initAgentUI() {
     });
   }
 
-  // Global Escape key handler to close popup cleanly
+  // Global Escape key handler to close any active modal or Suman AI popup
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
+      closeProjectDetailsModal();
+      closeCvModal();
+      closeOwnerAuthModal();
+      closeAlertsModal();
       const popup = document.getElementById("suman-ai-popup");
       if (popup && !popup.classList.contains("hidden")) {
         window.closeSumanAIPopup();
@@ -1002,10 +1367,8 @@ async function generateAgentResponse(userQuery) {
   const cleanQuery = userQuery.slice(0, HARD_MAX_INPUT_CHARS);
   const estimatedInputTokens = Math.max(5, Math.ceil(cleanQuery.length / 4));
 
-  // First compute the verified local response & follow-ups so we always have accurate context
   const localResult = generateLocalResponse(cleanQuery, estimatedInputTokens, false);
 
-  // If served over HTTP/HTTPS with backend `/api/chat` available, query server-side proxy
   if (window.location.protocol.startsWith("http") && window.location.hostname === "localhost") {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 6500);
@@ -1171,9 +1534,9 @@ function formatProjectResponse(proj, q) {
   const text =
     `### ${proj.displayName}\n` +
     `**Status**: ${proj.status || "Completed Project"} • **Category**: ${proj.category}\n\n` +
-    `${proj.description}\n\n` +
+    `**Problem Statement**: ${proj.problemStatement || proj.description}\n\n` +
     `**Architecture Overview**:\n${proj.architecture || proj.objective || "Modular data ingestion, transformation, and analytical reporting workflow."}\n\n` +
-    `**Key Highlights**:\n${highlightsBullets}\n\n` +
+    `**What Was Implemented**:\n${highlightsBullets}\n\n` +
     `**Technologies Used**: \`${techStack}\`\n` +
     `**GitHub Repository**: [View ${proj.name} on GitHub](${proj.html_url})`;
 
@@ -1199,7 +1562,7 @@ function formatAllProjectsExecutiveSummary() {
   const lines = liveProjectsList.map((proj, idx) => {
     const tech = (proj.tags || []).slice(0, 4).join(", ");
     return `**${idx + 1}. ${proj.displayName}** *(${proj.status || "Completed Project"} — ${proj.category})*\n` +
-      `• **Overview**: ${proj.description}\n` +
+      `• **Problem**: ${proj.problemStatement || proj.description}\n` +
       `• **Stack**: \`${tech}\` — [GitHub Repository](${proj.html_url})`;
   }).join("\n\n");
 
@@ -1223,13 +1586,13 @@ function formatSkillsToProjectEvidence() {
   const text =
     `### Technologies & Project Evidence Matrix\n` +
     `Suman applies his technical stack across both completed GitHub projects and 2+ years of commercial work:\n\n` +
-    `| TechnologyDomain | Tools Used | Verified Evidence |\n` +
+    `| Domain | Technologies | Verified Evidence |\n` +
     `| :--- | :--- | :--- |\n` +
-    `| **Cloud Lakehouse & ETL** | Databricks, PySpark, Delta Lake, Snowflake | [Cloud Data Warehousing Pipeline](https://github.com/bhsuman/big-data-warehousing-pipeline) (LendingClub Medallion & Kimball Star Schema) & **LIS Nepal** |\n` +
-    `| **SQL & Data Modeling** | T-SQL, PostgreSQL, CTEs, Window Functions, Star Schema | **Development Catalyst Consultancy** (2 yrs) & LendingClub Gold Fact/Dim tables |\n` +
-    `| **Machine Learning** | Python, Scikit-Learn, Feature Engineering, GTZAN Audio | [Residential Property Price Prediction](https://github.com/bhsuman/Residential-Property-Price-Prediction-BI) & [Music Genre Classification](https://github.com/bhsuman/Music) |\n` +
-    `| **BI & Analytics** | Power BI (DAX), Tableau, Pandas, Seaborn | Credit Risk & Property BI Dashboards + [Retail Festive Sales EDA](https://github.com/bhsuman/Data-Analysis-Dewali) |\n` +
-    `| **Banking ICT & Security** | Core Banking Systems, DB Connectivity, Governance | **Laxmi Sunrise Bank Limited** (Trainee Assistant - ICT) |`;
+    `| **Data Engineering & Cloud** | Databricks, PySpark, Delta Lake, Snowflake | [Cloud Data Warehousing Pipeline](https://github.com/bhsuman/big-data-warehousing-pipeline) (LendingClub Medallion & Kimball Star Schema) & **LIS Nepal** |\n` +
+    `| **Programming & Querying** | Advanced SQL (T-SQL, PostgreSQL), Python, R, Git | **Development Catalyst Consultancy** (2 yrs) & all 4 GitHub repositories |\n` +
+    `| **Analytics & Visualisation** | Power BI (DAX), Tableau, Seaborn, Matplotlib | Credit Risk & Property BI Dashboards + [Retail Festive Sales EDA](https://github.com/bhsuman/Data-Analysis-Dewali) |\n` +
+    `| **Machine Learning & AI** | Scikit-Learn, Regression, Audio MFCCs/Spectrograms | [Residential Property Price Prediction](https://github.com/bhsuman/Residential-Property-Price-Prediction-BI) & [Music Genre Classification](https://github.com/bhsuman/Music) |\n` +
+    `| **Databases & Governance** | SQL Server, PostgreSQL, Star Schema, Banking ICT | **Laxmi Sunrise Bank Limited** & **Development Catalyst** |`;
 
   return {
     text,
@@ -1248,7 +1611,6 @@ function generateLocalResponse(query, inputTokens, consumeNow = true) {
   let responseText = "";
   let followUps = [];
 
-  // 0) Check for unverified / undocumented personal or metric queries (Honest Knowledge Boundary)
   if (
     q.includes("gpa") ||
     q.includes("grade") ||
@@ -1273,12 +1635,9 @@ function generateLocalResponse(query, inputTokens, consumeNow = true) {
       "Tell me about Suman's studies at Unitec and academic background.",
       "Show me an overview of Suman's project portfolio."
     ];
-  }
-  // 1) Check if the user is asking about a SPECIFIC project (or a follow-up on the active project)
-  else {
+  } else {
     let matchedProject = findMatchingProject(q);
 
-    // Multi-turn follow-up resolution: if the user asks "what challenges did it have?", "deep dive", "architecture", "limitations"
     if (
       !matchedProject &&
       conversationState.lastProject &&
@@ -1304,9 +1663,7 @@ function generateLocalResponse(query, inputTokens, consumeNow = true) {
       const projRes = formatProjectResponse(matchedProject, q);
       responseText = projRes.text;
       followUps = projRes.followUps;
-    }
-    // 2) Skills-to-Project Evidence or "What technologies has Suman used in his projects?"
-    else if (
+    } else if (
       q.includes("technologies has suman used") ||
       q.includes("what technologies") ||
       q.includes("skills-to-project") ||
@@ -1317,9 +1674,7 @@ function generateLocalResponse(query, inputTokens, consumeNow = true) {
       const ev = formatSkillsToProjectEvidence();
       responseText = ev.text;
       followUps = ev.followUps;
-    }
-    // 3) Machine Learning & Analytics Category Query
-    else if (
+    } else if (
       q.includes("machine learning and data analytics projects") ||
       (q.includes("machine learning") && q.includes("project"))
     ) {
@@ -1341,9 +1696,7 @@ function generateLocalResponse(query, inputTokens, consumeNow = true) {
         "Tell me more about the Residential Property Price Prediction & BI project.",
         "Walk me through the end-to-end data warehousing project."
       ];
-    }
-    // 4) General Projects / GitHub / Portfolio Summary
-    else if (
+    } else if (
       q.includes("project") ||
       q.includes("github") ||
       q.includes("repo") ||
@@ -1354,9 +1707,7 @@ function generateLocalResponse(query, inputTokens, consumeNow = true) {
       const allRes = formatAllProjectsExecutiveSummary();
       responseText = allRes.text;
       followUps = allRes.followUps;
-    }
-    // 5) Studies, Academic Background, Degrees & Unitec
-    else if (
+    } else if (
       q.includes("studi") ||
       q.includes("study") ||
       q.includes("education") ||
@@ -1389,9 +1740,7 @@ function generateLocalResponse(query, inputTokens, consumeNow = true) {
         "Walk me through the end-to-end data warehousing project.",
         "What technologies has Suman used in his projects?"
       ];
-    }
-    // 6) Commercial Work Experience (2+ Years)
-    else if (
+    } else if (
       q.includes("experience") ||
       q.includes("professional") ||
       q.includes("bank") ||
@@ -1426,9 +1775,7 @@ function generateLocalResponse(query, inputTokens, consumeNow = true) {
         "Walk me through the end-to-end data warehousing project.",
         "Tell me about Suman's studies at Unitec and academic background."
       ];
-    }
-    // 7) Technical Skills, Stack & Role Fit
-    else if (
+    } else if (
       q.includes("skill") ||
       q.includes("stack") ||
       q.includes("tech") ||
@@ -1454,22 +1801,18 @@ function generateLocalResponse(query, inputTokens, consumeNow = true) {
       conversationState.lastTopic = "skills";
       responseText =
         `### Technical Skills & Role Alignment\n` +
-        `Suman's toolkit spans the end-to-end data lifecycle across three core areas:\n\n` +
-        `**1. Data Engineering & Cloud Warehousing**\n` +
-        `• **Stack**: Databricks (\`PySpark\`, \`Delta Lake\`), Snowflake, \`dbt\`, Apache Airflow, Azure Data Factory (ADF), Microsoft Fabric, SQL Server, PostgreSQL.\n` +
-        `• **Methods**: Medallion Architecture (Bronze/Silver/Gold), Kimball Star Schema dimensional modeling, automated ETL/ELT data quality validation.\n\n` +
-        `**2. Data Analytics & Business Intelligence**\n` +
-        `• **Stack**: Advanced SQL (CTEs, Window Functions, Query Optimization), Microsoft Power BI (\`DAX\`, Power Query), Tableau, Looker Studio, Advanced Excel.\n\n` +
-        `**3. Data Science & Machine Learning**\n` +
-        `• **Stack**: Python (\`Pandas\`, \`NumPy\`, \`Scikit-Learn\`, \`Matplotlib\`, \`Seaborn\`), R (\`tidyverse\`), supervised regression & classification, audio feature extraction, and statistical EDA.`;
+        `Suman's skills are organised across five core domains:\n\n` +
+        `**1. Data Engineering & Cloud**: Databricks (\`PySpark\`, \`Delta Lake\`), ETL/ELT data quality pipelines, \`dbt\`, Apache Airflow, Azure Data Factory, BigQuery.\n` +
+        `**2. Programming & Querying**: Advanced SQL (T-SQL, PostgreSQL, SnowSQL — 2+ yrs commercial), Python (\`Pandas\`, \`NumPy\`, \`SciPy\`), R (\`tidyverse\`), Git & Django.\n` +
+        `**3. Analytics & Visualisation**: Microsoft Power BI (\`DAX\`, Power Query), Tableau, Seaborn, Matplotlib, Advanced Excel.\n` +
+        `**4. Machine Learning & AI**: Supervised regression & multi-class classification (\`Scikit-Learn\`), audio signal/MFCC feature extraction (GTZAN).\n` +
+        `**5. Databases & Data Platforms**: Snowflake Cloud Data Warehouse, Kimball Star Schema dimensional modeling, MS SQL Server, PostgreSQL, MySQL.`;
       followUps = [
         "What technologies has Suman used in his projects?",
         "Walk me through the end-to-end data warehousing project.",
         "Explain the Music Genre Classification project."
       ];
-    }
-    // 8) Contact Information / CV / Links
-    else if (
+    } else if (
       q.includes("contact") ||
       q.includes("phone") ||
       q.includes("number") ||
@@ -1485,7 +1828,7 @@ function generateLocalResponse(query, inputTokens, consumeNow = true) {
     ) {
       conversationState.lastTopic = "contact";
       responseText =
-        `### Direct Contact & Profiles — ${p.name}\n` +
+        `### Direct Contact & CV — ${p.name}\n` +
         `You can reach Suman directly for interviews, CV requests, or role discussions:\n\n` +
         `• **Email**: [${p.email || "bhsuman11@gmail.com"}](mailto:${p.email || "bhsuman11@gmail.com"})\n` +
         `• **Phone / SMS**: [${p.phoneDisplay || "+64 22 051 2513"}](tel:${p.phoneDial || "+64220512513"}) (${p.phoneLocal || "022 051 2513"})\n` +
@@ -1496,9 +1839,7 @@ function generateLocalResponse(query, inputTokens, consumeNow = true) {
         "Summarise Suman's professional experience.",
         "Show me an overview of Suman's project portfolio."
       ];
-    }
-    // 9) Token Allowance & Session Limits
-    else if (
+    } else if (
       q.includes("token") ||
       q.includes("quota") ||
       q.includes("session limit") ||
@@ -1513,9 +1854,7 @@ function generateLocalResponse(query, inputTokens, consumeNow = true) {
         "Show me an overview of Suman's project portfolio.",
         "Summarise Suman's professional experience."
       ];
-    }
-    // 10) Student Work Status & Availability
-    else if (
+    } else if (
       q.includes("student") ||
       q.includes("status") ||
       q.includes("open") ||
@@ -1536,9 +1875,7 @@ function generateLocalResponse(query, inputTokens, consumeNow = true) {
         "Summarise Suman's professional experience.",
         "What technologies has Suman used in his projects?"
       ];
-    }
-    // 11) General Executive Candidate Overview
-    else {
+    } else {
       conversationState.lastTopic = "overview";
       const projectNames = liveProjectsList.map(pr => `**${pr.displayName}**`).join(", ");
       responseText =
@@ -1579,7 +1916,6 @@ async function triggerSmsAlert(questionText, aiReply = "", source = "Suman AI") 
     saveStoredNotification({ timestamp, source, question: cleanQuestion, reply: cleanReply });
   }
 
-  // 1) Write-Only Email Notification via FormSubmit AJAX
   try {
     fetch(`https://formsubmit.co/ajax/${encodeURIComponent(targetEmail)}`, {
       method: "POST",
@@ -1587,7 +1923,7 @@ async function triggerSmsAlert(questionText, aiReply = "", source = "Suman AI") 
       body: JSON.stringify({
         _subject: `Portfolio Alert (${source}): "${cleanQuestion.slice(0, 50)}"`,
         Visitor_Inquiry: cleanQuestion,
-        Assistant_Reply: cleanReply || "Direct Contact Form",
+        Assistant_Reply: cleanReply || "Direct Inquiry",
         Timestamp_NZT: timestamp,
         _template: "table",
         _captcha: "false"
@@ -1595,7 +1931,6 @@ async function triggerSmsAlert(questionText, aiReply = "", source = "Suman AI") 
     }).catch(() => {});
   } catch (e) {}
 
-  // 2) Local Backend Relay (/api/notify-sms) — Server handles private ntfy push & local log file
   if (window.location.protocol.startsWith("http") && window.location.hostname === "localhost") {
     try {
       fetch("/api/notify-sms", {
@@ -1822,7 +2157,7 @@ window.saveOwnerSettings = async function() {
 
 window.enableBrowserNotifications = function() {
   if (!("Notification" in window)) {
-    alert("Browser notifications are not supported on this device.");
+    showToastNotification("Browser notifications are not supported on this device.");
     return;
   }
   Notification.requestPermission().then(perm => {
@@ -1899,9 +2234,7 @@ function escapeHtml(str) {
 
 function formatInlineMarkdown(escapedLine) {
   return escapedLine
-    // Safe Inline Code: `code`
     .replace(/`([^`]+)`/g, '<code class="md-inline-code font-mono">$1</code>')
-    // Safe Validated Links: [label](url)
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label, rawUrl) => {
       const unescapedUrl = rawUrl
         .replace(/&amp;/g, "&")
@@ -1913,7 +2246,6 @@ function formatInlineMarkdown(escapedLine) {
       const extAttrs = isExternal ? 'target="_blank" rel="noopener noreferrer"' : "";
       return `<a href="${escapeHtml(safe)}" ${extAttrs} class="text-blue-700 font-semibold underline hover:text-blue-900">${label}${isExternal ? " ↗" : ""}</a>`;
     })
-    // Bold & Italic
     .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-slate-900">$1</strong>')
     .replace(/\*(.*?)\*/g, '<em>$1</em>');
 }
@@ -1952,7 +2284,6 @@ function renderSafeMarkdown(md) {
   for (const rawLine of rawLines) {
     const trimmed = rawLine.trim();
 
-    // Fenced code blocks
     if (trimmed.startsWith("```")) {
       closeListsAndTables();
       if (!inCodeBlock) {
@@ -1971,7 +2302,6 @@ function renderSafeMarkdown(md) {
       continue;
     }
 
-    // Markdown Table Row
     if (trimmed.startsWith("|") && trimmed.endsWith("|") && trimmed.length > 2) {
       if (inUl) { htmlBlocks.push("</ul>"); inUl = false; }
       if (inOl) { htmlBlocks.push("</ol>"); inOl = false; }
@@ -1982,13 +2312,11 @@ function renderSafeMarkdown(md) {
       closeListsAndTables();
     }
 
-    // Empty line
     if (!trimmed) {
       closeListsAndTables();
       continue;
     }
 
-    // Headings (### or ##)
     if (trimmed.startsWith("### ") || trimmed.startsWith("## ")) {
       closeListsAndTables();
       const headingText = trimmed.replace(/^#{2,3}\s+/, "");
@@ -1996,7 +2324,6 @@ function renderSafeMarkdown(md) {
       continue;
     }
 
-    // Unordered list (• or - or *)
     if (/^([•\-*])\s+/.test(trimmed)) {
       if (inOl) { htmlBlocks.push("</ol>"); inOl = false; }
       if (!inUl) {
@@ -2008,7 +2335,6 @@ function renderSafeMarkdown(md) {
       continue;
     }
 
-    // Ordered list (1. )
     if (/^\d+\.\s+/.test(trimmed)) {
       if (inUl) { htmlBlocks.push("</ul>"); inUl = false; }
       if (!inOl) {
@@ -2059,7 +2385,10 @@ window.openSumanAIPopup = function() {
   if (popup) {
     popup.classList.remove("hidden");
     popup.classList.add("flex");
-    if (fab) fab.setAttribute("aria-expanded", "true");
+    if (fab) {
+      fab.setAttribute("aria-expanded", "true");
+      fab.classList.add("hidden");
+    }
     const msgBox = document.getElementById("popup-agent-messages");
     if (msgBox && conversationState.history.length > 0) {
       msgBox.scrollTop = msgBox.scrollHeight;
@@ -2076,6 +2405,7 @@ window.closeSumanAIPopup = function() {
     popup.classList.remove("flex");
   }
   if (fab) {
+    fab.classList.remove("hidden");
     fab.setAttribute("aria-expanded", "false");
     fab.focus();
   }

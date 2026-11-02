@@ -73,13 +73,20 @@ RATE_LOCK = threading.Lock()
 CHAT_CONCURRENCY_SEMAPHORE = threading.BoundedSemaphore(4)
 IP_NOTIFY_LIMITS = {}
 IP_CHAT_LIMITS = {}
+IP_CONTACT_LIMITS = {}
 
 MAX_NOTIFY_REQUESTS_PER_WINDOW = 8
 MAX_CHAT_REQUESTS_PER_WINDOW = 20
+MAX_CONTACT_REQUESTS_PER_WINDOW = 5
 RATE_WINDOW_SECONDS = 600  # 10 minutes
 MAX_NOTIFY_BODY_BYTES = 2048  # 2 KB strict ceiling
 MAX_CHAT_BODY_BYTES = 6144    # 6 KB strict ceiling
+MAX_CONTACT_BODY_BYTES = 4096 # 4 KB strict ceiling
 MAX_QUERY_CHARS = 300
+
+EMAIL_OR_PHONE_REGEX = re.compile(
+    r"^([a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}|[\+\d][\d\s\-\(\)]{6,22})$"
+)
 
 # Server-Side Prompt-Injection & Abuse Patterns
 SERVER_BLOCKED_PATTERNS = [
@@ -217,6 +224,10 @@ class SecurePortfolioHandler(http.server.SimpleHTTPRequestHandler):
             self.handle_chat_endpoint(client_ip)
             return
 
+        if parsed_path == "/api/contact":
+            self.handle_contact_endpoint(client_ip)
+            return
+
         if parsed_path == "/api/notify-sms":
             self.handle_notify_endpoint(client_ip)
             return
@@ -333,6 +344,89 @@ class SecurePortfolioHandler(http.server.SimpleHTTPRequestHandler):
             self.send_json(200, {"status": "local_fallback"})
         finally:
             CHAT_CONCURRENCY_SEMAPHORE.release()
+
+    def handle_contact_endpoint(self, client_ip):
+        if check_rate_limit(IP_CONTACT_LIMITS, client_ip, MAX_CONTACT_REQUESTS_PER_WINDOW):
+            self.send_error_json(429, "Too many contact submissions. Please wait a few minutes or email bhsuman11@gmail.com directly.")
+            return
+
+        content_type = self.headers.get("Content-Type", "")
+        if "application/json" not in content_type.lower():
+            self.send_error_json(415, "Unsupported Media Type: application/json required.")
+            return
+
+        try:
+            content_length = int(self.headers.get("Content-Length", "0"))
+        except ValueError:
+            self.send_error_json(400, "Invalid Content-Length header.")
+            return
+
+        if content_length <= 0 or content_length > MAX_CONTACT_BODY_BYTES:
+            self.send_error_json(413, "Payload size invalid or exceeds the 4 KB limit.")
+            return
+
+        raw_body = self.rfile.read(content_length)
+        try:
+            payload = json.loads(raw_body.decode("utf-8"))
+        except Exception:
+            self.send_error_json(400, "Malformed JSON payload.")
+            return
+
+        if not isinstance(payload, dict):
+            self.send_error_json(400, "Invalid request object.")
+            return
+
+        # Honeypot spam check: if hidden 'website' field is filled, reject
+        honeypot = str(payload.get("website", "")).strip()
+        if honeypot:
+            self.send_error_json(400, "Spam check failed.")
+            return
+
+        def sanitize_text(val, max_len):
+            cleaned = re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f<>]", "", str(val or "")).strip()
+            return cleaned[:max_len]
+
+        name = sanitize_text(payload.get("name", ""), 80)
+        contact = sanitize_text(payload.get("contact", ""), 120)
+        subject = sanitize_text(payload.get("subject", ""), 120) or "Portfolio Inquiry"
+        message = sanitize_text(payload.get("message", ""), 1500)
+
+        if len(name) < 2:
+            self.send_error_json(400, "Please enter your name (at least 2 characters).")
+            return
+        if not EMAIL_OR_PHONE_REGEX.match(contact):
+            self.send_error_json(400, "Please enter a valid email address or phone number.")
+            return
+        if len(message) < 10:
+            self.send_error_json(400, "Please enter a message of at least 10 characters.")
+            return
+
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        summary_question = f"[{subject}] From {name} ({contact}): {message}"
+        entry = {
+            "timestamp": timestamp,
+            "source": "Contact Form",
+            "question": summary_question[:400],
+            "reply": "Direct Contact Form Submission"
+        }
+        save_notification(entry)
+
+        if PRIVATE_NTFY_TOPIC:
+            try:
+                ntfy_url = (
+                    f"https://ntfy.sh/{urllib.parse.quote(PRIVATE_NTFY_TOPIC)}"
+                    f"?title={urllib.parse.quote('Portfolio Contact Form')}&priority=high&tags=email"
+                )
+                req = urllib.request.Request(
+                    ntfy_url,
+                    data=summary_question.encode("utf-8"),
+                    method="POST"
+                )
+                urllib.request.urlopen(req, timeout=4)
+            except Exception:
+                pass
+
+        self.send_json(200, {"status": "ok", "received_at": timestamp})
 
     def handle_notify_endpoint(self, client_ip):
         if check_rate_limit(IP_NOTIFY_LIMITS, client_ip, MAX_NOTIFY_REQUESTS_PER_WINDOW):

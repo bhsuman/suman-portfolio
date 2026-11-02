@@ -2,9 +2,8 @@
  * ============================================================================
  * SUMAN BHANDARI — MASTER PORTFOLIO CONTENT FILE (portfolio-data.js)
  * ============================================================================
- * HOW TO UPDATE YOUR PORTFOLIO:
- * Edit any text, skill, job, education, or project below and save this file.
- * Both your website AND your AI Assistant automatically sync with this file!
+ * Single source of truth for both the portfolio website and Suman AI.
+ * Grounded strictly in verified academic, commercial, and GitHub project records.
  * ============================================================================
  */
 
@@ -17,9 +16,9 @@ window.PORTFOLIO_DATA = {
     name: "Suman Bhandari",
     initials: "SB",
     headline: "Data Analyst, Associate Data Engineer & Data Science Postgraduate",
-    subheadline: "Data Engineering • Analytics • Data Science",
+    subheadline: "Data Engineering • Analytics • Machine Learning",
     statusBadge: "Student • Open to Work",
-    heroBadge: "Master's Student at Unitec (Auckland) • Open to Work (Student)",
+    heroBadge: "Master's Student at Unitec (Auckland) • Open to Work",
     photo: "assets/suman-bhandari.jpg",
     location: "Henderson, Auckland",
     country: "New Zealand",
@@ -32,7 +31,7 @@ window.PORTFOLIO_DATA = {
     githubUrl: "https://github.com/bhsuman",
     linkedinUrl: "https://www.linkedin.com/in/suman-bhandari-ab4394279/",
     heroBio:
-      "Master of Applied Technologies (Computing – Data Analytics) student at Unitec Institute of Technology, Auckland, with over 2 years of hands-on industry experience across Data Engineering, Business Intelligence, and Banking ICT. Skilled in building scalable ETL/ELT pipelines, cloud data warehouses (Snowflake, Databricks, BigQuery, Azure), interactive Power BI & Tableau dashboards, and Python/R machine learning models."
+      "Master of Applied Technologies (Computing – Data Analytics) student at Unitec Institute of Technology, Auckland, with over 2 years of commercial experience across data engineering consultancy, cloud data warehousing, and banking ICT operations. I build reliable ETL/ELT pipelines, dimensional data warehouses (Databricks, Delta Lake, Snowflake, SQL), predictive machine learning models in Python, and executive BI dashboards in Power BI and Tableau."
   },
 
   // --------------------------------------------------------------------------
@@ -41,13 +40,14 @@ window.PORTFOLIO_DATA = {
   highlights: [
     {
       value: "2+ Years",
-      title: "Industry Experience",
-      subtitle: "Data Engineering, Analytics & ICT"
+      title: "Commercial Experience",
+      subtitle: "Data Engineering, Analytics & Banking ICT"
     },
     {
-      value: "15+ Tools",
-      title: "Modern Data Stack",
-      subtitle: "SQL, Python, Snowflake, Databricks, BI"
+      value: "4 Repos",
+      title: "Verified Public Projects",
+      subtitle: "Lakehouse ETL, Property ML, Audio ML & EDA",
+      isGitHubCounter: true
     },
     {
       value: "Master's",
@@ -55,9 +55,9 @@ window.PORTFOLIO_DATA = {
       subtitle: "Unitec Institute of Technology, Auckland"
     },
     {
-      value: "Student",
-      title: "Open to Work",
-      subtitle: "Data Analyst, Engineer & Scientist Roles"
+      value: "Auckland",
+      title: "Student • Open to Work",
+      subtitle: "Data Engineer, Analyst & Scientist Roles"
     }
   ],
 
@@ -65,130 +65,176 @@ window.PORTFOLIO_DATA = {
   // 3. ABOUT SECTION & QUICK DETAILS TABLE
   // --------------------------------------------------------------------------
   about: {
-    heading: "Bridging Data Engineering, Business Analytics & Data Science",
+    heading: "Bridging Data Engineering, Business Analytics & Machine Learning",
     paragraphs: [
-      "Kia Ora! I am Suman Bhandari, currently based in Henderson, Auckland, New Zealand, pursuing my Master of Applied Technologies (Computing – Data Analytics) at Unitec Institute of Technology. Prior to my postgraduate studies in Auckland, I built practical industry experience across commercial banking IT operations at Laxmi Sunrise Bank, data engineering consultancy at Development Catalyst Consultancy, and cloud data warehousing at LIS Nepal.",
-      "I work across the end-to-end data lifecycle: ingesting and transforming raw data into clean Medallion (Bronze/Silver/Gold) and Kimball Star Schema models using SQL, Python, PySpark, dbt, Snowflake, and Databricks; building predictive machine learning and statistical models in Python and R; and delivering executive-ready dashboards in Microsoft Power BI and Tableau."
+      "Kia ora! I am Suman Bhandari, based in Henderson, Auckland, New Zealand, where I am completing my Master of Applied Technologies (Computing – Data Analytics) at Unitec Institute of Technology. Prior to relocating to Auckland, I gained over two years of commercial experience across banking ICT operations at Laxmi Sunrise Bank, data engineering and analytics delivery at Development Catalyst Consultancy, and Snowflake data warehousing at LIS Nepal.",
+      "My work focuses on turning raw, messy operational data into trusted analytical assets: designing Medallion (Bronze/Silver/Gold) lakehouse pipelines and Kimball Star Schemas in Databricks, PySpark, Delta Lake, and Snowflake; developing supervised machine learning and statistical models in Python and R; and delivering clear, decision-oriented dashboards in Power BI and Tableau."
     ],
-    calloutTitle: "Current Status: Master's Student • Open to Work",
+    calloutTitle: "Availability: Master's Student • Open to Work (NZ & Australia)",
     calloutText:
-      "Actively seeking internships, part-time positions, and graduate opportunities in Data Engineering, Data Analytics, Business Intelligence, and Data Science.",
+      "Available for data engineering, data analytics, business intelligence, and data science internships, part-time roles during semester, and graduate/full-time opportunities.",
     quickDetails: [
       { label: "Full Name", value: "Suman Bhandari" },
-      { label: "Current Location", value: "Henderson, Auckland, New Zealand" },
-      { label: "University", value: "Unitec Institute of Technology (Auckland)" },
-      { label: "Current Degree", value: "Master of Applied Technologies (Data Analytics)" },
-      { label: "Work Status", value: "Student • Open to Work", highlight: true },
-      { label: "Target Roles", value: "Data Engineer / Data Analyst / Data Scientist" },
-      { label: "Direct Phone / SMS", value: "+64 22 051 2513 (022 051 2513)", href: "sms:+64220512513" },
+      { label: "Location", value: "Henderson, Auckland, NZ" },
+      { label: "Postgraduate Study", value: "Master of Applied Technologies (Data Analytics) — Unitec" },
+      { label: "Undergraduate Degree", value: "B.Sc. CSIT (4-Year Honours) — Tribhuvan University" },
+      { label: "Work Eligibility", value: "Student • Open to Work", highlight: true },
+      { label: "Target Roles", value: "Data Engineer • Data Analyst • Data Scientist" },
+      { label: "Phone / SMS", value: "+64 22 051 2513", href: "tel:+64220512513" },
       { label: "Email", value: "bhsuman11@gmail.com", href: "mailto:bhsuman11@gmail.com" },
-      { label: "LinkedIn", value: "linkedin.com/in/suman-bhandari-ab4394279", href: "https://www.linkedin.com/in/suman-bhandari-ab4394279/" },
-      { label: "GitHub", value: "github.com/bhsuman", href: "https://github.com/bhsuman" }
+      { label: "LinkedIn", value: "in/suman-bhandari-ab4394279 ↗", href: "https://www.linkedin.com/in/suman-bhandari-ab4394279/" },
+      { label: "GitHub", value: "github.com/bhsuman ↗", href: "https://github.com/bhsuman" }
     ]
   },
 
   // --------------------------------------------------------------------------
-  // 4. EXPANDED EMPLOYER-READY TECHNICAL SKILLS
-  // Categories: "engineering", "analytics", "datascience", "cloud"
-  // Tailored for Data Engineer, Data Analyst & Data Scientist hiring standards
+  // 4. TECHNICAL SKILLS ORGANISED INTO 5 MEANINGFUL CATEGORIES
+  // Categories:
+  // - "engineering-cloud" : Data Engineering & Cloud
+  // - "programming"       : Programming & Querying
+  // - "analytics"         : Analytics & Visualisation
+  // - "ml-ai"             : Machine Learning & AI
+  // - "databases"         : Databases & Data Platforms
+  // Distinguishes Commercial Experience vs. Completed Projects vs. Postgraduate exposure.
   // --------------------------------------------------------------------------
+  skillCategories: [
+    { id: "all", label: "All Skills (15)" },
+    { id: "engineering-cloud", label: "Data Engineering & Cloud" },
+    { id: "programming", label: "Programming & Querying" },
+    { id: "analytics", label: "Analytics & Visualisation" },
+    { id: "ml-ai", label: "Machine Learning & AI" },
+    { id: "databases", label: "Databases & Data Platforms" }
+  ],
+
   skills: [
-    // Data Analytics & BI
+    // 1. Data Engineering & Cloud
+    {
+      code: "DBX",
+      name: "Databricks, PySpark & Delta Lake",
+      category: "engineering-cloud",
+      categoryLabel: "Data Engineering & Cloud",
+      evidenceBadge: "Completed Project & Postgraduate",
+      description: "Medallion Lakehouse Architecture (Bronze / Silver / Gold), distributed PySpark transformations, schema enforcement, and Delta tables."
+    },
+    {
+      code: "ETL",
+      name: "ETL / ELT Pipeline Design & Data Quality",
+      category: "engineering-cloud",
+      categoryLabel: "Data Engineering & Cloud",
+      evidenceBadge: "Commercial Experience (2+ yrs)",
+      description: "Automated data ingestion, deduplication, null/type validation, surrogate key generation, and modular SQL/Python transformation workflows."
+    },
+    {
+      code: "DBT",
+      name: "dbt & Apache Airflow Orchestration",
+      category: "engineering-cloud",
+      categoryLabel: "Data Engineering & Cloud",
+      evidenceBadge: "Project & Postgraduate Exposure",
+      description: "Modular SQL transformation models in dbt, DAG scheduling, pipeline dependency management, data lineage, and schema testing."
+    },
+    {
+      code: "ADF",
+      name: "Azure Data Services, BigQuery & AWS",
+      category: "engineering-cloud",
+      categoryLabel: "Data Engineering & Cloud",
+      evidenceBadge: "Postgraduate & Cloud Practice",
+      description: "Azure Data Factory (ADF), Microsoft Fabric Lakehouse, Google Cloud BigQuery, and AWS S3/Glue fundamentals for cloud analytics."
+    },
+
+    // 2. Programming & Querying
     {
       code: "SQL",
-      name: "Advanced SQL & Data Modeling",
-      category: "analytics",
-      description: "T-SQL, PostgreSQL, Snowflake SQL, CTEs, Window Functions, Query Optimization, Kimball Star & Snowflake Schemas"
+      name: "Advanced SQL & Query Optimization",
+      category: "programming",
+      categoryLabel: "Programming & Querying",
+      evidenceBadge: "Commercial Experience (2+ yrs)",
+      description: "Complex CTEs, window functions, multi-table joins, analytical aggregations, indexing strategies, and query tuning across T-SQL, PostgreSQL, and Snowflake."
     },
+    {
+      code: "PY",
+      name: "Python for Data Engineering & Analytics",
+      category: "programming",
+      categoryLabel: "Programming & Querying",
+      evidenceBadge: "Commercial & 4 Public Projects",
+      description: "Pandas, NumPy, SciPy, PySpark, REST API extraction, automated data wrangling scripts, and reproducible Jupyter Notebook workflows."
+    },
+    {
+      code: "STAT",
+      name: "R Programming & Statistical Computing",
+      category: "programming",
+      categoryLabel: "Programming & Querying",
+      evidenceBadge: "Postgraduate & Academic",
+      description: "R (tidyverse, ggplot2), hypothesis testing, probability distributions, regression diagnostics, and exploratory statistical analysis."
+    },
+    {
+      code: "GIT",
+      name: "Git, GitHub Actions & Django Delivery",
+      category: "programming",
+      categoryLabel: "Programming & Querying",
+      evidenceBadge: "Commercial & Completed Projects",
+      description: "Version-controlled data pipelines, GitHub Actions static/CI workflows, and Python Django web deployment for ML model inference."
+    },
+
+    // 3. Analytics & Visualisation
     {
       code: "PBI",
       name: "Microsoft Power BI & DAX",
       category: "analytics",
-      description: "Interactive Executive Dashboards, Advanced DAX, Power Query (M), Data Modeling, KPI Reporting & Storytelling"
+      categoryLabel: "Analytics & Visualisation",
+      evidenceBadge: "Commercial & Completed Projects",
+      description: "Interactive executive dashboards, DAX measures, Power Query (M) transformations, star-schema data modeling, and credit/property KPI reporting."
     },
     {
       code: "TAB",
-      name: "Tableau & Looker Studio",
+      name: "Tableau, Seaborn & Matplotlib",
       category: "analytics",
-      description: "Visual Analytics, Self-Service BI Dashboards, Cross-Filtering, Funnel & Retention Metrics, A/B Test Reporting"
+      categoryLabel: "Analytics & Visualisation",
+      evidenceBadge: "Commercial & Completed Projects",
+      description: "Self-service visual analytics in Tableau and programmatic statistical plotting in Python (Seaborn, Matplotlib) for demographic and trend discovery."
     },
     {
       code: "XLS",
       name: "Advanced Excel & Business Analysis",
       category: "analytics",
-      description: "Pivot Tables, XLOOKUP, Power Pivot, Financial & Operational Reporting, Requirements Gathering, Stakeholder Insights"
+      categoryLabel: "Analytics & Visualisation",
+      evidenceBadge: "Commercial Experience (2+ yrs)",
+      description: "Pivot Tables, XLOOKUP, Power Pivot, stakeholder requirements gathering, ad-hoc operational reporting, and KPI definition."
     },
 
-    // Data Engineering & Warehousing
+    // 4. Machine Learning & AI
+    {
+      code: "ML",
+      name: "Supervised & Unsupervised Machine Learning",
+      category: "ml-ai",
+      categoryLabel: "Machine Learning & AI",
+      evidenceBadge: "Completed Projects & Postgraduate",
+      description: "Scikit-Learn regression and multi-class classification models, feature engineering, outlier treatment, cross-validation, and model evaluation."
+    },
+    {
+      code: "AUD",
+      name: "Audio Signal & Feature Engineering",
+      category: "ml-ai",
+      categoryLabel: "Machine Learning & AI",
+      evidenceBadge: "Completed Project (GTZAN)",
+      description: "Acoustic feature extraction (MFCCs, spectral centroid, spectral rolloff, chroma frequencies, spectrograms) and tabular feature scaling."
+    },
+
+    // 5. Databases & Data Platforms
     {
       code: "SF",
       name: "Snowflake Cloud Data Warehouse",
-      category: "engineering",
-      description: "Cloud Warehousing, SnowSQL, External Stages, Streams & Tasks, Role-Based Access Control, Performance Tuning"
-    },
-    {
-      code: "DBX",
-      name: "Databricks, PySpark & Delta Lake",
-      category: "engineering",
-      description: "Medallion Lakehouse Architecture (Bronze / Silver / Gold), Apache Spark, Distributed Dataframes, Delta Live Tables"
-    },
-    {
-      code: "DBT",
-      name: "dbt & Apache Airflow (ETL / ELT)",
-      category: "engineering",
-      description: "Modular SQL Transformations with dbt, Automated Pipeline Orchestration, DAG Scheduling, Data Lineage & Testing"
-    },
-    {
-      code: "ADF",
-      name: "Azure Data Factory & MS Fabric",
-      category: "engineering",
-      description: "Cloud Data Ingestion Pipelines, Azure Data Lake Storage (ADLS), Microsoft Fabric Lakehouse & Synapse Analytics"
+      category: "databases",
+      categoryLabel: "Databases & Data Platforms",
+      evidenceBadge: "Commercial Experience (LIS Nepal)",
+      description: "Snowflake cloud warehousing, SnowSQL, staging and file-to-warehouse ingestion pipelines, role-based access control, and dimensional modeling."
     },
     {
       code: "RDB",
-      name: "MS SQL Server, PostgreSQL & MySQL",
-      category: "engineering",
-      description: "Relational Database Design, Stored Procedures, Indexing Strategies, ACID Transactions, Data Quality & Cleansing"
-    },
-
-    // Data Science & Machine Learning
-    {
-      code: "PY",
-      name: "Python for Data Science & Automation",
-      category: "datascience",
-      description: "Pandas, NumPy, SciPy, Matplotlib, Seaborn, Plotly, REST API Data Extraction, Automated Cleaning Pipelines"
-    },
-    {
-      code: "ML",
-      name: "Machine Learning & Predictive Modeling",
-      category: "datascience",
-      description: "Scikit-Learn, Supervised & Unsupervised Learning (Regression, Random Forest, XGBoost, Clustering), Feature Engineering"
-    },
-    {
-      code: "STAT",
-      name: "R Programming & Statistical Analysis",
-      category: "datascience",
-      description: "R (tidyverse, ggplot2), Hypothesis Testing, Time-Series Forecasting, Probability Distributions, Anomaly Detection"
-    },
-
-    // Cloud, DevOps & Delivery
-    {
-      code: "CLD",
-      name: "AWS, Azure & Google BigQuery",
-      category: "cloud",
-      description: "AWS (S3, Redshift, Glue Basics), Google Cloud BigQuery, Azure Cloud Data Services, Serverless Data Querying"
-    },
-    {
-      code: "GIT",
-      name: "Git, CI/CD & Container Basics",
-      category: "cloud",
-      description: "Git, GitHub Actions, Bitbucket, Docker Basics, Version-Controlled Analytics, Reproducible Jupyter Workflows"
-    },
-    {
-      code: "AGL",
-      name: "Agile, Jira & Data Governance",
-      category: "cloud",
-      description: "Jira, ClickUp, Confluence, Agile/Scrum Sprints, Data Security Policies, Data Validation & Documentation"
+      name: "Relational Databases & Kimball Modeling",
+      category: "databases",
+      categoryLabel: "Databases & Data Platforms",
+      evidenceBadge: "Commercial Experience (2+ yrs)",
+      description: "Kimball Star Schema design (conformed Fact and Dimension tables), MS SQL Server, PostgreSQL, MySQL, and banking database operations."
     }
   ],
 
@@ -201,11 +247,12 @@ window.PORTFOLIO_DATA = {
       company: "Laxmi Sunrise Bank Limited",
       location: "Kathmandu, Nepal",
       period: "Feb 2026 – Jun 2026",
-      active: true,
+      typeBadge: "Banking ICT Operations",
+      active: false,
       bullets: [
-        "Supported daily core IT banking operations, system uptime, and technical operations across commercial banking branches.",
-        "Resolved user technical queries, core banking application issues, and database connectivity tickets.",
-        "Gained hands-on exposure to enterprise banking systems, strict financial data security policies, and operational efficiency."
+        "Supported daily core banking IT operations, branch system availability, and technical incident resolution across commercial banking operations.",
+        "Diagnosed and resolved user technical escalations, core banking application issues, and relational database connectivity tickets.",
+        "Operated within strict enterprise financial data governance, access control, and security compliance standards."
       ]
     },
     {
@@ -213,12 +260,13 @@ window.PORTFOLIO_DATA = {
       company: "Development Catalyst Consultancy Pvt. Ltd",
       location: "Kathmandu, Nepal",
       period: "Jan 2024 – Jan 2026",
-      active: true,
+      typeBadge: "2 Years • Data Engineering & Analytics",
+      active: false,
       bullets: [
-        "Analyzed, transformed, and processed large-scale datasets using Python (Pandas, NumPy) and advanced SQL to deliver client business solutions.",
-        "Designed and maintained automated ETL data cleaning, transformation, and schema validation pipelines to ensure high data quality.",
-        "Authored complex relational SQL queries (CTEs, window functions, multi-table joins) to build reporting data marts.",
-        "Collaborated with analysts and business stakeholders to translate reporting requirements into structured analytical datasets and BI dashboards."
+        "Designed and maintained automated Python (Pandas, NumPy) and SQL ETL pipelines to ingest, clean, and validate large-scale client datasets.",
+        "Authored complex relational SQL queries (CTEs, window functions, multi-table joins) to build structured reporting data marts.",
+        "Implemented schema validation and data quality checks that reduced manual data preparation effort for downstream analytics.",
+        "Partnered with business analysts and stakeholders to translate reporting requirements into curated datasets and BI dashboards."
       ]
     },
     {
@@ -226,11 +274,12 @@ window.PORTFOLIO_DATA = {
       company: "LIS Nepal Pvt. Ltd",
       location: "Lalitpur, Nepal",
       period: "Jul 2023 – Oct 2023",
+      typeBadge: "Cloud Data Warehousing",
       active: false,
       bullets: [
-        "Completed intensive enterprise training in advanced SQL, Snowflake Cloud Data Warehousing, and dimensional star-schema modeling.",
-        "Built Snowflake ETL workflows and automated CSV/file-to-warehouse ingestion pipelines using Python scripts.",
-        "Partnered with senior data engineers on SQL query tuning, code refactoring, and pipeline quality assurance."
+        "Completed intensive enterprise training in advanced SQL, Snowflake Cloud Data Warehousing, and Kimball dimensional star-schema modeling.",
+        "Built automated Python and SnowSQL ingestion scripts to load and transform structured CSV/file feeds into Snowflake staging and core tables.",
+        "Collaborated with senior data engineers on SQL query optimization, code reviews, and pipeline quality assurance."
       ]
     }
   ],
@@ -253,7 +302,7 @@ window.PORTFOLIO_DATA = {
     {
       badge: "Bachelor's Degree (4-Year Honours)",
       period: "Oct 2018 – Dec 2023",
-      degree: "Bachelor of Science in Computer Science and Information Technology (B.Sc. CSIT)",
+      degree: "Bachelor of Science in Computer Science & Information Technology (B.Sc. CSIT)",
       major: "Computer Science, Databases & Software Engineering",
       institution: "Samriddhi College (Tribhuvan University)",
       location: "Bhaktapur, Nepal",
@@ -262,30 +311,36 @@ window.PORTFOLIO_DATA = {
       highlighted: false
     },
     {
-      badge: "High School",
+      badge: "High School (+2 Science)",
       period: "Jun 2016 – Jul 2018",
-      degree: "High School (+2 Science)",
+      degree: "Higher Secondary Certificate (+2 Science & Computing)",
       major: "Mathematics, Physics & Computer Science",
       institution: "Siddhartha College",
       location: "Banepa, Nepal",
-      description: "Strong quantitative foundation in calculus, linear algebra, statistics, and computer fundamentals.",
+      description:
+        "Quantitative foundation in calculus, linear algebra, probability, statistics, and programming fundamentals.",
       highlighted: false
     }
   ],
 
   // --------------------------------------------------------------------------
   // 7. AUTHENTIC PUBLIC GITHUB PROJECTS (LIVE SYNCED FROM GITHUB)
-  // - Automatically fetches ONLY public repositories from github.com/bhsuman
-  // - Never shows private or deleted repositories
-  // - Excludes the portfolio website repository itself ("suman-portfolio")
   // --------------------------------------------------------------------------
   excludedRepos: ["suman-portfolio", "bhsuman"],
 
   githubRepoOverrides: {
     "big-data-warehousing-pipeline": {
       displayName: "Cloud Data Warehousing & Credit Risk Analytics Pipeline",
-      category: "Data Engineering & BI",
+      category: "Data Engineering & Lakehouse BI",
       status: "Completed Project",
+      problemStatement:
+        "Raw LendingClub loan records contain inconsistent data types, missing borrower attributes, and denormalized structures that prevent reliable credit risk and delinquency reporting.",
+      implementedSummary: [
+        "Built a 3-tier Medallion Lakehouse pipeline (Bronze, Silver, Gold) in Databricks using PySpark and Delta Lake.",
+        "Implemented Silver-layer standardization, deduplication, and data quality rules across loan statuses, interest rates, and DTI ratios.",
+        "Modeled a Gold-layer Kimball Star Schema (FactLoan joined to borrower, grade, purpose, and time dimensions) powering Power BI credit risk views."
+      ],
+      pipelineStages: ["LendingClub Raw Data", "Bronze (Delta Lake)", "Silver (PySpark QA)", "Gold (Kimball Star Schema)", "Power BI Credit Risk"],
       description:
         "End-to-end Lakehouse data warehousing and credit risk analytics pipeline processing LendingClub loan data using Databricks, PySpark, Delta Lake (Bronze/Silver/Gold Medallion architecture), Kimball dimensional modelling, and Power BI.",
       objective:
@@ -307,13 +362,22 @@ window.PORTFOLIO_DATA = {
         "How were LendingClub data quality issues and challenges handled?",
         "What technologies has Suman used in his projects?"
       ],
-      tags: ["Databricks", "PySpark", "Delta Lake", "Power BI", "SQL", "Kimball Star Schema"],
+      tags: ["Databricks", "PySpark", "Delta Lake", "SQL", "Kimball Star Schema", "Power BI"],
       featured: true
     },
+
     "Residential-Property-Price-Prediction-BI": {
       displayName: "Residential Property Price Prediction & BI",
-      category: "Machine Learning & BI",
+      category: "Machine Learning & Valuation BI",
       status: "Completed Project",
+      problemStatement:
+        "Property buyers and analysts need both accurate price estimates from structural/location attributes and transparent visual analytics explaining which factors drive regional housing valuations.",
+      implementedSummary: [
+        "Engineered property features, treated extreme price outliers, and corrected skewed distributions in Python (Pandas, NumPy).",
+        "Trained and evaluated supervised regression models in Scikit-Learn to predict residential housing prices.",
+        "Created interactive Power BI valuation dashboards comparing predicted vs. actual prices, regional tiers, and feature importance."
+      ],
+      pipelineStages: ["Raw Housing Records", "Feature Engineering", "Scikit-Learn Regression", "Valuation Outputs", "Power BI Dashboard"],
       description:
         "End-to-end residential property valuation and Business Intelligence solution combining Python machine learning regression models with interactive BI analytics to predict housing prices and uncover key market value drivers.",
       objective:
@@ -334,13 +398,22 @@ window.PORTFOLIO_DATA = {
         "What challenges and limitations exist in the Residential Property project?",
         "Walk me through the end-to-end data warehousing project."
       ],
-      tags: ["Python", "Scikit-Learn", "Machine Learning", "Power BI", "Predictive Modeling"],
+      tags: ["Python", "Scikit-Learn", "Regression Modeling", "Feature Engineering", "Power BI"],
       featured: true
     },
+
     "Music": {
       displayName: "Music Genre Classification ML Portal",
-      category: "Data Science & ML",
+      category: "Machine Learning & Web Deployment",
       status: "Completed Project",
+      problemStatement:
+        "Classifying raw audio files by musical genre requires transforming unstructured acoustic waveforms into discriminative numerical features and serving predictions through an accessible interface.",
+      implementedSummary: [
+        "Extracted time- and frequency-domain audio features (MFCCs, spectral centroid, chroma, rolloff, spectrograms) from the 10-genre GTZAN dataset.",
+        "Trained and compared supervised multi-class classification models in Python (Scikit-Learn) on extracted acoustic feature vectors.",
+        "Integrated the serialized classifier into a Python Django web application allowing users to upload audio tracks and view genre predictions."
+      ],
+      pipelineStages: ["GTZAN Audio Files", "MFCC & Spectrograms", "Scikit-Learn Classifier", "Django Web Portal", "Genre Prediction"],
       description:
         "Machine learning web application that extracts acoustic and spectrogram features from audio files and classifies music tracks into genres using Python, Scikit-Learn, Django, and Matplotlib on the GTZAN dataset.",
       objective:
@@ -361,13 +434,22 @@ window.PORTFOLIO_DATA = {
         "What are the limitations of the Music Genre Classification project?",
         "What technologies has Suman used in his projects?"
       ],
-      tags: ["Python", "Machine Learning", "Scikit-Learn", "Django", "Matplotlib", "GTZAN"],
+      tags: ["Python", "Scikit-Learn", "Audio Feature Extraction", "Django", "Matplotlib", "GTZAN"],
       featured: true
     },
+
     "Data-Analysis-Dewali": {
       displayName: "Retail Festive Sales & Customer Analytics",
-      category: "Data Analytics & EDA",
+      category: "Exploratory Data Analysis (EDA)",
       status: "Completed Project",
+      problemStatement:
+        "Retailers running seasonal promotional campaigns need clean transaction data and demographic segmentation to identify which buyer personas, states, and product categories drive peak revenue.",
+      implementedSummary: [
+        "Cleaned raw retail sales logs in Python (Pandas, NumPy), resolving null columns, missing values, and numeric data-type conversions.",
+        "Performed multi-dimensional exploratory data analysis across customer age groups, gender, marital status, occupation, geographic state, and product category.",
+        "Built Seaborn and Matplotlib statistical visualizations pinpointing top-spending buyer segments and high-performing regional markets."
+      ],
+      pipelineStages: ["Raw Sales Logs", "Pandas Data Cleaning", "Demographic Aggregation", "Seaborn Visuals", "Merchandising Insights"],
       description:
         "In-depth exploratory data analysis inspecting customer demographics, regional segments, product categories, and order values to identify high-revenue retail purchasing patterns.",
       objective:
@@ -388,7 +470,7 @@ window.PORTFOLIO_DATA = {
         "How do Suman's skills map to real project evidence?",
         "Summarise Suman's professional experience."
       ],
-      tags: ["Python", "Pandas", "NumPy", "Seaborn", "EDA", "Jupyter"],
+      tags: ["Python", "Pandas", "NumPy", "Seaborn", "Matplotlib", "Jupyter EDA"],
       featured: true
     }
   },
