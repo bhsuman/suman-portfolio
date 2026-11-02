@@ -14,10 +14,10 @@
 
 // Employer-Sized Token & 1-Hour Session Constants
 const HOURLY_MAX_TOKENS = 2500;
-const HOURLY_MAX_QUESTIONS = 15;
-const HARD_MAX_OUTPUT_TOKENS = 220;
+const HOURLY_MAX_QUESTIONS = 20;
+const HARD_MAX_OUTPUT_TOKENS = 420;
 const HARD_MAX_INPUT_CHARS = 250;
-const COOLDOWN_MS = 3000;
+const COOLDOWN_MS = 2000;
 const SESSION_WINDOW_MS = 60 * 60 * 1000; // 1 Hour (3,600,000 ms) auto-restart
 
 // Salted SHA-256 Hash for Default Owner PIN ("2513") — No plaintext password in code
@@ -237,13 +237,22 @@ function renderAllFromPortfolioData() {
     }).join("");
   }
 
-  // Assistant Quick Prompts
+  // Assistant Branding & Quick Prompts (In-Page + Floating Side Popup)
+  if (assistant.agentName) {
+    setText("agent-header-title", assistant.agentName);
+    setText("popup-agent-title", assistant.agentName);
+  }
+  if (assistant.agentTagline) {
+    setText("agent-header-subtitle", assistant.agentTagline);
+    setText("popup-agent-subtitle", assistant.agentTagline);
+  }
   if (assistant.welcomeMessage) {
     setText("agent-welcome-msg", assistant.welcomeMessage);
+    setText("popup-welcome-msg", assistant.welcomeMessage);
   }
   const quickPromptsEl = document.getElementById("agent-quick-prompts");
   if (quickPromptsEl && Array.isArray(assistant.quickPrompts)) {
-    quickPromptsEl.innerHTML = `<span class="text-[11px] font-mono text-slate-500 flex-shrink-0">Ask:</span>`;
+    quickPromptsEl.innerHTML = `<span class="text-[11px] font-mono text-slate-500 flex-shrink-0">Ask Suman AI:</span>`;
     assistant.quickPrompts.forEach(q => {
       const btn = document.createElement("button");
       btn.type = "button";
@@ -251,6 +260,18 @@ function renderAllFromPortfolioData() {
       btn.textContent = q.label;
       btn.addEventListener("click", () => askQuickQuestion(q.question));
       quickPromptsEl.appendChild(btn);
+    });
+  }
+  const popupPromptsEl = document.getElementById("popup-quick-prompts");
+  if (popupPromptsEl && Array.isArray(assistant.quickPrompts)) {
+    popupPromptsEl.innerHTML = "";
+    assistant.quickPrompts.forEach(q => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 text-[11px] text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors";
+      btn.textContent = q.label;
+      btn.addEventListener("click", () => askQuickQuestion(q.question));
+      popupPromptsEl.appendChild(btn);
     });
   }
 
@@ -267,11 +288,22 @@ function setText(id, value) {
 }
 
 // ============================================================================
-// 2. AUTHENTIC PUBLIC GITHUB REPOSITORY SYNC
+// 2. AUTHENTIC PUBLIC GITHUB REPOSITORY SYNC + LIVE README INTELLIGENCE
 // - Fetches ONLY live, authentic public repositories from github.com/bhsuman
 // - Never displays private or deleted repositories
 // - Strictly excludes the portfolio website repo itself ("suman-portfolio")
+// - Automatically enriches new public repos by reading their live README.md
 // ============================================================================
+function findOverrideForRepo(repoName, overrides) {
+  if (!repoName || !overrides) return null;
+  if (overrides[repoName]) return overrides[repoName];
+  const lower = repoName.toLowerCase();
+  for (const [k, v] of Object.entries(overrides)) {
+    if (k.toLowerCase() === lower) return v;
+  }
+  return null;
+}
+
 function getWhitelistedReposList() {
   const data = getData();
   const username = (data.profile && data.profile.githubUsername) || "bhsuman";
@@ -282,9 +314,10 @@ function getWhitelistedReposList() {
     .filter(([repoName]) => !excluded.includes(repoName.toLowerCase()))
     .map(([repoName, meta]) => ({
       name: repoName,
-      displayName: meta.displayName,
-      category: meta.category,
-      description: meta.description,
+      displayName: meta.displayName || repoName.replace(/[-_]+/g, " "),
+      category: meta.category || "Data & Analytics",
+      description: meta.description || "",
+      highlights: Array.isArray(meta.highlights) ? meta.highlights : [],
       tags: meta.tags || [],
       html_url: `https://github.com/${encodeURIComponent(username)}/${encodeURIComponent(repoName)}`,
       pushed_at: null,
@@ -319,7 +352,7 @@ async function syncWhitelistedGitHubRepos() {
     );
 
     const updatedList = authenticPublicRepos.map(liveRepo => {
-      const curated = overrides[liveRepo.name] || {};
+      const curated = findOverrideForRepo(liveRepo.name, overrides) || {};
       const tags = [...(curated.tags || [])];
 
       if (liveRepo.language && !tags.some(t => t.toLowerCase() === liveRepo.language.toLowerCase())) {
@@ -330,12 +363,17 @@ async function syncWhitelistedGitHubRepos() {
       }
 
       const readableName = curated.displayName || liveRepo.name.replace(/[-_]+/g, " ");
+      const liveDesc = (liveRepo.description && liveRepo.description.trim()) || "";
+      const bestDescription = (curated.description && curated.description.length >= liveDesc.length)
+        ? curated.description
+        : (liveDesc || curated.description || `Public GitHub project (${readableName}) built by Suman Bhandari.`);
 
       return {
         name: liveRepo.name,
         displayName: readableName,
-        category: curated.category || (liveRepo.language || "Data & Analytics"),
-        description: (liveRepo.description && liveRepo.description.trim()) || curated.description || `Public GitHub repository (${liveRepo.name}) by Suman Bhandari.`,
+        category: curated.category || (liveRepo.language ? `${liveRepo.language} & Analytics` : "Data & Analytics"),
+        description: bestDescription,
+        highlights: Array.isArray(curated.highlights) ? [...curated.highlights] : [],
         tags: tags.slice(0, 5),
         html_url: liveRepo.html_url || `https://github.com/${encodeURIComponent(username)}/${encodeURIComponent(liveRepo.name)}`,
         pushed_at: liveRepo.pushed_at || liveRepo.updated_at || null,
@@ -345,8 +383,8 @@ async function syncWhitelistedGitHubRepos() {
 
     // Sort featured curated projects first, then by most recently updated
     updatedList.sort((a, b) => {
-      const aHasOverride = Boolean(overrides[a.name]);
-      const bHasOverride = Boolean(overrides[b.name]);
+      const aHasOverride = Boolean(findOverrideForRepo(a.name, overrides));
+      const bHasOverride = Boolean(findOverrideForRepo(b.name, overrides));
       if (aHasOverride !== bHasOverride) return aHasOverride ? -1 : 1;
       return new Date(b.pushed_at || 0) - new Date(a.pushed_at || 0);
     });
@@ -357,9 +395,45 @@ async function syncWhitelistedGitHubRepos() {
     const countEl = document.getElementById("github-repo-count");
     if (countEl) countEl.textContent = `${updatedList.length} Projects`;
     if (pill) pill.textContent = `${updatedList.length} Verified Public Repositories`;
+
+    // Enrich any new/unlisted repos by fetching their README.md in the background
+    enrichReposWithReadmes(username, updatedList);
   } catch (e) {
     // Fallback cleanly to getWhitelistedReposList()
   }
+}
+
+async function enrichReposWithReadmes(username, repos) {
+  for (const repo of repos) {
+    if (repo.highlights && repo.highlights.length >= 2) continue;
+    try {
+      const res = await fetch(`https://api.github.com/repos/${encodeURIComponent(username)}/${encodeURIComponent(repo.name)}/readme`, {
+        headers: { "Accept": "application/vnd.github.v3.raw" }
+      });
+      if (!res.ok) continue;
+      const rawMd = await res.text();
+      if (!rawMd) continue;
+
+      const lines = rawMd
+        .split(/\r?\n/)
+        .map(l => l.trim())
+        .filter(l => l && !l.startsWith("```") && !l.startsWith("![") && !l.startsWith("<img"));
+
+      const paragraphLines = lines.filter(l => !l.startsWith("#") && !l.startsWith("-") && !l.startsWith("*") && l.length > 40);
+      const bulletLines = lines
+        .filter(l => (l.startsWith("- ") || l.startsWith("* ")) && l.length > 20)
+        .map(l => l.replace(/^[-*]\s+/, "").replace(/\*\*/g, "").trim())
+        .slice(0, 3);
+
+      if ((!repo.description || repo.description.startsWith("Public GitHub project")) && paragraphLines[0]) {
+        repo.description = paragraphLines[0].replace(/\*\*/g, "").slice(0, 260);
+      }
+      if (bulletLines.length > 0 && (!repo.highlights || repo.highlights.length === 0)) {
+        repo.highlights = bulletLines;
+      }
+    } catch (e) {}
+  }
+  renderProjectsGrid(repos);
 }
 
 function formatRelativeTime(isoDate) {
@@ -383,6 +457,7 @@ function renderProjectsGrid(repos) {
     const tagsHtml = (repo.tags || []).map(tag =>
       `<span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">${escapeHtml(tag)}</span>`
     ).join("");
+    const safeProjectTitle = escapeHtml(repo.displayName).replace(/'/g, "\\'");
 
     return `
       <article class="rounded-xl card-clean p-6 flex flex-col justify-between">
@@ -411,11 +486,13 @@ function renderProjectsGrid(repos) {
           </div>
         </div>
 
-        <div class="pt-4 border-t border-slate-100 mt-5 flex items-center justify-between">
+        <div class="pt-4 border-t border-slate-100 mt-5 flex items-center justify-between gap-2">
           <a href="${escapeHtml(safeUrl)}" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-700 hover:text-blue-900 flex items-center">
             View Repository →
           </a>
-          <span class="text-[11px] font-mono text-slate-500">${escapeHtml(repo.name)}</span>
+          <button type="button" onclick="askAboutProject('${safeProjectTitle}')" class="px-2.5 py-1 rounded-md bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-[11px] font-semibold transition-colors">
+            Summarize with Suman AI
+          </button>
         </div>
       </article>
     `;
@@ -476,13 +553,13 @@ function initSkillsFilter() {
 }
 
 // ============================================================================
-// 4. STRICT CONTENT & OFF-TOPIC GUARDRAILS
+// 4. STRICT CONTENT & OFF-TOPIC GUARDRAILS (WITH DYNAMIC PROJECT RECOGNITION)
 // ============================================================================
 function validatePortfolioQuery(rawQuery) {
   const q = rawQuery.toLowerCase().trim();
 
   if (q.length < 2) {
-    return { allowed: false, reason: "Please enter a clear question about Suman's background or projects." };
+    return { allowed: false, reason: "Please enter a question about Suman's projects, studies, work experience, or technical skills." };
   }
 
   const blockedPatterns = [
@@ -503,33 +580,46 @@ function validatePortfolioQuery(rawQuery) {
     if (pattern.test(q)) {
       return {
         allowed: false,
-        reason: "This assistant is strictly restricted to answering professional questions about Suman Bhandari's resume, education, skills, and selected portfolio projects."
+        reason: "Suman AI is strictly focused on answering professional questions about Suman Bhandari's projects, education, commercial experience, and technical skills."
       };
     }
   }
 
   const allowedKeywords = [
-    "suman", "bhandari", "hi", "hello", "hey", "kia ora", "who", "about", "background", "summary", "profile",
+    "suman", "bhandari", "hi", "hello", "hey", "kia ora", "who", "about", "background", "summary", "summarize", "summarise", "profile", "overview", "explain", "tell me", "detail", "more",
     "skill", "tech", "stack", "tool", "python", "sql", "t-sql", "postgresql", "postgres", "sql server", "mysql",
-    "power bi", "powerbi", "dax", "tableau", "looker", "excel", "xlookup", "pivot", "bi", "business intelligence",
+    "power bi", "powerbi", "dax", "tableau", "looker", "excel", "xlookup", "pivot", "bi", "business intelligence", "dashboard",
     "snowflake", "databricks", "spark", "pyspark", "delta", "medallion", "kimball", "star schema", "etl", "elt",
     "dbt", "airflow", "dag", "orchestration", "azure", "adf", "data factory", "fabric", "synapse", "adls",
     "bigquery", "gcp", "aws", "s3", "redshift", "glue", "cloud", "warehouse", "warehousing", "database", "lakehouse",
-    "machine learning", "ml", "data science", "scientist", "scikit", "xgboost", "regression", "classification", "clustering",
-    "r ", "tidyverse", "ggplot", "statistics", "statistical", "forecasting", "time-series", "time series", "pandas", "numpy",
+    "machine learning", "ml", "data science", "scientist", "scikit", "xgboost", "regression", "classification", "clustering", "predictive", "prediction", "model",
+    "r ", "tidyverse", "ggplot", "statistics", "statistical", "forecasting", "time-series", "time series", "pandas", "numpy", "eda",
     "git", "github", "docker", "ci/cd", "agile", "scrum", "jira", "clickup", "confluence",
-    "project", "repo", "repository", "pipeline", "music", "diwali", "dewali", "featured",
-    "work", "experience", "career", "job", "role", "intern", "internship", "student", "study", "studying", "available", "availability", "open", "status", "hire", "hiring", "part-time", "part time", "graduate",
-    "education", "degree", "master", "bachelor", "unitec", "college", "samriddhi", "siddhartha", "qualification", "university",
-    "bank", "laxmi", "sunrise", "catalyst", "consultancy", "lis", "nepal", "auckland", "henderson", "new zealand", "nz", "australia",
-    "contact", "phone", "number", "mobile", "sms", "text", "call", "email", "gmail", "linkedin", "reach", "connect", "cv", "resume", "data", "analyst", "engineer", "engineering", "analytics"
+    "project", "projects", "repo", "repository", "pipeline", "music", "spotify", "streaming", "diwali", "dewali", "retail", "sales", "featured",
+    "residential", "property", "price", "housing", "real estate", "valuation", "market",
+    "work", "worked", "working", "experience", "career", "job", "role", "intern", "internship", "student", "studi", "study", "studies", "studying", "studied", "school",
+    "available", "availability", "open", "status", "hire", "hiring", "why", "strength", "fit", "part-time", "part time", "full-time", "full time", "graduate", "visa",
+    "education", "educational", "academic", "degree", "master", "masters", "bachelor", "bachelors", "csit", "unitec", "college", "samriddhi", "siddhartha", "qualification", "university", "institute",
+    "bank", "banking", "laxmi", "sunrise", "catalyst", "consultancy", "lis", "nepal", "auckland", "henderson", "new zealand", "nz", "australia",
+    "contact", "phone", "number", "mobile", "sms", "text", "call", "email", "gmail", "linkedin", "reach", "connect", "cv", "resume", "data", "analyst", "engineer", "engineering", "analytics", "his", "him", "he"
   ];
+
+  // Dynamically include all words from live GitHub projects
+  liveProjectsList.forEach(pr => {
+    if (pr.name) allowedKeywords.push(pr.name.toLowerCase());
+    if (pr.displayName) {
+      pr.displayName.toLowerCase().split(/[\s\-_&,/]+/).forEach(w => {
+        if (w.length >= 3) allowedKeywords.push(w);
+      });
+    }
+    (pr.tags || []).forEach(t => allowedKeywords.push(t.toLowerCase()));
+  });
 
   const isRelevant = allowedKeywords.some(kw => q.includes(kw));
   if (!isRelevant) {
     return {
       allowed: false,
-      reason: "I can only answer questions related to Suman Bhandari's Data Engineering, Analytics & Data Science skills, Unitec Master's study, work experience, selected projects, or contact details."
+      reason: "I'm Suman AI — I specialize in Suman Bhandari's GitHub projects, Unitec Master's studies, 2+ years of commercial data experience, and technical skills. Try asking about one of his projects or his academic background!"
     };
   }
 
@@ -537,7 +627,7 @@ function validatePortfolioQuery(rawQuery) {
 }
 
 // ============================================================================
-// 5. AI ASSISTANT ENGINE (EMPLOYER-SIZED 2,500 TOKENS / 1-HOUR AUTO-RESTART)
+// 5. SUMAN AI PRO AGENT ENGINE (EMPLOYER-SIZED 2,500 TOKENS / 1-HOUR SESSION)
 // ============================================================================
 function getVisitorQuota() {
   const now = Date.now();
@@ -566,18 +656,13 @@ function saveVisitorQuota(quota) {
   } catch (e) {}
 }
 
-function getMinutesUntilSessionReset(quota) {
-  if (!quota || !quota.expiresAt) return 60;
-  const remainingMs = Math.max(0, quota.expiresAt - Date.now());
-  return Math.max(1, Math.ceil(remainingMs / 60000));
-}
-
 function initAgentUI() {
   const chatForm = document.getElementById("agent-chat-form");
   const chatInput = document.getElementById("agent-chat-input");
+  const popupForm = document.getElementById("popup-chat-form");
+  const popupInput = document.getElementById("popup-chat-input");
 
   updateTokenDisplay();
-  // Automatically check and refresh the 1-hour session countdown every 15 seconds
   setInterval(updateTokenDisplay, 15000);
 
   if (chatForm && chatInput) {
@@ -585,70 +670,92 @@ function initAgentUI() {
       e.preventDefault();
       const rawMessage = chatInput.value.trim().slice(0, HARD_MAX_INPUT_CHARS);
       if (!rawMessage) return;
-
-      const now = Date.now();
-      if (now - lastQuestionTimestamp < COOLDOWN_MS) {
-        const waitSec = Math.ceil((COOLDOWN_MS - (now - lastQuestionTimestamp)) / 1000);
-        showToastNotification(`Please wait ${waitSec}s before sending another question.`);
-        return;
-      }
-
-      const quota = getVisitorQuota();
-      if (quota.tokensRemaining <= 20 || quota.questionsAsked >= HOURLY_MAX_QUESTIONS) {
-        const p = getData().profile || {};
-        appendMessage(
-          "agent",
-          `Session allowance reached. Please contact Suman directly at **${p.email || "bhsuman11@gmail.com"}** or **${p.phoneDisplay || "+64 22 051 2513"}**.`
-        );
-        return;
-      }
-
-      lastQuestionTimestamp = now;
-      appendMessage("user", rawMessage);
       chatInput.value = "";
-
-      const validation = validatePortfolioQuery(rawMessage);
-      if (!validation.allowed) {
-        appendMessage("agent", validation.reason, 0, rawMessage);
-        triggerSmsAlert(`[Filtered Off-Topic Prompt]: ${rawMessage}`, validation.reason, "AI Assistant (Filtered)");
-        return;
-      }
-
-      chatInput.disabled = true;
-      const typingId = showTypingIndicator();
-
-      try {
-        const response = await generateAgentResponse(rawMessage);
-        removeTypingIndicator(typingId);
-        appendMessage("agent", response.text, response.tokenCost, rawMessage);
-        triggerSmsAlert(rawMessage, response.text, "AI Chat Assistant");
-      } catch (err) {
-        removeTypingIndicator(typingId);
-        const fallback = generateLocalResponse(rawMessage, Math.ceil(rawMessage.length / 4));
-        appendMessage("agent", fallback.text, fallback.tokenCost, rawMessage);
-        triggerSmsAlert(rawMessage, fallback.text, "AI Chat Assistant");
-      } finally {
-        chatInput.disabled = false;
-        chatInput.focus();
-      }
+      await handleUserQuerySubmit(rawMessage);
     });
+  }
+
+  if (popupForm && popupInput) {
+    popupForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const rawMessage = popupInput.value.trim().slice(0, HARD_MAX_INPUT_CHARS);
+      if (!rawMessage) return;
+      popupInput.value = "";
+      await handleUserQuerySubmit(rawMessage);
+    });
+  }
+}
+
+async function handleUserQuerySubmit(rawMessage) {
+  const chatInput = document.getElementById("agent-chat-input");
+  const popupInput = document.getElementById("popup-chat-input");
+
+  const now = Date.now();
+  if (now - lastQuestionTimestamp < COOLDOWN_MS) {
+    const waitSec = Math.ceil((COOLDOWN_MS - (now - lastQuestionTimestamp)) / 1000);
+    showToastNotification(`Please wait ${waitSec}s before sending another question.`);
+    return;
+  }
+
+  const quota = getVisitorQuota();
+  if (quota.tokensRemaining <= 20 || quota.questionsAsked >= HOURLY_MAX_QUESTIONS) {
+    const p = getData().profile || {};
+    appendMessage(
+      "agent",
+      `Session allowance reached. Please contact Suman directly at **${p.email || "bhsuman11@gmail.com"}** or **${p.phoneDisplay || "+64 22 051 2513"}**.`
+    );
+    return;
+  }
+
+  lastQuestionTimestamp = now;
+  appendMessage("user", rawMessage);
+
+  const validation = validatePortfolioQuery(rawMessage);
+  if (!validation.allowed) {
+    appendMessage("agent", validation.reason, 0, rawMessage);
+    triggerSmsAlert(`[Filtered Off-Topic Prompt]: ${rawMessage}`, validation.reason, "Suman AI (Filtered)");
+    return;
+  }
+
+  if (chatInput) chatInput.disabled = true;
+  if (popupInput) popupInput.disabled = true;
+  const typingId = showTypingIndicator();
+
+  try {
+    const response = await generateAgentResponse(rawMessage);
+    removeTypingIndicator(typingId);
+    appendMessage("agent", response.text, response.tokenCost, rawMessage);
+    triggerSmsAlert(rawMessage, response.text, "Suman AI");
+  } catch (err) {
+    removeTypingIndicator(typingId);
+    const fallback = generateLocalResponse(rawMessage, Math.ceil(rawMessage.length / 4));
+    appendMessage("agent", fallback.text, fallback.tokenCost, rawMessage);
+    triggerSmsAlert(rawMessage, fallback.text, "Suman AI");
+  } finally {
+    if (chatInput) chatInput.disabled = false;
+    if (popupInput) popupInput.disabled = false;
   }
 }
 
 function updateTokenDisplay() {
   const quota = getVisitorQuota();
-  const tokenMeter = document.getElementById("agent-token-meter");
-  const tokenBar = document.getElementById("agent-token-bar");
-  if (tokenMeter) {
-    tokenMeter.textContent = `${quota.tokensRemaining} / ${HOURLY_MAX_TOKENS} tokens`;
-  }
-  if (tokenBar) {
-    const pct = Math.max(0, Math.min(100, (quota.tokensRemaining / HOURLY_MAX_TOKENS) * 100));
-    tokenBar.style.width = `${pct}%`;
-    tokenBar.className = pct < 20
-      ? "token-bar-fill h-full bg-red-600 rounded-full"
-      : "token-bar-fill h-full bg-blue-600 rounded-full";
-  }
+  const pct = Math.max(0, Math.min(100, (quota.tokensRemaining / HOURLY_MAX_TOKENS) * 100));
+  const barClass = pct < 20
+    ? "token-bar-fill h-full bg-red-600 rounded-full"
+    : "token-bar-fill h-full bg-blue-600 rounded-full";
+
+  ["agent-token-meter", "popup-token-meter"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = `${quota.tokensRemaining} / ${HOURLY_MAX_TOKENS} tokens`;
+  });
+
+  ["agent-token-bar", "popup-token-bar"].forEach(id => {
+    const bar = document.getElementById(id);
+    if (bar) {
+      bar.style.width = `${pct}%`;
+      bar.className = barClass;
+    }
+  });
 }
 
 function consumeVisitorTokens(amount) {
@@ -660,29 +767,33 @@ function consumeVisitorTokens(amount) {
 }
 
 function appendMessage(sender, text, tokenCost = null, originalQuestion = "") {
-  const container = document.getElementById("agent-messages");
-  if (!container) return;
-  const p = getData().profile || {};
+  const containers = [
+    document.getElementById("agent-messages"),
+    document.getElementById("popup-agent-messages")
+  ].filter(Boolean);
 
-  const msgDiv = document.createElement("div");
-  msgDiv.className = `flex ${sender === "user" ? "justify-end" : "justify-start"}`;
+  if (containers.length === 0) return;
+  const data = getData();
+  const p = data.profile || {};
+  const agentName = (data.assistant && data.assistant.agentName) || "Suman AI";
 
+  let innerHtml = "";
   if (sender === "user") {
-    msgDiv.innerHTML = `
-      <div class="chat-bubble-user bg-blue-700 text-white rounded-xl max-w-[85%] px-3.5 py-2.5 text-sm shadow-xs">
+    innerHtml = `
+      <div class="chat-bubble-user bg-blue-700 text-white rounded-xl max-w-[85%] px-3.5 py-2.5 text-xs sm:text-sm shadow-xs">
         <p>${escapeHtml(text)}</p>
       </div>
     `;
   } else {
     const formattedText = renderMarkdown(text);
     const smsLink = sanitizeUrl(`sms:${p.phoneDial || "+64220512513"}?body=${encodeURIComponent("Hi Suman, regarding: " + (originalQuestion || "").slice(0, 60))}`);
-    msgDiv.innerHTML = `
-      <div class="chat-bubble-agent bg-slate-50 text-slate-900 border border-slate-300 rounded-xl max-w-[90%] px-4 py-3 text-sm">
-        <div class="flex items-center justify-between pb-1.5 mb-1.5 border-b border-slate-200 text-[11px] text-slate-600">
-          <span class="font-semibold text-blue-700">Portfolio Assistant</span>
+    innerHtml = `
+      <div class="chat-bubble-agent bg-slate-50 text-slate-900 border border-slate-300 rounded-xl max-w-[94%] px-4 py-3 text-xs sm:text-sm">
+        <div class="flex items-center justify-between pb-1.5 mb-2 border-b border-slate-200 text-[11px] text-slate-600">
+          <span class="font-bold text-blue-700">${escapeHtml(agentName)} • Portfolio Intelligence</span>
           ${tokenCost !== null ? `<span class="font-mono">${tokenCost} tokens</span>` : ""}
         </div>
-        <div class="text-slate-900 leading-relaxed text-xs sm:text-sm">${formattedText}</div>
+        <div class="text-slate-900 leading-relaxed text-xs sm:text-sm space-y-1">${formattedText}</div>
         <div class="mt-2.5 pt-2 border-t border-slate-200 flex items-center justify-between text-[11px]">
           <a href="${escapeHtml(smsLink)}" class="text-blue-700 hover:underline font-medium">Text Suman (${escapeHtml(p.phoneLocal || "022 051 2513")})</a>
           <span class="text-slate-500">✓ Suman notified</span>
@@ -691,40 +802,51 @@ function appendMessage(sender, text, tokenCost = null, originalQuestion = "") {
     `;
   }
 
-  container.appendChild(msgDiv);
-  container.scrollTop = container.scrollHeight;
+  containers.forEach(container => {
+    const msgDiv = document.createElement("div");
+    msgDiv.className = `flex ${sender === "user" ? "justify-end" : "justify-start"}`;
+    msgDiv.innerHTML = innerHtml;
+    container.appendChild(msgDiv);
+    container.scrollTop = container.scrollHeight;
+  });
 }
 
 function showTypingIndicator() {
-  const container = document.getElementById("agent-messages");
-  if (!container) return null;
+  const containers = [
+    document.getElementById("agent-messages"),
+    document.getElementById("popup-agent-messages")
+  ].filter(Boolean);
+  if (containers.length === 0) return null;
+
   const id = "typing-" + Date.now();
-  const div = document.createElement("div");
-  div.id = id;
-  div.className = "flex justify-start";
-  div.innerHTML = `
-    <div class="chat-bubble-agent bg-slate-50 text-slate-700 border border-slate-300 rounded-xl px-3.5 py-2 text-xs font-mono">
-      Checking Suman's portfolio...
-    </div>
-  `;
-  container.appendChild(div);
-  container.scrollTop = container.scrollHeight;
+  containers.forEach((container, idx) => {
+    const div = document.createElement("div");
+    div.id = `${id}-${idx}`;
+    div.setAttribute("data-typing-id", id);
+    div.className = "flex justify-start";
+    div.innerHTML = `
+      <div class="chat-bubble-agent bg-slate-50 text-slate-700 border border-slate-300 rounded-xl px-3.5 py-2 text-xs font-mono">
+        Suman AI is synthesizing an executive summary...
+      </div>
+    `;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+  });
   return id;
 }
 
 function removeTypingIndicator(id) {
   if (!id) return;
-  const el = document.getElementById(id);
-  if (el) el.remove();
+  document.querySelectorAll(`[data-typing-id="${id}"]`).forEach(el => el.remove());
 }
 
 function buildDynamicPortfolioSummary() {
   const data = getData();
   const p = data.profile || {};
   const skills = (data.skills || []).map(s => `${s.name} (${s.description})`).join("; ");
-  const exp = (data.experience || []).map(e => `${e.role} at ${e.company} (${e.period})`).join("; ");
-  const edu = (data.education || []).map(ed => `${ed.degree} ${ed.major || ""} at ${ed.institution} (${ed.period})`).join("; ");
-  const projs = liveProjectsList.map(pr => `${pr.displayName} (${pr.tags.join(", ")})`).join("; ");
+  const exp = (data.experience || []).map(e => `${e.role} at ${e.company}, ${e.location} (${e.period}): ${(e.bullets || []).join(" ")}`).join(" | ");
+  const edu = (data.education || []).map(ed => `${ed.degree} ${ed.major ? "(" + ed.major + ")" : ""} at ${ed.institution}, ${ed.location} (${ed.period}): ${ed.description || ""}`).join(" | ");
+  const projs = liveProjectsList.map(pr => `${pr.displayName} [Repo: ${pr.name}, Category: ${pr.category}, Tech: ${(pr.tags || []).join(", ")}, URL: ${pr.html_url}]: ${pr.description} Highlights: ${(pr.highlights || []).join(" ")}`).join(" || ");
   const extra = (data.assistant && data.assistant.extraNotesForAI) || "";
 
   return `Name: ${p.name} | Role: ${p.headline} | Location: ${p.location} | Status: ${p.statusBadge}
@@ -732,7 +854,7 @@ Extra Notes: ${extra}
 Education: ${edu}
 Experience: ${exp}
 Skills: ${skills}
-Whitelisted Portfolio Projects: ${projs}
+Verified Public GitHub Projects: ${projs}
 Public Contact: ${p.phoneDisplay} (${p.phoneLocal}), Email: ${p.email}`;
 }
 
@@ -755,13 +877,13 @@ async function callGeminiAPI(userQuery, inputTokens) {
   const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${geminiApiKey}`;
   const summaryContext = buildDynamicPortfolioSummary();
 
-  const systemInstruction = `You are a strictly bounded portfolio Q&A assistant for Suman Bhandari.
+  const systemInstruction = `You are Suman AI, an executive-level Portfolio & Project Intelligence Agent representing Suman Bhandari.
 PORTFOLIO FACTS:
 ${summaryContext}
-STRICT SECURITY & CONTENT RULES:
-1) Answer ONLY questions about Suman Bhandari's education, skills, whitelisted projects, experience, or public contact details.
-2) NEVER write code, jokes, stories, essays, or answer unrelated topics.
-3) Keep your reply clear, employer-focused, under 150 words, and under ${HARD_MAX_OUTPUT_TOKENS} tokens.`;
+STRICT PROFESSIONAL RULES:
+1) Answer ONLY questions about Suman Bhandari's projects, education/studies, work experience, technical skills, or contact details.
+2) When asked about a specific project or all projects, provide a structured, professional Executive Summary with Overview, Key Engineering/Analytical Highlights, and Tech Stack.
+3) Format clearly with bold headings and bullet points (•). Keep under 220 words and under ${HARD_MAX_OUTPUT_TOKENS} tokens.`;
 
   const response = await fetch(endpoint, {
     method: "POST",
@@ -770,8 +892,8 @@ STRICT SECURITY & CONTENT RULES:
       contents: [{ role: "user", parts: [{ text: `${systemInstruction}\n\nVisitor Question: ${userQuery}` }] }],
       generationConfig: {
         maxOutputTokens: HARD_MAX_OUTPUT_TOKENS,
-        temperature: 0.15,
-        topP: 0.8
+        temperature: 0.2,
+        topP: 0.85
       }
     })
   });
@@ -782,7 +904,7 @@ STRICT SECURITY & CONTENT RULES:
   let text = (data.candidates?.[0]?.content?.parts?.[0]?.text || "").trim();
   if (!text) return generateLocalResponse(userQuery, inputTokens);
 
-  if (text.length > 850) text = text.slice(0, 847) + "...";
+  if (text.length > 1400) text = text.slice(0, 1397) + "...";
 
   const outputTokens = Math.min(HARD_MAX_OUTPUT_TOKENS, Math.ceil(text.length / 4));
   const totalUsed = Math.min(HARD_MAX_OUTPUT_TOKENS + inputTokens, inputTokens + outputTokens);
@@ -791,31 +913,254 @@ STRICT SECURITY & CONTENT RULES:
   return { text, tokenCost: totalUsed };
 }
 
+function findMatchingProject(q) {
+  // Don't match a single project if the user explicitly asks for "all projects"
+  if (q.includes("all project") || q.includes("every project") || q.includes("list of project") || q.includes("his projects")) {
+    return null;
+  }
+
+  const keywordMap = [
+    {
+      match: ["residential", "property", "housing", "real estate", "price prediction", "valuation"],
+      repoMatch: "residential-property-price-prediction-bi"
+    },
+    {
+      match: ["warehousing", "warehouse", "big data", "big-data", "pipeline", "medallion", "kimball", "star schema"],
+      repoMatch: "big-data-warehousing-pipeline"
+    },
+    {
+      match: ["music", "spotify", "streaming", "audio", "song", "listener"],
+      repoMatch: "music"
+    },
+    {
+      match: ["diwali", "dewali", "festival", "retail sales", "customer segmentation", "purchasing"],
+      repoMatch: "data-analysis-dewali"
+    }
+  ];
+
+  for (const rule of keywordMap) {
+    if (rule.match.some(kw => q.includes(kw))) {
+      const found = liveProjectsList.find(p => p.name.toLowerCase() === rule.repoMatch);
+      if (found) return found;
+    }
+  }
+
+  // Dynamic match against any current or future public GitHub repo name or displayName
+  for (const proj of liveProjectsList) {
+    const repoLower = (proj.name || "").toLowerCase();
+    const displayLower = (proj.displayName || "").toLowerCase();
+    if (repoLower && q.includes(repoLower)) return proj;
+    if (displayLower && q.includes(displayLower)) return proj;
+
+    const significantTokens = displayLower
+      .split(/[\s\-_&,/()]+/)
+      .filter(w => w.length >= 5 && !["project", "analysis", "analytics", "pipeline", "intelligence", "business", "system", "data"].includes(w));
+
+    if (significantTokens.some(tok => q.includes(tok))) {
+      return proj;
+    }
+  }
+
+  return null;
+}
+
+function formatSingleProjectExecutiveSummary(proj) {
+  const highlights = Array.isArray(proj.highlights) && proj.highlights.length > 0
+    ? proj.highlights
+    : [
+        "End-to-end data ingestion, automated cleaning, and structured feature preparation.",
+        "In-depth analytical modeling and business KPI extraction tailored for decision-makers.",
+        "Reproducible codebase and documentation published on GitHub."
+      ];
+
+  const highlightsBullets = highlights.map(h => `• ${h}`).join("\n");
+  const techStack = (proj.tags || []).join(", ") || "Python, SQL, Power BI";
+
+  return `**Executive Project Summary — ${proj.displayName}**\n` +
+    `**Category**: ${proj.category}\n` +
+    `**Project Overview**: ${proj.description}\n\n` +
+    `**Key Engineering & Analytical Highlights**:\n${highlightsBullets}\n\n` +
+    `**Tech Stack**: ${techStack}\n` +
+    `**GitHub Repository**: [View ${proj.name} on GitHub](${proj.html_url})`;
+}
+
+function formatAllProjectsExecutiveSummary() {
+  if (!liveProjectsList || liveProjectsList.length === 0) {
+    return "Suman's public GitHub projects are available at [github.com/bhsuman](https://github.com/bhsuman).";
+  }
+
+  const lines = liveProjectsList.map((proj, idx) => {
+    const tech = (proj.tags || []).slice(0, 4).join(", ");
+    return `**${idx + 1}. ${proj.displayName}** *(${proj.category})*\n` +
+      `• **Summary**: ${proj.description}\n` +
+      `• **Tech Stack**: ${tech} — [GitHub Repo](${proj.html_url})`;
+  }).join("\n\n");
+
+  return `**Executive Summary of Suman's Public Portfolio Projects (${liveProjectsList.length} Verified Repositories)**:\n\n` +
+    `${lines}\n\n` +
+    `*Tip: Ask me about any specific project above (e.g., "Tell me more about Residential Property Price Prediction") for a deep-dive technical breakdown.*`;
+}
+
 function generateLocalResponse(query, inputTokens) {
-  const q = query.toLowerCase();
+  const q = query.toLowerCase().trim();
   const data = getData();
   const p = data.profile || {};
   let responseText = "";
 
-  if (q.includes("contact") || q.includes("phone") || q.includes("number") || q.includes("call") || q.includes("email") || q.includes("reach") || q.includes("sms")) {
-    responseText = `You can contact ${p.name || "Suman"} directly via:\n• **Phone / SMS**: ${p.phoneDisplay} (${p.phoneLocal})\n• **Email**: ${p.email}\n• **Location**: ${p.location}`;
-  } else if (q.includes("student") || q.includes("status") || q.includes("open") || q.includes("available") || q.includes("availability") || (q.includes("work") && (q.includes("status") || q.includes("open") || q.includes("intern")))) {
-    responseText = (data.assistant && data.assistant.extraNotesForAI) || `Current status: **${p.statusBadge}** — ${data.about?.calloutText || ""}`;
-  } else if (q.includes("skill") || q.includes("python") || q.includes("sql") || q.includes("power bi") || q.includes("tableau") || q.includes("snowflake") || q.includes("dbt") || q.includes("airflow") || q.includes("fabric") || q.includes("azure") || q.includes("machine learning") || q.includes("scientist") || q.includes("tech") || q.includes("stack") || q.includes("tool")) {
-    responseText = `Suman's technical stack across key roles:\n• **Data Engineering**: Snowflake, Databricks, PySpark, Delta Lake, dbt, Airflow, Azure Data Factory, MS Fabric, SQL Server, PostgreSQL\n• **Data Analytics & BI**: Advanced SQL, Power BI (DAX, Power Query), Tableau, Looker Studio, Excel\n• **Data Science & ML**: Python (Pandas, Scikit-Learn, XGBoost), R (tidyverse), Statistical Modeling, AWS & BigQuery`;
-  } else if (q.includes("project") || q.includes("github") || q.includes("repo") || q.includes("dewali") || q.includes("diwali") || q.includes("music") || q.includes("featured") || q.includes("pipeline")) {
-    const topList = liveProjectsList.map(pr => `• **${pr.displayName}** (${(pr.tags || []).join(", ")})`).join("\n");
-    responseText = `Suman's featured portfolio projects include:\n${topList}`;
-  } else if (q.includes("experience") || q.includes("bank") || q.includes("laxmi") || q.includes("history") || q.includes("catalyst") || q.includes("lis") || (q.includes("work") && q.includes("unitec"))) {
-    const expText = (data.experience || []).map(e => `• **${e.role}** at ${e.company} (${e.period})`).join("\n");
-    const eduTop = data.education?.[0];
-    const studyLine = eduTop ? `\n• **Current Study**: ${eduTop.degree} (${eduTop.major}) at ${eduTop.institution}, ${eduTop.location}` : "";
-    responseText = `Suman's 2+ years of industry experience & current study:\n${expText}${studyLine}`;
-  } else if (q.includes("education") || q.includes("unitec") || q.includes("degree") || q.includes("master") || q.includes("bachelor") || q.includes("study") || q.includes("college")) {
-    const eduText = (data.education || []).map(ed => `• **${ed.degree}${ed.major ? ' (' + ed.major + ')' : ''}**: ${ed.institution} (${ed.period})`).join("\n");
-    responseText = eduText;
-  } else {
-    responseText = `${p.name} is a ${p.headline} (${p.statusBadge}) in ${p.location}. Skilled in SQL, Python, Snowflake, Databricks, dbt, Power BI, Tableau & Machine Learning. Contact: **${p.phoneLocal}** or **${p.email}**.`;
+  // 1) Check if the user is asking about a SPECIFIC project first (e.g., "tell me more about residential property")
+  const matchedProject = findMatchingProject(q);
+  if (matchedProject) {
+    responseText = formatSingleProjectExecutiveSummary(matchedProject);
+  }
+  // 2) General Projects / GitHub / Portfolio Summary
+  else if (
+    q.includes("project") ||
+    q.includes("github") ||
+    q.includes("repo") ||
+    q.includes("portfolio") ||
+    q.includes("built") ||
+    (q.includes("summary") && !q.includes("experience") && !q.includes("studi") && !q.includes("study"))
+  ) {
+    responseText = formatAllProjectsExecutiveSummary();
+  }
+  // 3) Studies, Academic Background, Degrees & Unitec (Fixes "studies", "study", "studied", "education", "unitec")
+  else if (
+    q.includes("studi") ||
+    q.includes("study") ||
+    q.includes("education") ||
+    q.includes("academic") ||
+    q.includes("unitec") ||
+    q.includes("degree") ||
+    q.includes("master") ||
+    q.includes("bachelor") ||
+    q.includes("csit") ||
+    q.includes("university") ||
+    q.includes("college") ||
+    q.includes("samriddhi") ||
+    q.includes("siddhartha") ||
+    q.includes("qualif") ||
+    q.includes("school")
+  ) {
+    responseText =
+      `**Academic & Postgraduate Background — ${p.name}**\n\n` +
+      `**1. Master of Applied Technologies – Computing (Current • 2026 – Present)**\n` +
+      `• **Institution**: Unitec Institute of Technology • Auckland, New Zealand\n` +
+      `• **Focus Areas**: Advanced Data Engineering, Cloud Analytics, Machine Learning Systems, and Enterprise Business Intelligence.\n\n` +
+      `**2. B.Sc. in Computer Science & Information Technology — B.Sc. CSIT Honours (2019 – 2023)**\n` +
+      `• **Institution**: Samriddhi College (Tribhuvan University) • Kathmandu, Nepal\n` +
+      `• **Focus Areas**: 4-year Honours degree covering Database Management Systems (DBMS), Data Warehousing, Statistical Computing, Algorithms, and Software Engineering.\n\n` +
+      `**Work Availability**: Based in Henderson, Auckland (**Student • Open to Work**), available for part-time data roles & internships during semester and full-time roles during breaks / upon graduation.`;
+  }
+  // 4) Specific or General Commercial Work Experience (2+ Years)
+  else if (
+    q.includes("experience") ||
+    q.includes("bank") ||
+    q.includes("laxmi") ||
+    q.includes("sunrise") ||
+    q.includes("catalyst") ||
+    q.includes("consultancy") ||
+    q.includes("lis ") ||
+    q.includes("lis nepal") ||
+    q.includes("career") ||
+    q.includes("worked") ||
+    q.includes("work history") ||
+    q.includes("employment") ||
+    q.includes("company") ||
+    q.includes("companies")
+  ) {
+    const expList = (data.experience || []).map(e => {
+      const topBullets = (e.bullets || []).slice(0, 2).map(b => `  – ${b}`).join("\n");
+      return `**• ${e.role} — ${e.company}** *(${e.period} | ${e.location})*\n${topBullets}`;
+    }).join("\n\n");
+
+    responseText =
+      `**Commercial Data & Analytics Experience (2+ Years)**\n\n` +
+      `${expList}\n\n` +
+      `**Current Status**: Pursuing his Master's at **Unitec (Auckland)** and actively open to Data Engineer, Data Analyst, and Data Scientist roles in NZ & Australia.`;
+  }
+  // 5) Technical Skills, Stack & Role Fit (Data Engineer, Data Analyst, Data Scientist)
+  else if (
+    q.includes("skill") ||
+    q.includes("stack") ||
+    q.includes("tech") ||
+    q.includes("tool") ||
+    q.includes("snowflake") ||
+    q.includes("databricks") ||
+    q.includes("power bi") ||
+    q.includes("tableau") ||
+    q.includes("python") ||
+    q.includes("sql") ||
+    q.includes("dbt") ||
+    q.includes("airflow") ||
+    q.includes("fabric") ||
+    q.includes("azure") ||
+    q.includes("machine learning") ||
+    q.includes("data engineer") ||
+    q.includes("data analyst") ||
+    q.includes("data scientist") ||
+    q.includes("why hire") ||
+    q.includes("strength") ||
+    q.includes("fit")
+  ) {
+    responseText =
+      `**Core Technical Stack & Role Alignment — ${p.name}**\n\n` +
+      `**• Data Engineering & Cloud Warehousing**:\n` +
+      `  Snowflake, Databricks (PySpark, Delta Lake), dbt, Apache Airflow, Azure Data Factory (ADF), Microsoft Fabric, Kimball Star Schema, Medallion Architecture, SQL Server & PostgreSQL.\n\n` +
+      `**• Data Analytics & Business Intelligence**:\n` +
+      `  Advanced SQL (CTEs, Window Functions, Query Optimization), Power BI (DAX, Power Query, Executive KPI Dashboards), Tableau, Looker Studio, and Advanced Excel.\n\n` +
+      `**• Data Science & Machine Learning**:\n` +
+      `  Python (Pandas, NumPy, Scikit-Learn, XGBoost), R (tidyverse), Predictive Regression/Classification, A/B Testing, and Time-Series Forecasting.`;
+  }
+  // 6) Contact Information
+  else if (
+    q.includes("contact") ||
+    q.includes("phone") ||
+    q.includes("number") ||
+    q.includes("call") ||
+    q.includes("email") ||
+    q.includes("reach") ||
+    q.includes("sms") ||
+    q.includes("text") ||
+    q.includes("linkedin") ||
+    q.includes("connect")
+  ) {
+    responseText =
+      `**Direct Contact Details — ${p.name}**\n` +
+      `• **Phone / SMS**: ${p.phoneDisplay} (${p.phoneLocal})\n` +
+      `• **Email**: ${p.email}\n` +
+      `• **Location**: ${p.location}\n` +
+      `• **LinkedIn**: [Suman Bhandari on LinkedIn](${p.linkedinUrl || "https://www.linkedin.com/in/suman-bhandari-ab4394279/"})\n` +
+      `• **GitHub**: [github.com/bhsuman](${p.githubUrl || "https://github.com/bhsuman"})`;
+  }
+  // 7) Student Work Status & Availability
+  else if (
+    q.includes("student") ||
+    q.includes("status") ||
+    q.includes("open") ||
+    q.includes("available") ||
+    q.includes("availability") ||
+    q.includes("intern") ||
+    q.includes("visa") ||
+    q.includes("part-time") ||
+    q.includes("full-time")
+  ) {
+    responseText =
+      `**Current Status & Work Eligibility — ${p.name}**\n` +
+      `• **Status**: **${p.statusBadge}** (Master of Applied Technologies – Computing student at Unitec, Auckland).\n` +
+      `• **Availability**: Eligible for **part-time Data Engineer, Data Analyst, and Data Scientist roles or internships** during semester and **full-time work** during scheduled breaks and post-study across New Zealand & Australia.\n` +
+      `• **Direct Contact**: **${p.phoneLocal}** or **${p.email}**.`;
+  }
+  // 8) General Executive Candidate Overview (Fallback for broad questions like "Tell me about Suman", "Hello", etc.)
+  else {
+    const projectNames = liveProjectsList.map(pr => `**${pr.displayName}**`).join(", ");
+    responseText =
+      `**Executive Candidate Overview — ${p.name}**\n` +
+      `• **Current Profile**: ${p.headline} based in **${p.location}** (**${p.statusBadge}**).\n` +
+      `• **Commercial Experience (2+ Years)**: Delivered banking analytics, enterprise data warehouse ETL pipelines, and executive BI dashboards at **Laxmi Sunrise Bank**, **Development Catalyst Consultancy**, and **LIS Nepal**.\n` +
+      `• **Postgraduate Study**: Pursuing a **Master of Applied Technologies – Computing** at **Unitec (Auckland)**, holding a **B.Sc. CSIT (Honours)** degree.\n` +
+      `• **Featured Public Projects**: ${projectNames}.\n` +
+      `• **Core Stack**: SQL, Python, Snowflake, Databricks, dbt, Airflow, Power BI, Tableau & Machine Learning.\n\n` +
+      `*Ask me about any specific project (e.g., "Tell me more about Residential Property Price Prediction"), his studies, or his work experience for a detailed breakdown!*`;
   }
 
   const outputTokens = Math.min(HARD_MAX_OUTPUT_TOKENS, Math.ceil(responseText.length / 4));
@@ -1211,6 +1556,7 @@ function escapeHtml(str) {
 function renderMarkdown(md) {
   if (!md) return "";
   return escapeHtml(md)
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/gim, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-blue-700 font-semibold underline hover:text-blue-900">$1 ↗</a>')
     .replace(/\*\*(.*?)\*\*/gim, '<strong class="font-semibold text-slate-900">$1</strong>')
     .replace(/\*(.*?)\*/gim, '<em>$1</em>')
     .replace(/^\• (.*$)/gim, '<li class="ml-4 list-disc">$1</li>')
@@ -1219,7 +1565,7 @@ function renderMarkdown(md) {
 
 function showToastNotification(message) {
   const toast = document.createElement("div");
-  toast.className = "fixed bottom-5 right-5 z-50 bg-blue-900 text-white px-4 py-2.5 rounded-lg shadow-lg text-xs font-medium transition-all duration-300 translate-y-4 opacity-0";
+  toast.className = "fixed bottom-20 right-5 z-50 bg-blue-900 text-white px-4 py-2.5 rounded-lg shadow-lg text-xs font-medium transition-all duration-300 translate-y-4 opacity-0";
   toast.textContent = message;
   document.body.appendChild(toast);
 
@@ -1235,13 +1581,45 @@ function showToastNotification(message) {
   }, 3500);
 }
 
-window.askQuickQuestion = function(question) {
-  const chatInput = document.getElementById("agent-chat-input");
-  const chatForm = document.getElementById("agent-chat-form");
-  if (chatInput && chatForm) {
-    chatInput.value = question;
-    chatForm.dispatchEvent(new Event("submit"));
+// Floating Side-of-Screen Popup Controls (Suman AI)
+window.openSumanAIPopup = function() {
+  const popup = document.getElementById("suman-ai-popup");
+  const popupInput = document.getElementById("popup-chat-input");
+  if (popup) {
+    popup.classList.remove("hidden");
+    popup.classList.add("flex");
+    const msgBox = document.getElementById("popup-agent-messages");
+    if (msgBox) msgBox.scrollTop = msgBox.scrollHeight;
+    if (popupInput) setTimeout(() => popupInput.focus(), 80);
   }
+};
+
+window.closeSumanAIPopup = function() {
+  const popup = document.getElementById("suman-ai-popup");
+  if (popup) {
+    popup.classList.add("hidden");
+    popup.classList.remove("flex");
+  }
+};
+
+window.toggleSumanAIPopup = function() {
+  const popup = document.getElementById("suman-ai-popup");
+  if (!popup) return;
+  if (popup.classList.contains("hidden")) {
+    window.openSumanAIPopup();
+  } else {
+    window.closeSumanAIPopup();
+  }
+};
+
+window.askAboutProject = function(projectTitle) {
+  window.openSumanAIPopup();
+  const promptText = `Give me an executive summary of the ${projectTitle} project`;
+  handleUserQuerySubmit(promptText);
+};
+
+window.askQuickQuestion = function(question) {
+  handleUserQuerySubmit(question);
 };
 
 window.copyToClipboard = function(text, label) {

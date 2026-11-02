@@ -282,11 +282,29 @@ window.PORTFOLIO_DATA = {
   excludedRepos: ["suman-portfolio", "bhsuman"],
 
   githubRepoOverrides: {
+    "Residential-Property-Price-Prediction-BI": {
+      displayName: "Residential Property Price Prediction & BI",
+      category: "Machine Learning & BI",
+      description:
+        "End-to-end residential property valuation and Business Intelligence solution combining Python machine learning regression models with interactive BI analytics to predict housing prices and uncover key market value drivers.",
+      highlights: [
+        "Engineered end-to-end data preprocessing, outlier handling, and feature engineering across property attributes (location, floor area, bedrooms, land size, and market indicators).",
+        "Trained and evaluated supervised regression models in Python (Scikit-Learn) to deliver accurate residential property price predictions.",
+        "Built interactive Business Intelligence views to visualize regional price distributions, valuation trends, and key price determinants for decision-makers."
+      ],
+      tags: ["Python", "Scikit-Learn", "Machine Learning", "Power BI", "Predictive Modeling"],
+      featured: true
+    },
     "big-data-warehousing-pipeline": {
       displayName: "Cloud Data Warehousing & BI Pipeline",
       category: "Data Engineering & BI",
       description:
         "End-to-end cloud data warehousing and Business Intelligence pipeline implementing Medallion Architecture (Bronze/Silver/Gold) and Kimball dimensional star-schema modeling using Databricks, PySpark, Delta Lake, SQL, and Power BI.",
+      highlights: [
+        "Architected a multi-hop Medallion Lakehouse pipeline (Bronze raw ingestion, Silver cleansed/conformed layer, Gold dimensional presentation layer) in Databricks.",
+        "Developed distributed PySpark and Delta Lake ETL transformations to enforce schema validation, deduplication, and data quality rules.",
+        "Modeled Kimball Star Schema fact and dimension tables in SQL to power interactive executive KPI dashboards in Microsoft Power BI."
+      ],
       tags: ["Databricks", "PySpark", "Delta Lake", "Power BI", "SQL"],
       featured: true
     },
@@ -295,6 +313,11 @@ window.PORTFOLIO_DATA = {
       category: "Data Science & ML",
       description:
         "Machine learning web application that extracts acoustic and spectrogram features from audio files and classifies music tracks into genres using Python, Scikit-Learn, Django, and Matplotlib on the GTZAN dataset.",
+      highlights: [
+        "Processed raw audio signals from the GTZAN dataset to extract acoustic features including MFCCs, spectral centroid, chroma frequencies, and mel-spectrograms.",
+        "Trained and benchmarked supervised multi-class classification algorithms in Python (Scikit-Learn) for automated genre recognition.",
+        "Integrated the trained ML inference pipeline into an interactive Django web portal allowing users to upload audio files and view real-time classification results."
+      ],
       tags: ["Python", "Machine Learning", "Django", "Matplotlib", "GTZAN"],
       featured: true
     },
@@ -303,22 +326,30 @@ window.PORTFOLIO_DATA = {
       category: "Data Analytics & EDA",
       description:
         "In-depth exploratory data analysis inspecting customer demographics, regional segments, product categories, and order values to identify high-revenue retail purchasing patterns.",
+      highlights: [
+        "Cleaned and standardized raw retail transaction datasets in Python (Pandas, NumPy), resolving missing values, data-type mismatches, and duplicate records.",
+        "Conducted multi-dimensional exploratory data analysis across customer age groups, gender, occupations, states, and product categories.",
+        "Created statistical visualizations in Seaborn and Matplotlib to identify top-performing customer segments and optimize inventory and marketing targeting."
+      ],
       tags: ["Python", "Pandas", "Seaborn", "EDA", "Jupyter"],
       featured: true
     }
   },
 
   // --------------------------------------------------------------------------
-  // 8. AI ASSISTANT QUICK PROMPTS & EXTRA NOTES
+  // 8. SUMAN AI ASSISTANT QUICK PROMPTS & EXTRA NOTES
   // --------------------------------------------------------------------------
   assistant: {
+    name: "Suman AI",
+    subtitle: "Portfolio & Project Intelligence",
     welcomeMessage:
-      "Kia Ora! I am Suman Bhandari's Portfolio Assistant. Ask me about his Data Engineering, Data Analytics & Data Science skills, his Master's at Unitec Auckland, his 2+ years of work experience, or his GitHub projects.",
+      "Kia Ora! I'm **Suman AI**, Suman Bhandari's interactive portfolio assistant. Ask me for a detailed breakdown of any of his projects (such as Residential Property Price Prediction, Cloud Data Warehousing, or Music ML), his technical stack, his 2+ years of work experience, or his Master's studies at Unitec Auckland.",
     quickPrompts: [
+      { label: "Project Summaries", question: "Give me a professional summary of Suman's GitHub projects." },
+      { label: "Residential Property ML & BI", question: "Tell me more about the Residential Property Price Prediction BI project." },
+      { label: "Cloud Data Warehouse Pipeline", question: "Explain his Cloud Data Warehousing & BI Pipeline project." },
       { label: "Data Engineer & Analyst Skills", question: "What are Suman's skills for Data Engineer, Data Analyst, and Data Scientist roles?" },
-      { label: "Snowflake, Databricks & BI", question: "Tell me about his Snowflake, Databricks, SQL, and Power BI experience" },
-      { label: "Work Experience & Unitec Study", question: "What is Suman's work experience and current study at Unitec?" },
-      { label: "Student Status & Contact", question: "What is his current student work status and how can I contact him?" }
+      { label: "Experience & Unitec Studies", question: "Tell me about his work experience and his Master's studies at Unitec." }
     ],
     extraNotesForAI:
       "Suman Bhandari is based in Henderson, Auckland, New Zealand, pursuing his Master of Applied Technologies (Computing – Data Analytics) at Unitec Institute of Technology. He is a Student • Open to Work for Data Analyst, Data Engineer, Business Intelligence, and Data Scientist roles (internships, part-time, and graduate opportunities)."

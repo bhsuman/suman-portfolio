@@ -29,7 +29,7 @@
     }
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="stylesheet" href="styles.css?v=5">
   <link rel="icon" type="image/jpeg" href="assets/suman-bhandari.jpg">
 </head>
 <body class="bg-white text-slate-900 min-h-screen selection:bg-blue-600 selection:text-white">
@@ -82,7 +82,10 @@
           <a href="#projects" class="hover:text-blue-700 transition-colors">Projects</a>
           <a href="#experience" class="hover:text-blue-700 transition-colors">Experience</a>
           <a href="#education" class="hover:text-blue-700 transition-colors">Education</a>
-          <a href="#ai-agent-section" class="text-blue-700 font-semibold hover:text-blue-800 transition-colors">Ask Assistant</a>
+          <button type="button" onclick="openSumanAIPopup()" class="text-blue-700 font-semibold hover:text-blue-800 transition-colors flex items-center gap-1.5 cursor-pointer">
+            <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+            Suman AI
+          </button>
           <a href="#contact" class="hover:text-blue-700 transition-colors">Contact</a>
         </nav>
 
@@ -114,7 +117,7 @@
       <a href="#projects" class="block px-3 py-2 rounded-md text-slate-700 hover:bg-blue-50 hover:text-blue-700">Projects</a>
       <a href="#experience" class="block px-3 py-2 rounded-md text-slate-700 hover:bg-blue-50 hover:text-blue-700">Experience</a>
       <a href="#education" class="block px-3 py-2 rounded-md text-slate-700 hover:bg-blue-50 hover:text-blue-700">Education</a>
-      <a href="#ai-agent-section" class="block px-3 py-2 rounded-md font-semibold text-blue-700 bg-blue-50">Portfolio Q&amp;A Assistant</a>
+      <button type="button" onclick="openSumanAIPopup()" class="w-full text-left block px-3 py-2 rounded-md font-semibold text-blue-700 bg-blue-50">Suman AI (Portfolio Concierge)</button>
       <a href="#contact" class="block px-3 py-2 rounded-md text-slate-700 hover:bg-blue-50 hover:text-blue-700">Contact</a>
     </div>
   </header>
@@ -150,9 +153,10 @@
               <a href="#projects" class="px-5 py-2.5 rounded-lg bg-blue-700 hover:bg-blue-800 text-white font-semibold text-sm transition-colors">
                 View Featured Projects
               </a>
-              <a href="#ai-agent-section" class="px-5 py-2.5 rounded-lg bg-white hover:bg-blue-50 text-blue-700 border border-blue-300 font-semibold text-sm transition-colors">
-                Ask Portfolio Assistant
-              </a>
+              <button type="button" onclick="openSumanAIPopup()" class="px-5 py-2.5 rounded-lg bg-white hover:bg-blue-50 text-blue-700 border border-blue-300 font-semibold text-sm transition-colors flex items-center gap-2 cursor-pointer">
+                <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+                Ask Suman AI
+              </button>
               <a href="#contact" class="px-4 py-2.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-sm transition-colors">
                 Get in Touch
               </a>
@@ -487,7 +491,7 @@
             <div class="flex items-center gap-2">
               <p class="text-xs font-mono uppercase tracking-wider text-blue-700 font-semibold">Selected Portfolio Work</p>
               <span id="github-live-pill" class="inline-flex items-center px-2 py-0.5 rounded bg-blue-50 border border-blue-200 text-[11px] font-mono text-blue-700">
-                3 Verified Public Repositories
+                4 Verified Public Repositories
               </span>
             </div>
             <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-1">
@@ -499,8 +503,41 @@
           </div>
         </div>
 
-        <div id="github-projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <!-- 1. Cloud Data Warehousing & BI Pipeline -->
+        <div id="github-projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- 1. Residential Property Price Prediction & BI -->
+          <article class="rounded-xl card-clean p-6 flex flex-col justify-between">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between gap-2">
+                <span class="px-2.5 py-0.5 rounded-md bg-blue-50 border border-blue-200 text-blue-700 text-xs font-mono font-medium">Machine Learning &amp; BI</span>
+                <span class="text-[11px] font-mono text-slate-500">Verified</span>
+              </div>
+              <h3 class="text-lg font-bold text-slate-900">
+                <a href="https://github.com/bhsuman/Residential-Property-Price-Prediction-BI" target="_blank" rel="noopener noreferrer" class="hover:text-blue-700 transition-colors">
+                  Residential Property Price Prediction &amp; BI
+                </a>
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                End-to-end residential property valuation and Business Intelligence solution combining Python machine learning regression models with interactive BI analytics to predict housing prices and uncover key market value drivers.
+              </p>
+              <div class="flex flex-wrap gap-1.5 pt-1">
+                <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">Python</span>
+                <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">Scikit-Learn</span>
+                <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">Machine Learning</span>
+                <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">Power BI</span>
+                <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">Predictive Modeling</span>
+              </div>
+            </div>
+            <div class="pt-4 border-t border-slate-100 mt-5 flex items-center justify-between gap-2">
+              <a href="https://github.com/bhsuman/Residential-Property-Price-Prediction-BI" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-700 hover:text-blue-900 flex items-center">
+                View Repository →
+              </a>
+              <button type="button" onclick="askAboutProject('Residential Property Price Prediction & BI')" class="px-2.5 py-1 rounded-md bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-[11px] font-semibold transition-colors cursor-pointer">
+                Summarize with Suman AI
+              </button>
+            </div>
+          </article>
+
+          <!-- 2. Cloud Data Warehousing & BI Pipeline -->
           <article class="rounded-xl card-clean p-6 flex flex-col justify-between">
             <div class="space-y-3">
               <div class="flex items-center justify-between gap-2">
@@ -523,15 +560,17 @@
                 <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">SQL</span>
               </div>
             </div>
-            <div class="pt-4 border-t border-slate-100 mt-5 flex items-center justify-between">
+            <div class="pt-4 border-t border-slate-100 mt-5 flex items-center justify-between gap-2">
               <a href="https://github.com/bhsuman/big-data-warehousing-pipeline" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-700 hover:text-blue-900 flex items-center">
                 View Repository →
               </a>
-              <span class="text-[11px] font-mono text-slate-500">big-data-warehousing-pipeline</span>
+              <button type="button" onclick="askAboutProject('Cloud Data Warehousing & BI Pipeline')" class="px-2.5 py-1 rounded-md bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-[11px] font-semibold transition-colors cursor-pointer">
+                Summarize with Suman AI
+              </button>
             </div>
           </article>
 
-          <!-- 2. Music Genre Classification ML Portal -->
+          <!-- 3. Music Genre Classification ML Portal -->
           <article class="rounded-xl card-clean p-6 flex flex-col justify-between">
             <div class="space-y-3">
               <div class="flex items-center justify-between gap-2">
@@ -554,15 +593,17 @@
                 <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">GTZAN</span>
               </div>
             </div>
-            <div class="pt-4 border-t border-slate-100 mt-5 flex items-center justify-between">
+            <div class="pt-4 border-t border-slate-100 mt-5 flex items-center justify-between gap-2">
               <a href="https://github.com/bhsuman/Music" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-700 hover:text-blue-900 flex items-center">
                 View Repository →
               </a>
-              <span class="text-[11px] font-mono text-slate-500">Music</span>
+              <button type="button" onclick="askAboutProject('Music Genre Classification ML Portal')" class="px-2.5 py-1 rounded-md bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-[11px] font-semibold transition-colors cursor-pointer">
+                Summarize with Suman AI
+              </button>
             </div>
           </article>
 
-          <!-- 3. Retail Festive Sales & Customer Analytics -->
+          <!-- 4. Retail Festive Sales & Customer Analytics -->
           <article class="rounded-xl card-clean p-6 flex flex-col justify-between">
             <div class="space-y-3">
               <div class="flex items-center justify-between gap-2">
@@ -585,11 +626,13 @@
                 <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 border border-slate-200">Jupyter</span>
               </div>
             </div>
-            <div class="pt-4 border-t border-slate-100 mt-5 flex items-center justify-between">
+            <div class="pt-4 border-t border-slate-100 mt-5 flex items-center justify-between gap-2">
               <a href="https://github.com/bhsuman/Data-Analysis-Dewali" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-700 hover:text-blue-900 flex items-center">
                 View Repository →
               </a>
-              <span class="text-[11px] font-mono text-slate-500">Data-Analysis-Dewali</span>
+              <button type="button" onclick="askAboutProject('Retail Festive Sales & Customer Analytics')" class="px-2.5 py-1 rounded-md bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-[11px] font-semibold transition-colors cursor-pointer">
+                Summarize with Suman AI
+              </button>
             </div>
           </article>
         </div>
@@ -721,39 +764,45 @@
       </div>
     </section>
 
-    <!-- PORTFOLIO Q&A ASSISTANT -->
+    <!-- PORTFOLIO Q&A ASSISTANT (SUMAN AI) -->
     <section id="ai-agent-section" class="py-14 md:py-20 bg-white border-b border-slate-200">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div class="max-w-2xl mb-8">
-          <p class="text-xs font-mono uppercase tracking-wider text-blue-700 font-semibold">Interactive Q&amp;A</p>
+          <p class="text-xs font-mono uppercase tracking-wider text-blue-700 font-semibold">Suman AI • Portfolio &amp; Project Intelligence</p>
           <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-1">
-            Ask About Suman's Background
+            Ask Suman AI About Projects, Skills &amp; Experience
           </h2>
           <p class="text-sm text-slate-600 mt-1">
-            Ask questions about Suman's Data Engineering, Data Analytics &amp; Data Science skills, Unitec Master's study, work experience, or featured projects.
+            Ask Suman AI for executive summaries of any GitHub project, his Master's study at Unitec Auckland, his 2+ years of commercial data experience, or his technical stack.
           </p>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           <!-- Chat Box (8 cols) -->
-          <div class="lg:col-span-8 bg-white border border-slate-300 rounded-xl shadow-sm overflow-hidden flex flex-col h-[520px]">
+          <div class="lg:col-span-8 bg-white border border-slate-300 rounded-xl shadow-sm overflow-hidden flex flex-col h-[540px]">
             
             <!-- Header (No admin/config buttons exposed to public visitors) -->
             <div class="px-4 py-3 bg-blue-700 text-white flex items-center justify-between">
               <div class="flex items-center space-x-3">
-                <img src="assets/suman-bhandari.jpg" alt="Suman" class="w-8 h-8 rounded-full object-cover border border-blue-300">
+                <div class="relative">
+                  <img src="assets/suman-bhandari.jpg" alt="Suman AI" class="w-9 h-9 rounded-full object-cover border-2 border-blue-200">
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-blue-700 absolute bottom-0 right-0"></span>
+                </div>
                 <div>
-                  <h3 class="font-semibold text-sm leading-tight">Suman's Portfolio Assistant</h3>
-                  <p class="text-[11px] text-blue-100">
-                    Strict Resume Scope • Token-Bounded
+                  <div class="flex items-center gap-2">
+                    <h3 id="agent-header-title" class="font-bold text-sm leading-tight">Suman AI</h3>
+                    <span class="px-1.5 py-0.5 rounded bg-blue-800 text-blue-100 text-[10px] font-mono border border-blue-500">PRO AGENT</span>
+                  </div>
+                  <p id="agent-header-subtitle" class="text-[11px] text-blue-100">
+                    Portfolio &amp; Project Intelligence
                   </p>
                 </div>
               </div>
-              <span class="px-2 py-0.5 rounded bg-blue-800 text-blue-100 text-[11px] font-mono border border-blue-600">
-                Online
-              </span>
+              <button type="button" onclick="openSumanAIPopup()" class="px-2.5 py-1 rounded-md bg-blue-800 hover:bg-blue-900 text-blue-100 text-[11px] font-mono border border-blue-600 transition-colors">
+                Open Side Panel ↗
+              </button>
             </div>
 
             <!-- Strict Token Quota Bar -->
@@ -769,12 +818,12 @@
             <!-- Messages Area -->
             <div id="agent-messages" class="flex-1 p-4 overflow-y-auto space-y-3 bg-white">
               <div class="flex justify-start">
-                <div class="chat-bubble-agent bg-slate-50 text-slate-900 border border-slate-300 rounded-xl max-w-[90%] px-4 py-3 text-sm">
+                <div class="chat-bubble-agent bg-slate-50 text-slate-900 border border-slate-300 rounded-xl max-w-[92%] px-4 py-3 text-sm">
                   <p id="agent-welcome-msg" class="leading-relaxed text-slate-900">
-                    Kia Ora! I am Suman Bhandari's Portfolio Assistant. Ask me about his Data Engineering, Data Analytics &amp; Data Science skills, his Master's at Unitec Auckland, his 2+ years of work experience, or his GitHub projects.
+                    Kia Ora! I'm <strong>Suman AI</strong> — Suman Bhandari's Portfolio &amp; Project Intelligence agent. Ask me for an executive summary of any of his GitHub projects, his Master's studies at Unitec Auckland, his 2+ years of banking &amp; enterprise data experience, or his technical stack.
                   </p>
                   <p class="mt-1.5 text-xs text-slate-600">
-                    Responses are strictly focused on Suman's resume, study, and portfolio projects.
+                    Click any prompt below or ask about a specific project (e.g., <em>"Tell me more about Residential Property Price Prediction"</em>).
                   </p>
                 </div>
               </div>
@@ -782,18 +831,21 @@
 
             <!-- Preset Question Pills -->
             <div id="agent-quick-prompts" class="px-4 py-2 bg-slate-50 border-t border-slate-200 flex items-center space-x-2 overflow-x-auto no-scrollbar">
-              <span class="text-[11px] font-mono text-slate-500 flex-shrink-0">Ask:</span>
-              <button type="button" onclick="askQuickQuestion('What are Suman\'s skills for Data Engineer, Data Analyst, and Data Scientist roles?')" class="px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 text-xs text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors">
-                Data Engineer &amp; Analyst Skills
+              <span class="text-[11px] font-mono text-slate-500 flex-shrink-0">Ask Suman AI:</span>
+              <button type="button" onclick="askQuickQuestion('Give me an executive summary of all of Suman\'s projects')" class="px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 text-xs text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors">
+                Summarize All Projects
               </button>
-              <button type="button" onclick="askQuickQuestion('Tell me about his Snowflake, Databricks, SQL, and Power BI experience')" class="px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 text-xs text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors">
-                Snowflake, Databricks &amp; BI
+              <button type="button" onclick="askQuickQuestion('Tell me more about the Residential Property Price Prediction & BI project')" class="px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 text-xs text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors">
+                Residential Property Project
               </button>
-              <button type="button" onclick="askQuickQuestion('What is Suman\'s work experience and current study at Unitec?')" class="px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 text-xs text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors">
-                Work Experience &amp; Unitec Study
+              <button type="button" onclick="askQuickQuestion('Explain the Cloud Data Warehousing & Analytics Pipeline project')" class="px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 text-xs text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors">
+                Cloud Warehousing Project
               </button>
-              <button type="button" onclick="askQuickQuestion('What is his current student work status and how can I contact him?')" class="px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 text-xs text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors">
-                Student Status &amp; Contact
+              <button type="button" onclick="askQuickQuestion('Tell me about Suman\'s studies at Unitec and academic background')" class="px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 text-xs text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors">
+                Studies &amp; Education
+              </button>
+              <button type="button" onclick="askQuickQuestion('What are Suman\'s core skills for Data Engineer, Data Analyst, and Data Scientist roles?')" class="px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 text-xs text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors">
+                Skills &amp; Role Fit
               </button>
             </div>
 
@@ -803,7 +855,7 @@
                 id="agent-chat-input" 
                 type="text" 
                 maxlength="250"
-                placeholder="Ask about Suman's skills, projects, experience, or study..." 
+                placeholder="Ask Suman AI about any project, his studies, work experience, or skills..." 
                 class="flex-1 bg-slate-50 border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:bg-white transition-all"
                 required
               >
@@ -837,12 +889,12 @@
 
             <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
               <h4 class="font-bold text-slate-900 text-sm">
-                Assistant Scope &amp; Limits
+                Suman AI Capabilities
               </h4>
               <ul class="space-y-1.5 text-xs text-slate-600">
-                <li>• Answers only verified questions about Suman's resume, study, and listed projects.</li>
-                <li>• Token-bounded per visitor session to prevent off-topic abuse.</li>
-                <li>• Off-topic or unrelated prompts are automatically declined.</li>
+                <li>• Provides structured executive summaries, architecture highlights, and tech stacks for every GitHub project.</li>
+                <li>• Answers detailed questions about Suman's Unitec Master's degree, banking &amp; analytics career, and technical skills.</li>
+                <li>• Available anytime from the side of your screen via the floating <strong>Suman AI</strong> button.</li>
               </ul>
             </div>
           </div>
@@ -1058,6 +1110,114 @@
     </div>
   </div>
 
+  <!-- FLOATING SIDE-OF-SCREEN SUMAN AI POPUP WIDGET -->
+  <div id="suman-ai-widget" class="fixed bottom-5 right-5 z-40 flex flex-col items-end">
+    
+    <!-- Popup Drawer / Window -->
+    <div id="suman-ai-popup" class="hidden mb-3 w-[calc(100vw-2.5rem)] sm:w-[410px] h-[560px] max-h-[82vh] bg-white border border-slate-300 rounded-2xl shadow-2xl overflow-hidden flex-col">
+      <!-- Header -->
+      <div class="px-4 py-3 bg-blue-700 text-white flex items-center justify-between flex-shrink-0">
+        <div class="flex items-center space-x-2.5">
+          <div class="relative">
+            <img src="assets/suman-bhandari.jpg" alt="Suman AI" class="w-8 h-8 rounded-full object-cover border-2 border-blue-200">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-blue-700 absolute bottom-0 right-0"></span>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <h3 id="popup-agent-title" class="font-bold text-sm leading-tight">Suman AI</h3>
+              <span class="px-1.5 py-0.5 rounded bg-blue-800 text-blue-100 text-[9px] font-mono border border-blue-500">PRO AGENT</span>
+            </div>
+            <p id="popup-agent-subtitle" class="text-[11px] text-blue-100 leading-tight">
+              Portfolio &amp; Project Intelligence
+            </p>
+          </div>
+        </div>
+        <button type="button" onclick="closeSumanAIPopup()" title="Minimize Suman AI" class="w-7 h-7 rounded-lg bg-blue-800 hover:bg-blue-900 text-blue-100 flex items-center justify-center text-xs transition-colors">
+          ✕
+        </button>
+      </div>
+
+      <!-- Session Allowance Bar (No reset timer in UI) -->
+      <div class="px-3.5 py-1.5 bg-slate-50 border-b border-slate-200 flex items-center justify-between text-[11px] font-mono text-slate-600 flex-shrink-0">
+        <span>
+          Session Allowance: <strong id="popup-token-meter" class="text-blue-700">2500 / 2500 tokens</strong>
+        </span>
+        <div class="w-20 h-1.5 rounded-full bg-slate-200 overflow-hidden">
+          <div id="popup-token-bar" class="token-bar-fill h-full bg-blue-600 rounded-full w-full"></div>
+        </div>
+      </div>
+
+      <!-- Messages Container -->
+      <div id="popup-agent-messages" class="flex-1 p-3.5 overflow-y-auto space-y-3 bg-white">
+        <div class="flex justify-start">
+          <div class="chat-bubble-agent bg-slate-50 text-slate-900 border border-slate-300 rounded-xl max-w-[94%] px-3.5 py-2.5 text-xs sm:text-sm">
+            <p id="popup-welcome-msg" class="leading-relaxed text-slate-900">
+              Kia Ora! I'm <strong>Suman AI</strong> — Suman Bhandari's Portfolio &amp; Project Intelligence agent. Ask me for an executive summary of any of his GitHub projects, his Master's studies at Unitec Auckland, his 2+ years of banking &amp; enterprise data experience, or his technical stack.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Prompts inside Side Popup -->
+      <div id="popup-quick-prompts" class="px-3 py-2 bg-slate-50 border-t border-slate-200 flex items-center space-x-1.5 overflow-x-auto no-scrollbar flex-shrink-0">
+        <button type="button" onclick="askQuickQuestion('Give me an executive summary of all of Suman\'s projects')" class="px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 text-[11px] text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors">
+          All Projects Summary
+        </button>
+        <button type="button" onclick="askQuickQuestion('Tell me more about the Residential Property Price Prediction & BI project')" class="px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 text-[11px] text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors">
+          Residential Property
+        </button>
+        <button type="button" onclick="askQuickQuestion('Explain the Cloud Data Warehousing & Analytics Pipeline project')" class="px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 text-[11px] text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors">
+          Cloud Warehousing
+        </button>
+        <button type="button" onclick="askQuickQuestion('Tell me about Suman\'s studies at Unitec and academic background')" class="px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 text-[11px] text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors">
+          Studies &amp; Degree
+        </button>
+        <button type="button" onclick="askQuickQuestion('What is Suman\'s commercial work experience?')" class="px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 text-[11px] text-slate-700 hover:text-blue-700 flex-shrink-0 border border-slate-300 transition-colors">
+          Work Experience
+        </button>
+      </div>
+
+      <!-- Input Form -->
+      <form id="popup-chat-form" class="p-2.5 bg-white border-t border-slate-200 flex items-center space-x-2 flex-shrink-0">
+        <input 
+          id="popup-chat-input" 
+          type="text" 
+          maxlength="250"
+          placeholder="Ask Suman AI about projects, studies, skills..." 
+          class="flex-1 bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:bg-white transition-all"
+          required
+        >
+        <button 
+          type="submit" 
+          class="px-3.5 py-2 rounded-lg bg-blue-700 hover:bg-blue-800 text-white font-semibold text-xs sm:text-sm transition-colors flex-shrink-0"
+        >
+          Ask
+        </button>
+      </form>
+    </div>
+
+    <!-- Floating Side Launcher Button -->
+    <button 
+      id="suman-ai-fab" 
+      type="button" 
+      onclick="toggleSumanAIPopup()" 
+      class="group flex items-center gap-2.5 pl-2.5 pr-4 py-2.5 rounded-full bg-blue-700 hover:bg-blue-800 text-white shadow-lg hover:shadow-xl border border-blue-500 transition-all"
+      aria-label="Open Suman AI Assistant"
+    >
+      <div class="relative flex-shrink-0">
+        <img src="assets/suman-bhandari.jpg" alt="Suman AI" class="w-8 h-8 rounded-full object-cover border-2 border-white">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-blue-700 absolute -bottom-0.5 -right-0.5"></span>
+      </div>
+      <div class="text-left leading-tight">
+        <div class="flex items-center gap-1.5">
+          <span class="font-bold text-xs sm:text-sm tracking-tight">Suman AI</span>
+          <span class="px-1.5 py-0.2 rounded bg-blue-600 text-[9px] font-mono uppercase tracking-wider text-blue-100">Pro</span>
+        </div>
+        <p class="text-[10px] text-blue-100 hidden sm:block">Ask about Projects &amp; Experience</p>
+      </div>
+    </button>
+  </div>
+
   <script>
     // Mobile Menu Toggle
     const menuBtn = document.getElementById('mobile-menu-btn');
@@ -1089,8 +1249,8 @@
   </script>
 
   <!-- 1) Master Content File (Edit portfolio-data.js to update any portfolio content!) -->
-  <script src="portfolio-data.js?v=4"></script>
-  <!-- 2) Live Rendering, Authentic Public GitHub Sync & Guardrailed Assistant Engine -->
-  <script src="app.js?v=4"></script>
+  <script src="portfolio-data.js?v=5"></script>
+  <!-- 2) Live Rendering, Authentic Public GitHub Sync & Suman AI Pro Agent Engine -->
+  <script src="app.js?v=5"></script>
 </body>
 </html>
